@@ -14,6 +14,7 @@ class ClienteUpdate(BaseModel):
 
 class Cliente(ClienteBase):
     id_cliente: int
+    nome_cliente: str
 
     class Config:
         from_attributes = True
