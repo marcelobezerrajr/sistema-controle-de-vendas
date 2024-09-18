@@ -8,6 +8,10 @@ class ClienteBase(BaseModel):
 class ClienteCreate(ClienteBase):
     pass
 
+class ClienteUpdate(BaseModel):
+    nome_cliente: Optional[str] = None
+    cpf_cnpj: Optional[str] = None
+
 class Cliente(ClienteBase):
     id_cliente: int
 
