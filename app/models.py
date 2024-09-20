@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, Enum, ForeignKey, Text, Date
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text, Date, Enum as SqlEnum
 from sqlalchemy.orm import relationship
 from .database import Base
+from enum import Enum as PyEnum
 
 class Cliente(Base):
     __tablename__ = 'cliente'
@@ -21,16 +22,24 @@ class Fornecedor(Base):
     
     vendas = relationship("Venda", back_populates="fornecedor")
 
+class VendedorEnum(PyEnum):
+    inside_sales = "Inside Sales"
+    account_executive = "Account Executive"
+
 class Vendedor(Base):
     __tablename__ = 'vendedor'
     
     id_vendedor = Column(Integer, primary_key=True, autoincrement=True)
     nome_vendedor = Column(String(255), nullable=False)
-    tipo = Column(Enum('Inside Sales', 'Account Executive'), nullable=False)
+    tipo = Column(SqlEnum(VendedorEnum), nullable=False)
     percentual_comissao = Column(Float, nullable=False)
     
     comissoes = relationship("Comissao", back_populates="vendedor")
     vendas = relationship("VendaVendedor", back_populates="vendedor")
+
+class ProdutoEnum(PyEnum):
+    produto = "Produto"
+    servico = "Serviço"
 
 class Produto(Base):
     __tablename__ = 'produto'
@@ -39,16 +48,28 @@ class Produto(Base):
     nome_produto = Column(String(255), nullable=False)
     descricao_produto = Column(Text)
     preco = Column(Float, nullable=False)
-    tipo = Column(Enum('Produto', 'Serviço'), nullable=False)
+    tipo = Column(SqlEnum(ProdutoEnum), nullable=False)
+
+class VendaEnum(PyEnum):
+    transacional = "Transacional"
+    recorrente = "Recorrente"
+
+class FaturamentoEnum(PyEnum):
+    empresa = "Empresa"
+    fornecedor = "Fornecedor"
+
+class MoedaEnum(PyEnum):
+    brl = "BRL"
+    usd = "USD"
 
 class Venda(Base):
     __tablename__ = 'venda'
     
     id_venda = Column(Integer, primary_key=True, autoincrement=True)
-    tipo_venda = Column(Enum('Transacional', 'Recorrente'), nullable=False)
-    tipo_faturamento = Column(Enum('Empresa', 'Fornecedor'), nullable=False)
+    tipo_venda = Column(SqlEnum(VendaEnum), nullable=False)
+    tipo_faturamento = Column(SqlEnum(FaturamentoEnum), nullable=False)
     valor_total = Column(Float, nullable=False)
-    moeda = Column(Enum('BRL', 'USD'), nullable=False)
+    moeda = Column(SqlEnum(MoedaEnum), nullable=False)
     valor_convertido = Column(Float)
     
     id_cliente = Column(Integer, ForeignKey('cliente.id_cliente'))
@@ -70,10 +91,19 @@ class ItemVenda(Base):
     
     quantidade = Column(Integer, nullable=False)
     preco_unitario = Column(Float, nullable=False)
-    subtotal = Column(Float)  # Removendo Computed e ajustando para Float
+    subtotal = Column(Float)
     
     venda = relationship("Venda", back_populates="itens_venda")
     produto = relationship("Produto")
+
+class StatusParcelaEnum(PyEnum):
+    pendente = "Pendente"
+    pago = "Pago"
+    atrasado = "Atrasado"
+
+class FormaRecebimentoEnum(PyEnum):
+    primeira = "Primeira"
+    subsequente = "Subsequente"
 
 class Parcela(Base):
     __tablename__ = 'parcela'
@@ -85,8 +115,8 @@ class Parcela(Base):
     valor_parcela = Column(Float, nullable=False)
     data_prevista = Column(Date, nullable=False)
     data_recebimento = Column(Date)
-    status = Column(Enum('Pendente', 'Pago', 'Atrasado'), nullable=False)
-    forma_recebimento = Column(Enum('Primeira', 'Subsequente'))
+    status = Column(SqlEnum(StatusParcelaEnum), nullable=False)
+    forma_recebimento = Column(SqlEnum(FormaRecebimentoEnum))
     
     venda = relationship("Venda", back_populates="parcelas")
     comissoes = relationship("Comissao", back_populates="parcela")
@@ -111,7 +141,7 @@ class VendaVendedor(Base):
     id_venda = Column(Integer, ForeignKey('venda.id_venda'), primary_key=True)
     id_vendedor = Column(Integer, ForeignKey('vendedor.id_vendedor'), primary_key=True)
     
-    tipo_participacao = Column(Enum('Inside Sales', 'Account Executive'), nullable=False)
+    tipo_participacao = Column(SqlEnum('Inside Sales', 'Account Executive'), nullable=False)
     percentual_comissao = Column(Float, nullable=False)
     
     venda = relationship("Venda", back_populates="vendedores")
