@@ -193,11 +193,19 @@ def get_vendedor_by_id(db: Session, vendedor_id: int):
     return vendedor
 
 def create_vendedor(db: Session, vendedor: schemas.VendedorCreate):
+    if vendedor.tipo == models.VendedorEnum.inside_sales:
+        percentual_comissao = 7.5
+    elif vendedor.tipo == models.VendedorEnum.account_executive:
+        percentual_comissao = 5.0
+    else:
+        raise ValueError(f"Tipo de vendedor inválido: {vendedor.tipo}")
+    
     db_vendedor = models.Vendedor(
         nome_vendedor=vendedor.nome_vendedor,
         tipo=vendedor.tipo,
-        percentual_comissao=vendedor.percentual_comissao
+        percentual_comissao=percentual_comissao
     )
+    
     db.add(db_vendedor)
     db.commit()
     db.refresh(db_vendedor)
@@ -207,7 +215,14 @@ def update_vendedor(db: Session, vendedor_id: int, vendedor: schemas.VendedorUpd
     db_vendedor = get_vendedor_by_id(db, vendedor_id)
     db_vendedor.nome_vendedor = vendedor.nome_vendedor
     db_vendedor.tipo = vendedor.tipo
-    db_vendedor.percentual_comissao = vendedor.percentual_comissao
+
+    if vendedor.tipo == models.VendedorEnum.inside_sales:
+        db_vendedor.percentual_comissao = 7.5
+    elif vendedor.tipo == models.VendedorEnum.account_executive:
+        db_vendedor.percentual_comissao = 5.0
+    else:
+        raise ValueError(f"Tipo de vendedor inválido: {vendedor.tipo}")
+    
     db.commit()
     db.refresh(db_vendedor)
     return db_vendedor
