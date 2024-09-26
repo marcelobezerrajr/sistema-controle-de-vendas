@@ -1,5 +1,6 @@
 from pydantic import BaseModel, validator
 from typing import List, Optional
+from datetime import date
 from . import models
 
 class ClienteBase(BaseModel):
@@ -141,6 +142,21 @@ class ParcelaBase(BaseModel):
     data_recebimento: Optional[str] = None
     status: models.StatusParcelaEnum
     forma_recebimento: Optional[models.FormaRecebimentoEnum] = None
+
+    @validator('data_prevista', pre=True, always=True)
+    def validate_data_prevista(cls, v):
+        if isinstance(v, date):
+            return v.strftime('%d/%m/%Y')
+        return v
+
+    @validator('data_recebimento', pre=True, always=True)
+    def validate_data_recebimento(cls, v):
+        if isinstance(v, date):
+            return v.strftime('%d/%m/%Y')
+        return v
+
+    class Config:
+        from_attributes = True
 
 class ParcelaCreate(ParcelaBase):
     pass

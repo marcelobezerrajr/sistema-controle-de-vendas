@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status, logger
 from sqlalchemy.orm import Session
+from datetime import datetime
 from . import models, schemas
 import logging
 
@@ -67,14 +68,21 @@ def get_all_itens_venda(db: Session, skip: int = 0, limit: int = 10):
 
 def create_parcela(db: Session, parcela: schemas.ParcelaCreate):
     try:
+        data_prevista = datetime.strptime(parcela.data_prevista, '%d/%m/%Y').date()
+        data_recebimento = None
+        if parcela.data_recebimento:
+            data_recebimento = datetime.strptime(parcela.data_recebimento, '%d/%m/%Y').date()
+
         db_parcela = models.Parcela(
             id_venda=parcela.id_venda,
             numero_parcela=parcela.numero_parcela,
             valor_parcela=parcela.valor_parcela,
-            data_prevista=parcela.data_prevista,
+            data_prevista=data_prevista,
+            data_recebimento=data_recebimento,
             status=parcela.status,
             forma_recebimento=parcela.forma_recebimento
         )
+        
         db.add(db_parcela)
         db.commit()
         db.refresh(db_parcela)
@@ -89,7 +97,8 @@ def update_parcela(db: Session, parcela_id: int, parcela: schemas.ParcelaUpdate)
         raise HTTPException(status_code=404, detail="Parcela não encontrada.")
     
     if parcela.data_recebimento:
-        db_parcela.data_recebimento = parcela.data_recebimento
+        db_parcela.data_recebimento = datetime.strptime(parcela.data_recebimento, '%d/%m/%Y').date()
+    
     if parcela.status:
         db_parcela.status = parcela.status
 
