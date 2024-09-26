@@ -50,6 +50,7 @@ def delete_cliente(db: Session, cliente_id: int):
 def create_item_venda(db: Session, item_venda: schemas.ItemVendaCreate):
     try:
         db_item = models.ItemVenda(
+            id_venda=item_venda.id_venda,
             id_produto=item_venda.id_produto,
             quantidade=item_venda.quantidade,
             preco_unitario=item_venda.preco_unitario,
@@ -68,10 +69,10 @@ def get_all_itens_venda(db: Session, skip: int = 0, limit: int = 10):
 
 def create_parcela(db: Session, parcela: schemas.ParcelaCreate):
     try:
-        data_prevista = datetime.strptime(parcela.data_prevista, '%d/%m/%Y').date()
+        data_prevista = datetime.strptime(parcela.data_prevista, '%Y/%m/%d').date()
         data_recebimento = None
         if parcela.data_recebimento:
-            data_recebimento = datetime.strptime(parcela.data_recebimento, '%d/%m/%Y').date()
+            data_recebimento = datetime.strptime(parcela.data_recebimento, '%Y/%m/%d').date()
 
         db_parcela = models.Parcela(
             id_venda=parcela.id_venda,
@@ -97,7 +98,7 @@ def update_parcela(db: Session, parcela_id: int, parcela: schemas.ParcelaUpdate)
         raise HTTPException(status_code=404, detail="Parcela não encontrada.")
     
     if parcela.data_recebimento:
-        db_parcela.data_recebimento = datetime.strptime(parcela.data_recebimento, '%d/%m/%Y').date()
+        db_parcela.data_recebimento = datetime.strptime(parcela.data_recebimento, '%Y/%m/%d').date()
     
     if parcela.status:
         db_parcela.status = parcela.status
@@ -126,12 +127,16 @@ def create_comissao(db: Session, comissao: schemas.ComissaoCreate):
         valor_recebido = venda.valor_total - custo_total
         valor_comissao = valor_recebido * (percentual_comissao / 100)
 
+        data_pagamento = None
+        if comissao.data_pagamento:
+            data_pagamento = datetime.strptime(comissao.data_pagamento, '%Y/%m/%d').date()
+
         db_comissao = models.Comissao(
             id_vendedor=comissao.id_vendedor,
             id_parcela=comissao.id_parcela,
             valor_comissao=valor_comissao,
             percentual_comissao=percentual_comissao,
-            data_pagamento=comissao.data_pagamento
+            data_pagamento=data_pagamento
         )
         db.add(db_comissao)
         db.commit()

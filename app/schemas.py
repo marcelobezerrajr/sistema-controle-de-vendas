@@ -92,6 +92,7 @@ class Produto(ProdutoBase):
         from_attributes = True
 
 class ItemVendaBase(BaseModel):
+    id_venda: int
     id_produto: int
     quantidade: int
     preco_unitario: float
@@ -146,13 +147,13 @@ class ParcelaBase(BaseModel):
     @validator('data_prevista', pre=True, always=True)
     def validate_data_prevista(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime('%Y/%m/%d')
         return v
 
     @validator('data_recebimento', pre=True, always=True)
     def validate_data_recebimento(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime('%Y/%m/%d')
         return v
 
     class Config:
@@ -177,6 +178,15 @@ class ComissaoBase(BaseModel):
     valor_comissao: float
     percentual_comissao: float
     data_pagamento: Optional[str] = None
+
+    @validator('data_pagamento', pre=True, always=True)
+    def validate_data_pagamento(cls, v):
+        if isinstance(v, date):
+            return v.strftime('%Y/%m/%d')
+        return v
+
+    class Config:
+        from_attributes = True
 
 class ComissaoCreate(ComissaoBase):
     pass

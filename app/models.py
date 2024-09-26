@@ -135,13 +135,17 @@ class Comissao(Base):
     vendedor = relationship("Vendedor", back_populates="comissoes")
     parcela = relationship("Parcela", back_populates="comissoes")
 
+class TipoParticipacaoEnum(PyEnum):
+    inside_sales = "Insade Sales"
+    account_executive = "Account Executive"
+
 class VendaVendedor(Base):
     __tablename__ = 'venda_vendedor'
     
     id_venda = Column(Integer, ForeignKey('venda.id_venda'), primary_key=True)
     id_vendedor = Column(Integer, ForeignKey('vendedor.id_vendedor'), primary_key=True)
     
-    tipo_participacao = Column(SqlEnum('Inside Sales', 'Account Executive'), nullable=False)
+    tipo_participacao = Column(SqlEnum(TipoParticipacaoEnum), nullable=False)
     percentual_comissao = Column(Float, nullable=False)
     
     venda = relationship("Venda", back_populates="vendedores")
