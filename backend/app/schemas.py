@@ -1,7 +1,8 @@
 from pydantic import BaseModel, validator
 from typing import List, Optional
 from datetime import date
-from . import models
+
+from app import models
 
 class ClienteBase(BaseModel):
     nome_cliente: str

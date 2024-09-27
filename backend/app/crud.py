@@ -1,8 +1,9 @@
 from fastapi import HTTPException, status, logger
 from sqlalchemy.orm import Session
 from datetime import datetime
-from . import models, schemas
 import logging
+
+from app import models, schemas
 
 logger = logging.getLogger(__name__)
 

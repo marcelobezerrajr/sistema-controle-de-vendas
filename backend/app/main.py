@@ -1,15 +1,33 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from . import models, schemas, crud
-from .database import engine, get_db
 from typing import List
 import logging
+
+from app import models, schemas, crud
+from app.database import engine, get_db
 
 logger = logging.getLogger(__name__)
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(docs_url="/docs", redoc_url="/redoc")
+
+origins = [
+    "http://localhost:3001"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[origins],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+@app.get("/")
+def root():
+    return {"message": "Go to /docs!"}
 
 @app.get("/readall/clientes/", response_model=List[schemas.Cliente])
 def read_all_clientes(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):

@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text, Date, Enum as SqlEnum
 from sqlalchemy.orm import relationship
-from .database import Base
 from enum import Enum as PyEnum
+
+from app.database import Base
 
 class Cliente(Base):
     __tablename__ = 'cliente'
