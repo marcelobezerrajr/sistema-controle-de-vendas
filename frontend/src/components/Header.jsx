@@ -1,13 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Header.css';
 
 const Header = () => {
   return (
     <header className="header">
-      <div className="header-title">ViperIt - Sistema de Controle de Vendas</div>
-      <div className="header-profile">
-        {/* Aqui pode incluir o ícone do usuário e opções de logout */}
-        <span className="username">Olá, Usuário!</span>
-      </div>
+      <img src="/logo.png" alt="ViperIT Logo" className="header-logo" />
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/clientes">Clientes</Link>
+        <Link to="/vendas">Vendas</Link>
+        <Link to="/produtos">Produtos</Link>
+        <Link to="/fornecedores">Fornecedores</Link>
+      </nav>
     </header>
   );
 };

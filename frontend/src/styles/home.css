@@ -1,46 +1,94 @@
 .home-container {
+  text-align: center;
+  background-color: #f0f8ff;
+  color: #1a1a1a;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.home-navbar {
+  display: flex;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #1b1f23 0%, #3b4c72 100%);
-  color: #fff;
-  text-align: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 5px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease;
+}
+
+.logo {
+  width: 150px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.home-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.home-buttons button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #004F98;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.home-buttons button:hover {
+  background-color: #0056b3;
 }
 
 .home-header {
-  margin-bottom: 2rem;
+  margin-bottom: 30px;
 }
 
-.home-title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #00ff99;
+.home-header h1 {
+  font-size: 2rem;
+  color: #004F98;
+  animation: slideIn 1s ease;
+  margin-bottom: 15px;
 }
 
-.home-subtitle {
-  font-size: 1.5rem;
-  color: #ddd;
+.home-header h4 {
+  animation: slideIn 1s ease;
 }
 
-.cta-button {
-  padding: 1rem 2rem;
-  background-color: #00ff99;
-  color: #1b1f23;
-  border-radius: 50px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background 0.3s ease;
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 50px;
+  animation: slideIn 1s ease;
 }
 
-.cta-button:hover {
-  background-color: #00cc77;
+.feature {
+  width: 30%;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #007bff;
+  border-radius: 10px;
+  margin: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.home-footer {
-  position: absolute;
-  bottom: 20px;
-  font-size: 0.8rem;
-  color: #bbb;
+.feature:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(0); }
 }

@@ -1,36 +1,73 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import '../styles/home.css';
+import { Navbar } from 'react-bootstrap';
+import Button from '../components/Button';
+import Footer from '../components/Footer'; 
+import logo from '../assets/logo.png';
+import '../styles/Home.css';
 
 const Home = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      className="home-container"
-    >
+    <div className="home-container">
+      <Navbar expand="lg" className="home-navbar">
+        <Navbar.Brand href="/">
+          <img src={logo} alt="Logo ViperIT" className="logo" />
+        </Navbar.Brand>
+        <div className="home-buttons">
+          <Button text="Login" onClick={() => alert('Iniciando!')} />
+          <Button text="Entre em Contato" onClick={() => alert('Entrando em Contato!')} />
+        </div>
+      </Navbar>
+
       <header className="home-header">
-        <h1 className="home-title">Bem-vindo a ViperIT</h1>
-        <p className="home-subtitle">Sistema de controle de Vendas</p>
+        <h1>Bem-vindo ao Sistema de Controle de Vendas ViperIT!</h1>
+        <h4>Empoderando negócios com soluções tecnológicas inovadoras</h4>
       </header>
-      
-      <motion.section
-        className="cta-section"
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.2 }}
-      >
-        <Link to="/login" className="cta-button">
-          Acessar Sistema
-        </Link>
-      </motion.section>
-      
-      <footer className="home-footer">
-        <p>© 2024 ViperIT - Inovação e Tecnologia</p>
-      </footer>
-    </motion.div>
+
+      <div className="features">
+        <div className="feature">
+          <h2>Gestão de Clientes</h2>
+          <p>Gerencie seus clientes de forma eficiente com ferramentas intuitivas.</p>
+        </div>
+        <div className="feature">
+          <h2>Monitoramento de Vendas</h2>
+          <p>Acompanhe e analise os dados de vendas em tempo real.</p>
+        </div>
+        <div className="feature">
+          <h2>Inventário de Produtos</h2>
+          <p>Mantenha seus produtos organizados e atualizados.</p>
+        </div>
+        <div className="feature">
+          <h2>Comissões</h2>
+          <p>Acompanhe comissões com transparência e análises detalhadas.</p>
+        </div>
+        <div className="feature">
+          <h2>Controle de Custos</h2>
+          <p>Monitore suas despesas e controle os custos de forma eficaz.</p>
+        </div>
+        <div className="feature">
+          <h2>Gestão de Fornecedores</h2>
+          <p>Gerencie seus fornecedores para uma operação mais eficiente.</p>
+        </div>
+        <div className="feature">
+          <h2>Itens Vendidos</h2>
+          <p>Análise detalhada dos itens vendidos para insights profundos.</p>
+        </div>
+        <div className="feature">
+          <h2>Gestão de Parcelas</h2>
+          <p>Controle as vendas parceladas e acompanhe seu progresso.</p>
+        </div>
+        <div className="feature">
+          <h2>Gestão de Vendas e Vendedores</h2>
+          <p>Acompanhe as vendas realizadas por cada vendedor e monitore.</p>
+        </div>
+        <div className="feature">
+          <h2>Desempenho dos Vendedores</h2>
+          <p>Gerencie e monitore o desempenho dos vendedores com eficiência.</p>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
   );
 };
 

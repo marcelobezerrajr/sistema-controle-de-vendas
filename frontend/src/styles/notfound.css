@@ -1,19 +1,26 @@
-.notfound-container {
+.not-found-container {
   text-align: center;
-  padding: 50px;
-  background-color: #1e1e2f;
-  color: white;
+  padding: 80px;
 }
 
-a {
-  color: #4caf50;
-  text-decoration: none;
+.not-found-container h1 {
+  font-size: 7rem;
+  color: #ff0000;
+  margin-bottom: 20px;
+  animation: bounce 1s infinite;
 }
 
-a:hover {
-  text-decoration: underline;
+.not-found-container p {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: #343a40;
 }
 
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

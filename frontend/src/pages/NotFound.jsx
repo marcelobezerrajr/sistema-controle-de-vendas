@@ -1,12 +1,13 @@
 import React from 'react';
-import '../styles/notfound.css'
+import Button from '../components/Button';
+import '../styles/NotFound.css';
 
 const NotFound = () => {
   return (
-    <div className="notfound-container fade-in">
-      <h1>404 - Página Não Encontrada</h1>
-      <p>A página que você está procurando não existe.</p>
-      <a href="/">Voltar para Home</a>
+    <div className="not-found-container">
+      <h1>404</h1>
+      <p>Ops! A página que você procura não existe.</p>
+      <Button text="Voltar para página inicial" onClick={() => window.location.href = '/'} />
     </div>
   );
 };

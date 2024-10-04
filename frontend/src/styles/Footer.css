@@ -1,0 +1,14 @@
+.footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    border-top: 5px solid #007bff;
+    width: 100%;
+    animation: fadeIn 1s ease;
+  }
+  
+  .footer p {
+    margin: 5px 0;
+  }
+  

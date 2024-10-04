@@ -1,19 +1,13 @@
-// src/layouts/MainLayout.jsx
 import React from 'react';
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import '../styles/layout.css'; // Importa o CSS do layout
+import Footer from '../components/Footer';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="layout-container">
+    <div>
       <Header />
-      <div className="layout-body">
-        <Sidebar />
-        <main className="content">
-          {children} {/* Aqui vai o conteúdo das páginas */}
-        </main>
-      </div>
+      <main>{children}</main>
+      <Footer />
     </div>
   );
 };
