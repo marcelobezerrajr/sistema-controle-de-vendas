@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import get_all_clientes, get_cliente_by_id, create_cliente, update_cliente, delete_cliente
+from app.services.services_vendas import get_all_clientes, get_cliente_by_id, create_cliente, update_cliente, delete_cliente
 from app.api.depends import get_db
-from app.schemas.schemas import Cliente, ClienteCreate, ClienteUpdate
+from app.schemas.schemas_vendas import Cliente, ClienteCreate, ClienteUpdate
 
 logger = logging.getLogger(__name__)
 

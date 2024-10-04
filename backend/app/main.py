@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 import logging
 
 from app.database.database import Base, engine
-from app.api.routes import cliente, comissao, custo, fornecedor, item_venda, parcela, produto, venda, vendedor, vendavendedor
+from app.api.routes import cliente, comissao, custo, fornecedor, item_venda, parcela, produto, venda, vendedor, vendavendedor, login, register, change_password, reset_password, user
 
 app = FastAPI(docs_url="/docs", redoc_url="/redoc")
 
@@ -21,6 +21,11 @@ def configure_all(app: FastAPI):
     configure_db()
 
 def configure_routes(app: FastAPI):
+    app.include_router(login.login_router, tags=["Login"])
+    app.include_router(register.register_router, tags=["Registro"])
+    app.include_router(change_password.change_password_router, tags=["Trocar Senha"])
+    app.include_router(reset_password.reset_password_router, tags=["Resetar Senha"])
+    app.include_router(user.user_router, tags=["Usuário"])
     app.include_router(cliente.cliente_router, tags=["Cliente"])
     app.include_router(comissao.comissao_router, tags=["Comissão"])
     app.include_router(custo.custo_router, tags=["Custo"])

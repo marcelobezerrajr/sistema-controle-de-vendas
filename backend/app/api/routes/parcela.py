@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import create_parcela, update_parcela, get_all_parcelas
+from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas
 from app.api.depends import get_db
-from app.schemas.schemas import Parcela, ParcelaCreate, ParcelaUpdate
+from app.schemas.schemas_vendas import Parcela, ParcelaCreate, ParcelaUpdate
 
 logger = logging.getLogger(__name__)
 

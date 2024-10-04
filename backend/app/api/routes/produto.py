@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import get_all_produtos, get_produto_by_id, create_produto, update_produto, delete_produto
+from app.services.services_vendas import get_all_produtos, get_produto_by_id, create_produto, update_produto, delete_produto
 from app.api.depends import get_db
-from app.schemas.schemas import Produto, ProdutoCreate, ProdutoUpdate
+from app.schemas.schemas_vendas import Produto, ProdutoCreate, ProdutoUpdate
 
 logger = logging.getLogger(__name__)
 

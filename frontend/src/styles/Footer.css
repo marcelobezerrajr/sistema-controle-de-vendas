@@ -6,9 +6,8 @@
     border-top: 5px solid #007bff;
     width: 100%;
     animation: fadeIn 1s ease;
+
+    & p {
+      margin: 5px 0;
+    }
   }
-  
-  .footer p {
-    margin: 5px 0;
-  }
-  

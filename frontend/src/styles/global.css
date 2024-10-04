@@ -6,19 +6,19 @@
 }
 
 body {
-  background-color: #f0f8ff; /* Fundo escuro */
-  color: #fff; /* Texto branco */
+  background-color: #f0f8ff;
+  color: #fff;
   font-size: 16px;
 }
 
 a {
-  color: #00ffcc; /* Cores neon */
+  color: #004F98;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #00ff99;
+  color: #004F98;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 button {
-  background-color: #00ffcc;
+  background-color: #004F98;
   color: #1e1e2d;
   border: none;
   padding: 10px 20px;
@@ -35,5 +35,5 @@ button {
 }
 
 button:hover {
-  background-color: #00ff99;
+  background-color: #004F98;
 }

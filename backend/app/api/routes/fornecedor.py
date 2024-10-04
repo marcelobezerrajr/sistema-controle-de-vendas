@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import get_all_fornecedores, get_fornecedor_by_id, create_fornecedor, update_fornecedor, delete_fornecedor
+from app.services.services_vendas import get_all_fornecedores, get_fornecedor_by_id, create_fornecedor, update_fornecedor, delete_fornecedor
 from app.api.depends import get_db
-from app.schemas.schemas import Fornecedor, FornecedorCreate, FornecedorUpdate
+from app.schemas.schemas_vendas import Fornecedor, FornecedorCreate, FornecedorUpdate
 
 logger = logging.getLogger(__name__)
 

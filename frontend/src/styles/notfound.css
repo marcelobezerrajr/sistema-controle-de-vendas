@@ -1,19 +1,19 @@
 .not-found-container {
   text-align: center;
   padding: 80px;
-}
 
-.not-found-container h1 {
-  font-size: 7rem;
-  color: #ff0000;
-  margin-bottom: 20px;
-  animation: bounce 1s infinite;
-}
+  & h1 {
+    font-size: 7rem;
+    color: #ff0000;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite;
+  }
 
-.not-found-container p {
-  font-size: 1.4rem;
-  margin-bottom: 30px;
-  color: #343a40;
+  & p{
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    color: #343a40;
+  }
 }
 
 @keyframes bounce {

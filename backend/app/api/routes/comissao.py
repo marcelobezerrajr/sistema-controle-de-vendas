@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import create_comissao, get_all_comissoes
+from app.services.services_vendas import create_comissao, get_all_comissoes
 from app.api.depends import get_db
-from app.schemas.schemas import Comissao, ComissaoCreate
+from app.schemas.schemas_vendas import Comissao, ComissaoCreate
 
 logger = logging.getLogger(__name__)
 

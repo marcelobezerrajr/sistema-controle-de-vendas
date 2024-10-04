@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_crud import create_item_venda, get_all_itens_venda, delete_item_venda
+from app.services.services_vendas import create_item_venda, get_all_itens_venda, delete_item_venda
 from app.api.depends import get_db
-from app.schemas.schemas import ItemVenda, ItemVendaCreate
+from app.schemas.schemas_vendas import ItemVenda, ItemVendaCreate
 
 logger = logging.getLogger(__name__)
 
