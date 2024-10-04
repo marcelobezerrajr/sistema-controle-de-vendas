@@ -1,0 +1,52 @@
+.dashboard-container {
+    padding: 20px;
+    transition: opacity 1s ease-in;
+  }
+  
+  .loading {
+    opacity: 0;
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .chart-container {
+    margin: 20px 0;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .stat-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

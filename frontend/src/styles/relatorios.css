@@ -1,0 +1,35 @@
+.relatorios-container {
+    padding: 20px;
+  }
+  
+  .reports-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+  
+  .reports-options button {
+    padding: 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reports-options button:hover {
+    background-color: #388e3c;
+  }
+  
+  .report-view {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  

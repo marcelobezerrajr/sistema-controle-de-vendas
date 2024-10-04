@@ -1,0 +1,19 @@
+.notfound-container {
+  text-align: center;
+  padding: 50px;
+  background-color: #1e1e2f;
+  color: white;
+}
+
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
