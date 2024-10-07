@@ -13,14 +13,19 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
-  padding: 5px 30px;
+  padding: 0px 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: fadeIn 1s ease;
 }
 
-.logo {
+.viper-logo {
   width: 150px;
   transition: transform 0.3s, filter 0.3s;
+}
+
+.viper-logo:hover {
+  transform: scale(1.1);
+  filter: brightness(0.9);
 }
 
 .home-buttons {
@@ -41,6 +46,7 @@
 
   & button:hover{
     background-color: #0056b3;
+    transform: scale(1.05);
   }
 }
 

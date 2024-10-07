@@ -1,20 +1,24 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
-import Button from '../components/Button';
+import { Navbar, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer'; 
 import logo from '../assets/logo.png';
 import '../styles/Home.css';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
       <Navbar expand="lg" className="home-navbar">
         <Navbar.Brand href="/">
-          <img src={logo} alt="Logo ViperIT" className="logo" />
+          <img src={logo} alt="Logo ViperIT" className="viper-logo" />
         </Navbar.Brand>
         <div className="home-buttons">
-          <Button text="Login" onClick={() => alert('Iniciando!')} />
-          <Button text="Entre em Contato" onClick={() => alert('Entrando em Contato!')} />
+          <Button variant="primary" onClick={() => navigate('/login')}>Login</Button>
+          <Button variant="outline-primary" onClick={() => alert('Entrando em Contato!')}>
+            Entre em Contato
+          </Button>
         </div>
       </Navbar>
 

@@ -1,6 +1,6 @@
 import api from './api';
 
-export const getAllProdutos = async (skip = 0, limit = 10) => {
+export const getAllProdutos = async () => {
   try {
     const response = await api.get('/produto/list');
     return response.data;

@@ -1,0 +1,18 @@
+.clientes-container {
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .clientes-table {
+    margin-top: 20px;
+  }
+  
+  .clientes-container h1 {
+    font-size: 2rem;
+    color: #004f98;
+    margin-bottom: 20px;
+  }
+  

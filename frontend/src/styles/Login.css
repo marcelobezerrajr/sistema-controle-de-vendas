@@ -1,0 +1,119 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    animation: fadeIn 1s ease;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.viper-logo {
+    width: 150px;
+    height: auto;
+}
+
+.card-custom {
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 7px 7px;
+}
+
+.card-header-custom {
+    background-color: #004F98;
+}
+
+.card-header-custom h4 {
+    color: #fff;
+    font-size: 1.7rem;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    color: #004F98;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.form-control-custom {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+    color: #1684BF;
+}
+
+.form-control-custom:focus {
+    border-color: #1684BF;
+    box-shadow: none;
+}
+
+.email-container {
+    padding: 5px 10px;
+    position: relative;
+}
+
+.password-container {
+    padding: 5px 10px;
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 45%;
+    right: 10px;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: transparent;
+    border: none;
+    color: #0056b3;
+}
+
+.password-toggle:hover {
+    cursor: pointer;
+}
+
+.button-custom {
+    width: 100%;
+    padding: 12px;
+    background-color: #1684BF;
+    color: white;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.button-custom:hover {
+    background-color: #0056b3;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+}
+
+.forgot-password a {
+    color: #1684BF;
+    text-decoration: none;
+    text-decoration: underline;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 430px) {
+    .form-control-custom {
+        padding: 10px;
+    }
+}

@@ -9,30 +9,33 @@ import { ProdutoProvider } from './ProdutoContext';
 import { VendaProvider } from './VendaContext';
 import { VendaVendedorProvider } from './VendaVendedorContext';
 import { VendedorProvider } from './VendedorContext';
+import { LoginProvider } from './LoginContext';
 
 const MainProvider = ({ children }) => {
   return (
-    <ClienteProvider>
-      <ComissaoProvider>
-        <CustoProvider>
-          <ItemVendaProvider>
-            <ParcelaProvider>
-              <ProdutoProvider>
-                <VendedorProvider>
-                  <VendaProvider>
-                    <VendaVendedorProvider>
-                      <FornecedorProvider>
-                        {children}
-                      </FornecedorProvider>
-                    </VendaVendedorProvider>
-                  </VendaProvider>
-                </VendedorProvider>
-              </ProdutoProvider>
-            </ParcelaProvider>
-          </ItemVendaProvider>
-        </CustoProvider>
-      </ComissaoProvider>
-    </ClienteProvider>
+    <LoginProvider>
+      <ClienteProvider>
+        <ComissaoProvider>
+          <CustoProvider>
+            <ItemVendaProvider>
+              <ParcelaProvider>
+                <ProdutoProvider>
+                  <VendedorProvider>
+                    <VendaProvider>
+                      <VendaVendedorProvider>
+                        <FornecedorProvider>
+                          {children}
+                        </FornecedorProvider>
+                      </VendaVendedorProvider>
+                    </VendaProvider>
+                  </VendedorProvider>
+                </ProdutoProvider>
+              </ParcelaProvider>
+            </ItemVendaProvider>
+          </CustoProvider>
+        </ComissaoProvider>
+      </ClienteProvider>
+    </LoginProvider>
   );
 };
 

@@ -1,6 +1,6 @@
 import api from './api';
 
-export const getAllParcelas = async (skip = 0, limit = 10) => {
+export const getAllParcelas = async () => {
   try {
     const response = await api.get('/parcela/list');
     return response.data;

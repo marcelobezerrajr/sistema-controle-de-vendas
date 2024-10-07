@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 import '../styles/Header.css';
 
 const Header = () => {
   return (
     <header className="header">
-      <img src="/logo.png" alt="ViperIT Logo" className="header-logo" />
+      <img src={logo} alt="ViperIT Logo" className="header-logo" />
       <nav>
         <Link to="/">Home</Link>
         <Link to="/clientes">Clientes</Link>
