@@ -5,7 +5,7 @@ const useParcelas = () => {
   const context = useContext(ParcelaContext);
 
   if (!context) {
-    throw new Error('useParcelas must be used within a ParcelaProvider');
+    throw new Error('useParcela must be used within a ParcelaProvider');
   }
 
   return context;

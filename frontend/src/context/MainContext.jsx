@@ -10,31 +10,37 @@ import { VendaProvider } from './VendaContext';
 import { VendaVendedorProvider } from './VendaVendedorContext';
 import { VendedorProvider } from './VendedorContext';
 import { LoginProvider } from './LoginContext';
+import { RequestPasswordProvider } from './RequestPasswordContext';
+import { ResetPasswordProvider } from './ResetPasswordContext';
 
 const MainProvider = ({ children }) => {
   return (
     <LoginProvider>
-      <ClienteProvider>
-        <ComissaoProvider>
-          <CustoProvider>
-            <ItemVendaProvider>
-              <ParcelaProvider>
-                <ProdutoProvider>
-                  <VendedorProvider>
-                    <VendaProvider>
-                      <VendaVendedorProvider>
-                        <FornecedorProvider>
-                          {children}
-                        </FornecedorProvider>
-                      </VendaVendedorProvider>
-                    </VendaProvider>
-                  </VendedorProvider>
-                </ProdutoProvider>
-              </ParcelaProvider>
-            </ItemVendaProvider>
-          </CustoProvider>
-        </ComissaoProvider>
-      </ClienteProvider>
+      <RequestPasswordProvider>
+        <ResetPasswordProvider>
+          <ClienteProvider>
+            <ComissaoProvider>
+              <CustoProvider>
+                <ItemVendaProvider>
+                  <ParcelaProvider>
+                    <ProdutoProvider>
+                      <VendedorProvider>
+                        <VendaProvider>
+                          <VendaVendedorProvider>
+                            <FornecedorProvider>
+                              {children}
+                            </FornecedorProvider>
+                          </VendaVendedorProvider>
+                        </VendaProvider>
+                      </VendedorProvider>
+                    </ProdutoProvider>
+                  </ParcelaProvider>
+                </ItemVendaProvider>
+              </CustoProvider>
+            </ComissaoProvider>
+          </ClienteProvider>
+        </ResetPasswordProvider>
+      </RequestPasswordProvider>
     </LoginProvider>
   );
 };

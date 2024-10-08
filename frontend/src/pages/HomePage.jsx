@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import logo from '../assets/logo.png';
 import '../styles/Home.css';
 
-const Home = () => {
+const HomePage = () => {
   const navigate = useNavigate();
 
   return (
@@ -75,4 +75,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

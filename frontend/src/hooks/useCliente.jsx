@@ -5,7 +5,7 @@ const useCliente = () => {
   const context = useContext(ClienteContext);
 
   if (!context) {
-    throw new Error('useClientes must be used within a ClienteProvider');
+    throw new Error('useCliente must be used within a ClienteProvider');
   }
 
   return context;

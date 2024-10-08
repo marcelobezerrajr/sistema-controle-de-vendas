@@ -5,7 +5,7 @@ const useFornecedores = () => {
   const context = useContext(FornecedorContext);
 
   if (!context) {
-    throw new Error('useFornecedores must be used within a FornecedorProvider');
+    throw new Error('useFornecedor must be used within a FornecedorProvider');
   }
 
   return context;

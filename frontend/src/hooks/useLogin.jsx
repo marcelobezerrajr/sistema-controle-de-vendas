@@ -5,7 +5,7 @@ const useLogin = () => {
   const context = useContext(LoginContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within an LoginContext');
+    throw new Error('useLogin must be used within an LoginContext');
   }
 
   return context;

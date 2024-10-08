@@ -5,7 +5,7 @@ const useComissao = () => {
   const context = useContext(ComissaoContext);
 
   if (!context) {
-    throw new Error('useComissoes must be used within a ComissaoProvider');
+    throw new Error('useComissao must be used within a ComissaoProvider');
   }
 
   return context;

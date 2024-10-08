@@ -4,7 +4,7 @@ import MainLayout from '../layouts/MainLayout';
 import useCliente from '../hooks/useCliente';
 import '../styles/Clientes.css';
 
-const Clientes = () => {
+const ClientesPage = () => {
   const { clientes, loading, addCliente, updateClienteData, removeCliente } = useCliente();
   const [showModal, setShowModal] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState(null);
@@ -114,4 +114,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;
+export default ClientesPage;

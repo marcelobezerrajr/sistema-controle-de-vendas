@@ -1,19 +1,25 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RequestPasswordPage from './pages/RequestPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import InvalidTokenPage from './pages/InvalidTokenPage';
 // import Dashboard from './pages/Dashboard';
-import Clientes from './pages/Clientes';
-import NotFound from './pages/NotFound';
+import ClientesPage from './pages/ClientesPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/login" element={<Login />} />
+      <Route exact path="/" element={<HomePage />} />
+      <Route exact path="/login" element={<LoginPage />} />
+      <Route exact path="/request-password" element={<RequestPasswordPage />} />
+      <Route exact path="/reset-password" element={<ResetPasswordPage />} />
+      <Route exact path="/invalid-token" element={<InvalidTokenPage />} />
       {/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
-      <Route exact path="/clientes" element={<Clientes />} />
-      <Route exact path="*" element={<NotFound />} />
+      <Route exact path="/clientes" element={<ClientesPage />} />
+      <Route exact path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

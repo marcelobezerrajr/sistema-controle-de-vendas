@@ -5,7 +5,7 @@ const useProdutos = () => {
   const context = useContext(ProdutoContext);
 
   if (!context) {
-    throw new Error('useProdutos must be used within a ProdutoProvider');
+    throw new Error('useProduto must be used within a ProdutoProvider');
   }
 
   return context;

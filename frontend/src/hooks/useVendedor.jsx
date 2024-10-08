@@ -5,7 +5,7 @@ const useVendedores = () => {
   const context = useContext(VendedorContext);
 
   if (!context) {
-    throw new Error('useVendedores must be used within a VendedorProvider');
+    throw new Error('useVendedor must be used within a VendedorProvider');
   }
 
   return context;

@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 import useLogin from '../hooks/useLogin';
 import '../styles/Login.css';
 
-const Login = () => {
+const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -19,55 +19,57 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <div className="logo-container">
-                <img src={logo} alt="Viper IT logo" className="viper-logo" />
+            <div className="login-logo-container">
+                <a href="/" target="_blank" rel="noopener noreferrer">
+                    <img src={logo} alt="Viper IT logo" className="login-viper-logo" />
+                </a>
             </div>
-            <Card className="card-custom">
-                <Card.Header className="card-header-custom">
+            <Card className="login-card-custom">
+                <Card.Header className="login-card-header-custom">
                     <h4>Login</h4>
                 </Card.Header>
                 <Card.Body>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label className="form-label">Email</Form.Label>
-                            <div className="email-container">
+                            <Form.Label className="login-form-label">Email</Form.Label>
+                            <div className="login-email-container">
                                 <Form.Control
                                     type="email"
                                     placeholder="Digite seu email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="form-control-custom"
+                                    className="login-form-control-custom"
                                     required
                                 />
                             </div>
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Label className="form-label">Senha</Form.Label>
-                            <div className="password-container">
+                            <Form.Label className="login-form-label">Senha</Form.Label>
+                            <div className="login-password-container">
                                 <Form.Control
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Digite sua senha"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="form-control-custom"
+                                    className="login-form-control-custom"
                                     required
                                 />
                                 <button 
                                     type="button"
-                                    className="password-toggle"
+                                    className="login-password-toggle"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <FaEye /> : <FaEyeSlash />}
                                 </button>
                             </div>
-                            <div className="forgot-password">
-                                <a href="/requestpassword">Esqueceu a senha?</a>
+                            <div className="login-forgot-password">
+                                <a href="/request-password">Esqueceu a senha?</a>
                             </div>
                         </Form.Group>
 
-                        <Button type="submit" className="button-custom" disabled={loading}>
+                        <Button type="submit" className="login-button-custom" disabled={loading}>
                             {loading ? <Spinner animation="border" size="sm" /> : "Entrar"}
                         </Button>
                     </Form>
@@ -77,4 +79,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;
