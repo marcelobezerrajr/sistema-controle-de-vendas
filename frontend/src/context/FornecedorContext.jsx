@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllFornecedores, createFornecedor, updateFornecedor, deleteFornecedor } from '../services/fornecedorService';
+import { LoginContext } from './LoginContext';
 
 export const FornecedorContext = createContext();
 
 export const FornecedorProvider = ({ children }) => {
   const [fornecedores, setFornecedores] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchFornecedores() {
+    const fetchFornecedores = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllFornecedores();
         setFornecedores(data);
       } catch (error) {
-        console.error("Erro ao carregar Fornecedores:", error);
+        console.error('Erro ao carregar Fornecedores:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchFornecedores();
-  }, []);
+  }, [user]);
 
   const addFornecedor = async (newFornecedor) => {
     try {

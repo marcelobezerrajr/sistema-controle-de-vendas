@@ -24,10 +24,10 @@ logger = logging.getLogger(__name__)
 def register_user(user_form: UserForm, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == user_form.email).first()
     if user:
-        logger.warning(f"Registration attempt with existing email: {user_form.email}")
+        logger.warning(f"Tentativa de registro com e-mail existente: {user_form.email}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            detail="E-mail já cadastrado"
         )
 
     password_hashed = get_password_hash(user_form.hashed_password)
@@ -46,10 +46,10 @@ def register_user(user_form: UserForm, db: Session = Depends(get_db)):
     access_token = create_access_token(
         data={"sub": new_user.email}, expires_delta=access_token_expires
     )
-    logger.info(f"User registered successfully: {new_user.email}")
+    logger.info(f"Usuário registrado com sucesso: {new_user.email}")
     return {
         "status": "success",
-        "message": "User registered successfully!",
+        "message": "Usuário registrado com sucesso!",
         "data": [UserOut.from_orm(new_user)],
         "access_token": access_token,
         "token_type": "bearer"

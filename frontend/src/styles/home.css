@@ -1,6 +1,6 @@
 .home-container {
   text-align: center;
-  background-color: #f0f8ff;
+  background-color: #f8f9fa;
   color: #1a1a1a;
   min-height: 100vh;
   display: flex;
@@ -13,8 +13,8 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
-  padding: 0px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 5px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   animation: fadeIn 1s ease;
 }
 
@@ -35,7 +35,7 @@
   gap: 20px;
 
   & button {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 10px 20px;
     background-color: #004F98;
     color: #ffffff;
@@ -78,11 +78,11 @@
   width: 30%;
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #007bff;
+  border: 1px solid #1684BF;
   border-radius: 10px;
   margin: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .feature:hover {

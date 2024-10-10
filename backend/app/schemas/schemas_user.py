@@ -42,7 +42,7 @@ class UserUpdateForm(BaseModel):
         return value
     
 class UserOut(BaseModel):
-    id: int
+    id_user: int
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     permission: PermissionType

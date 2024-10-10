@@ -4,7 +4,8 @@ from typing import List
 import logging
 
 from app.services.services_vendas import create_custo, get_all_custos
-from app.api.depends import get_db
+from app.api.depends import get_db, get_read_user_admin, get_user_admin
+from app.database.models.models_vendas import User
 from app.schemas.schemas_vendas import Custo, CustoCreate
 
 logger = logging.getLogger(__name__)
@@ -12,16 +13,18 @@ logger = logging.getLogger(__name__)
 custo_router = APIRouter(prefix="/custo")
 
 @custo_router.get("/list", response_model=List[Custo])
-def list_custos(db: Session = Depends(get_db)):
+def list_custos(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
+        logger.info(f"Custos listados com sucesso pelo usuário: {current_user.username}")
         return get_all_custos(db)
     except Exception as e:
         logger.error(f"Erro ao listar itens de venda: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar itens de venda.")
 
 @custo_router.post("/create", response_model=Custo)
-def add_custo(custo: CustoCreate, db: Session = Depends(get_db)):
+def add_custo(custo: CustoCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
+        logger.info(f"Custo criado com sucesso pelo usuário: {current_user.username}")
         return create_custo(db, custo)
     except Exception as e:
         logger.error(f"Erro ao criar custo: {str(e)}")

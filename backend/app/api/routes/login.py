@@ -27,17 +27,17 @@ logger = logging.getLogger(__name__)
 def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user:
-        logger.warning(f"Login failed for {form_data.username}: User not found")
+        logger.warning(f"Falha no login para {form_data.username}: Usuário não encontrado")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
         )
     
     if not verify_password(form_data.password, user.hashed_password):
-        logger.warning(f"Login failed for {form_data.username}: Incorrect password")
+        logger.warning(f"Falha no login para {form_data.username}: Senha incorreta")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
+            detail="Email ou senha incorreta",
         )
     
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -45,7 +45,7 @@ def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2Passw
         data={"sub": user.email, "permission": user.permission},
         expires_delta=access_token_expires
     )
-    logger.info(f"User {user.email} logged in successfully.")
+    logger.info(f"Usuário {user.email} logado com sucesso.")
     
     return {
         "access_token": access_token,
@@ -59,7 +59,7 @@ def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2Passw
 def read_users_me(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid access token",
+        detail="Token de acesso inválido",
     )
     
     try:
@@ -68,24 +68,23 @@ def read_users_me(token: str = Depends(oauth2_scheme), db: Session = Depends(get
         permission: str = payload.get("permission", "read")
         
         if email is None:
-            logger.warning("Token payload missing 'sub' (email).")
+            logger.warning("Carga útil do token faltando 'sub' (e-mail).")
             raise credentials_exception
         
         token_data = TokenData(email=email, permission=permission)
     except JWTError as e:
-        logger.error(f"JWTError during /me request: {e}")
+        logger.error(f"JWTError durante a solicitação /me: {e}")
         raise credentials_exception
 
     user = db.query(User).filter(User.email == token_data.email).first()
     if user is None:
-        logger.warning(f"Token validation failed: User {token_data.email} not found.")
+        logger.warning(f"Falha na validação do token: usuário {token_data.email} não encontrado.")
         raise credentials_exception
 
-    logger.info(f"Token validated successfully for user {user.email}.")
+    logger.info(f"Token validado com sucesso para o usuário {user.email}.")
     
     return {
         "email": user.email,
-        "name": user.name,
-        "permission": user.permission,
-        "username": user.username
+        "username": user.username,
+        "permission": user.permission
     }

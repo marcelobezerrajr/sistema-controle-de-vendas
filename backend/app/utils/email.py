@@ -42,7 +42,7 @@ def send_email(to_address: str, subject: str, body: str):
 
 def send_reset_password_email(email: str, token: str):
     reset_link = f"{RESET_PASSWORD_URL}?access_token={token}"
-    subject = "ViperIT: Reset Your Password"
+    subject = "ViperIT: Redefina sua Senha"
     body = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0;">
@@ -60,21 +60,21 @@ def send_reset_password_email(email: str, token: str):
                         </table>
                         
                         <!-- Body Section -->
-                        <h2 style="color: #0056b3; margin-bottom: 20px;">Password Reset Request</h2>
-                        <p style="font-size: 16px; line-height: 1.5;">Hi,</p>
-                        <p style="font-size: 16px; line-height: 1.5;">You recently requested to reset your password for your ViperIT account. Click the button below to reset it:</p>
+                        <h2 style="color: #0056b3; margin-bottom: 20px;">Solicitação de redefinição de Senha</h2>
+                        <p style="font-size: 16px; line-height: 1.5;">Oi,</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Recentemente, você solicitou a redefinição da senha da sua conta ViperIT. Clique no botão abaixo para redefini-lo:</p>
                         <p style="text-align: center;">
-                            <a href="{reset_link}" style="background-color: #0056b3; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">Reset Password</a>
+                            <a href="{reset_link}" style="background-color: #0056b3; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">Redefinir Senha</a>
                         </p>
                         
                         <!-- Separator -->
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
                         
                         <!-- Footer Section -->
-                        <p style="font-size: 16px; line-height: 1.5;">If you did not request a password reset, please ignore this email or <a href="mailto:support@viperit.com" style="color: #0056b3; text-decoration: underline;">contact support</a> if you have questions.</p>
-                        <p style="font-size: 16px; line-height: 1.5;">Thanks,<br>The ViperIT Team</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Se você não solicitou uma redefinição de senha, ignore este e-mail ou<a href="mailto:support@viperit.com" style="color: #0056b3; text-decoration: underline;"> entre em contato com o suporte</a> se você tiver dúvidas.</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe ViperIT</p>
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
-                        <p style="font-size: 12px; color: #777;">If you’re having trouble clicking the "Reset Password" button, copy and paste the URL below into your web browser:<br><a href="{reset_link}" style="color: #0056b3; text-decoration: underline;">{reset_link}</a></p>
+                        <p style="font-size: 12px; color: #777;">Se você estiver com problemas para clicar no botão "Redefinir senha", clique ou copie e cole a URL abaixo em seu navegador:<br><a href="{reset_link}" style="color: #0056b3; text-decoration: underline;">{reset_link}</a></p>
                     </div>
                 </td>
             </tr>
@@ -85,7 +85,7 @@ def send_reset_password_email(email: str, token: str):
     send_email(email, subject, body)
 
 def send_password_reset_confirmation_email(email: str):
-    subject = "ViperIT: Your Password Has Been Reset"
+    subject = "ViperIT: Sua senha foi redefinida"
     body = """
     <html>
     <body style="font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0;">
@@ -103,17 +103,17 @@ def send_password_reset_confirmation_email(email: str):
                         </table>
                         
                         <!-- Body Section -->
-                        <h2 style="color: #0056b3; margin-bottom: 20px;">Password Reset Successful</h2>
-                        <p style="font-size: 16px; line-height: 1.5;">Hi,</p>
-                        <p style="font-size: 16px; line-height: 1.5;">Your password has been successfully reset. If you did not request or make this change, please <a href="mailto:support@viperit.com" style="color: #0056b3; text-decoration: underline;">contact support</a> immediately.</p>
+                        <h2 style="color: #0056b3; margin-bottom: 20px;">Redefinição de Senha Bem-Sucedida</h2>
+                        <p style="font-size: 16px; line-height: 1.5;">Oi,</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Sua senha foi redefinida com sucesso. Se você não solicitou ou fez essa alteração, por favor <a href="mailto:support@viperit.com" style="color: #0056b3; text-decoration: underline;">entre em contato com o suporte </a> imediatamente.</p>
                         
                         <!-- Separator -->
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
                         
                         <!-- Footer Section -->
-                        <p style="font-size: 16px; line-height: 1.5;">Thanks,<br>The ViperIT Team</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe ViperIT</p>
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
-                        <p style="font-size: 12px; color: #777;">If you did not initiate this request, please secure your account immediately.</p>
+                        <p style="font-size: 12px; color: #777;">Se você não iniciou esta solicitação, proteja sua conta imediatamente.</p>
                     </div>
                 </td>
             </tr>

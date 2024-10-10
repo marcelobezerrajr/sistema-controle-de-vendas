@@ -11,7 +11,7 @@ export const ResetPasswordProvider = ({ children }) => {
         setLoading(true);
         try {
             await verifyResetToken(token);
-            setFeedback({ message: 'Token is valid', error: false });
+            setFeedback({ message: 'Token válido', error: false });
         } catch (error) {
             setFeedback({ message: error, error: true });
         } finally {
@@ -24,7 +24,7 @@ export const ResetPasswordProvider = ({ children }) => {
         setFeedback({ message: '', error: false });
         try {
             await resetPassword(token, newPassword);
-            setFeedback({ message: 'Your password has been reset successfully.', error: false });
+            setFeedback({ message: 'Sua senha foi redefinida com sucesso.', error: false });
         } catch (error) {
             setFeedback({ message: error, error: true });
         } finally {

@@ -14,7 +14,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
 
-change_password_router = APIRouter(prefix="/changepassword")
+change_password_router = APIRouter(prefix="/change-password")
 
 @change_password_router.post("/")
 def change_password(
@@ -25,8 +25,7 @@ def change_password(
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-    )
+        detail="Não foi possível validar as credenciais",)
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
@@ -42,15 +41,13 @@ def change_password(
     if not verify_password(current_password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Current password is incorrect",
-        )
+            detail="A senha atual está incorreta",)
 
     if not validate_password(new_password):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="New password does not meet complexity requirements",
-        )
+            detail="A nova senha não atende aos requisitos de complexidade",)
 
     user.hashed_password = get_password_hash(new_password)
     db.commit()
-    return {"message": "Password changed successfully"}
+    return {"message": "Senha alterada com sucesso"}

@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllVendas, getVendaById, createVenda, updateVenda, deleteVenda } from '../services/vendaService';
+import { LoginContext } from './LoginContext';
 
 export const VendaContext = createContext();
 
 export const VendaProvider = ({ children }) => {
   const [vendas, setVendas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchVendas() {
+    const fetchVendas = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllVendas();
         setVendas(data);
       } catch (error) {
-        console.error("Erro ao carregar Vendas:", error);
+        console.error('Erro ao carregar Vendas:', error);
       } finally {
-          setLoading(false);
+        setLoading(false);
       }
-    }
+    };
+
     fetchVendas();
-  }, []);
+  }, [user]);
 
   const getVenda = async (id) => {
     try {

@@ -52,15 +52,16 @@
     width: 100%;
     margin-bottom: 10px;
     border-radius: 5px;
-    padding: 12px;
+    padding: 15px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
+    font-size: 15px;
 }
 
 .login-form-control-custom:focus {
-    border-color: #1684BF;
     box-shadow: none;
+    color: #1684BF;
 }
 
 .login-email-container {
@@ -95,6 +96,7 @@
     color: white;
     font-size: 1rem;
     transition: background-color 0.3s;
+    min-width: 100px;
 }
 
 .login-button-custom:hover {
@@ -112,6 +114,15 @@
     color: #1684BF;
     text-decoration: none;
     text-decoration: underline;
+}
+
+.login-alert-custom {
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 7px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb !important;
+    color: #721c24 !important;
 }
 
 @media (max-width: 430px) {

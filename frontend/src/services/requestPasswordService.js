@@ -2,7 +2,7 @@ import api from './api';
 
 const requestPasswordService = async (email) => {
   try {
-    const response = await api.post('/request', { email });
+    const response = await api.post('/reset-password/request-password', { email });
 
     if (!response || response.status !== 200) {
       throw new Error('Erro ao solicitar recuperação de senha.');

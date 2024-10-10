@@ -1,13 +1,14 @@
 .footer {
     background-color: #343a40;
-    color: #ffffff;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
-    border-top: 5px solid #007bff;
+    border-top: 5px solid #1684BF;
     width: 100%;
     animation: fadeIn 1s ease;
 
     & p {
       margin: 5px 0;
+      color: #ffffff;
+      font-size: 15px;
     }
   }

@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllClientes, getClienteById, createCliente, updateCliente, deleteCliente } from '../services/clienteService';
+import { LoginContext } from './LoginContext';
 
 export const ClienteContext = createContext();
 
 export const ClienteProvider = ({ children }) => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchClientes() {
+    const fetchClientes = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllClientes();
         setClientes(data);
       } catch (error) {
-        console.error("Erro ao carregar Clientes:", error);
+        console.error('Erro ao carregar Clientes:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchClientes();
-  }, []);
+  }, [user]);
 
   const getCliente = async (id) => {
     try {

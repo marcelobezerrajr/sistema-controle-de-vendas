@@ -26,8 +26,8 @@ const RequestPasswordPage = () => {
           <h4>Recuperar Senha</h4>
         </Card.Header>
         <Card.Body>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {successMessage && <Alert variant="success">{successMessage}</Alert>}
+          {error && <Alert className="request-alert-custom-error" variant="danger">{error}</Alert>}
+          {successMessage && <Alert className="request-alert-custom-success" variant="success">{successMessage}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label className="request-form-label">Email</Form.Label>
@@ -45,8 +45,8 @@ const RequestPasswordPage = () => {
                 <a href="/login">Voltar para Login</a>
             </div>
             </Form.Group>
-            <Button type="submit" className="request-button-custom" disabled={loading}>
-              {loading ? <Spinner animation="border" size="sm" /> : 'Enviar'}
+            <Button variant="primary" type="submit" className="request-button-custom" disabled={loading}>
+              {loading ? <Spinner animation="border" size="sm" /> : "Enviar"}
             </Button>
           </Form>
         </Card.Body>

@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { createComissao, getAllComissoes } from '../services/comissaoService';
+import { LoginContext } from './LoginContext';
 
 export const ComissaoContext = createContext();
 
 export const ComissaoProvider = ({ children }) => {
   const [comissoes, setComissoes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchComissoes() {
+    const fetchComissoes = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllComissoes();
         setComissoes(data);
       } catch (error) {
-        console.error("Erro ao carregar Comissões:", error);
+        console.error('Erro ao carregar Comissões:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchComissoes();
-  }, []);
+  }, [user]);
 
   const addComissao = async (comissao) => {
     try {

@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllParcelas, createParcela, updateParcela } from '../services/parcelaService';
+import { LoginContext } from './LoginContext';
 
 export const ParcelaContext = createContext();
 
 export const ParcelaProvider = ({ children }) => {
   const [parcelas, setParcelas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchParcelas() {
+    const fetchParcelas = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllParcelas();
         setParcelas(data);
       } catch (error) {
-        console.error("Erro ao carregar Parcelas:", error);
+        console.error('Erro ao carregar Parcelas:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchParcelas();
-  }, []);
+  }, [user]);
 
   const addParcela = async (newParcela) => {
     try{

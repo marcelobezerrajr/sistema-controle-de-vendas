@@ -10,6 +10,7 @@ const ResetPasswordPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPasswords, setShowPasswords] = useState({ newPassword: false, confirmPassword: false });
+    const [validationError, setValidationError] = useState(null);
     const query = new URLSearchParams(useLocation().search);
     const token = query.get('access_token');
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const ResetPasswordPage = () => {
         } else {
             navigate('/invalid-token');
         }
-    }, [token, verifyToken, history]);
+    }, [token]);
 
     const validatePassword = (password) => {
         if (password.length < 6) return "A senha deve ter pelo menos 6 caracteres.";
@@ -34,14 +35,17 @@ const ResetPasswordPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setValidationError(null);
 
         const validationError = validatePassword(newPassword);
         if (validationError) {
-            return alert(validationError);
+            setValidationError(validationError);
+            return;
         }
 
         if (newPassword !== confirmPassword) {
-            return alert("Passwords do not match.");
+            setValidationError("As senhas não coincidem.");
+            return;
         }
 
         handleResetPassword(token, newPassword);
@@ -64,8 +68,13 @@ const ResetPasswordPage = () => {
                 </Card.Header>
                 <Card.Body>
                     {feedback.message && (
-                        <Alert variant={feedback.error ? "danger" : "success"}>
+                        <Alert className="reset-alert-custom-success" variant={feedback.error ? "danger" : "success"}>
                             {feedback.message}
+                        </Alert>
+                    )}
+                    {validationError && (
+                        <Alert variant="danger" className="reset-alert-custom-error">
+                            {validationError}
                         </Alert>
                     )}
                     <Form onSubmit={handleSubmit}>
@@ -74,7 +83,7 @@ const ResetPasswordPage = () => {
                             <div className="reset-password-container">
                                 <Form.Control
                                     type={showPasswords.newPassword ? "text" : "password"}
-                                    placeholder='Novas Senha'
+                                    placeholder='Nova Senha'
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="reset-form-control-custom"
@@ -106,12 +115,12 @@ const ResetPasswordPage = () => {
                                     {showPasswords.confirmPassword ? <FaEye /> : <FaEyeSlash />}
                                 </Button>
                             </div>
-                        <div className="reset-back-login">
-                            <a href="/login">Voltar para Login</a>
-                        </div>
+                            <div className="reset-back-login">
+                                <a href="/login">Voltar para Login</a>
+                            </div>
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="reset-button-custom" disabled={loading}>
-                            {loading ? <Spinner animation="border" size="sm" /> : "Reset Password"}
+                        <Button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
+                            {loading ? <Spinner animation="border" size="sm" /> : "Redefinir Senha"}
                         </Button>
                     </Form>
                 </Card.Body>

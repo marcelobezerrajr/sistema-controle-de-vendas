@@ -8,6 +8,7 @@ import InvalidTokenPage from './pages/InvalidTokenPage';
 // import Dashboard from './pages/Dashboard';
 import ClientesPage from './pages/ClientesPage';
 import NotFoundPage from './pages/NotFoundPage';
+// import PrivateRoute from './components/PrivateRoute';
 
 const AppRoutes = () => {
   return (
@@ -18,7 +19,9 @@ const AppRoutes = () => {
       <Route exact path="/reset-password" element={<ResetPasswordPage />} />
       <Route exact path="/invalid-token" element={<InvalidTokenPage />} />
       {/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
+      {/* <Route exact path="/clientes" element={<PrivateRoute element={ClientesPage} />} /> */}
       <Route exact path="/clientes" element={<ClientesPage />} />
+
       <Route exact path="*" element={<NotFoundPage />} />
     </Routes>
   );

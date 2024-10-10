@@ -4,7 +4,6 @@ class Token(BaseModel):
     access_token: str
     token_type: str
     user_username: str
-    user_name: str
     user_email: str
     user_permission: str
 

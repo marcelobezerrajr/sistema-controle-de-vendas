@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllVendedores, getVendedorById, createVendedor, updateVendedor, deleteVendedor } from '../services/vendedorService';
+import { LoginContext } from './LoginContext';
 
 export const VendedorContext = createContext();
 
 export const VendedorProvider = ({ children }) => {
   const [vendedor, setVendedor] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchVendedores() {
+    const fetchVendedores = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllVendedores();
         setVendedor(data);
       } catch (error) {
-        console.error("Erro ao carregar Vendedores:", error);
+        console.error('Erro ao carregar Vendedores:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchVendedores();
-  }, []);
+  }, [user]);
 
   const addVendedor = async (vendedor) => {
     try {

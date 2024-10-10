@@ -29,7 +29,7 @@ const LoginPage = () => {
                     <h4>Login</h4>
                 </Card.Header>
                 <Card.Body>
-                    {error && <Alert variant="danger">{error}</Alert>}
+                    {error && <Alert className="login-alert-custom" variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label className="login-form-label">Email</Form.Label>
@@ -70,7 +70,14 @@ const LoginPage = () => {
                         </Form.Group>
 
                         <Button type="submit" className="login-button-custom" disabled={loading}>
-                            {loading ? <Spinner animation="border" size="sm" /> : "Entrar"}
+                            {loading ? (
+                                <>
+                                    <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                                    <span className="sr-only">Carregando...</span>
+                                </>
+                            ) : (
+                                "Entrar"
+                            )}
                         </Button>
                     </Form>
                 </Card.Body>

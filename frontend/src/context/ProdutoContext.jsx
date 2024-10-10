@@ -1,25 +1,31 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getAllProdutos, getProdutoById, createProduto, updateProduto, deleteProduto } from '../services/produtoService';
+import { LoginContext } from './LoginContext';
 
 export const ProdutoContext = createContext();
 
 export const ProdutoProvider = ({ children }) => {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
-    async function fetchProdutos() {
+    const fetchProdutos = async () => {
+      if (!user) return;
+
+      setLoading(true);
       try {
         const data = await getAllProdutos();
         setProdutos(data);
       } catch (error) {
-        console.error("Erro ao carregar Produtos:", error);
+        console.error('Erro ao carregar Produtos:', error);
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchProdutos();
-  }, []);
+  }, [user]);
 
   const getProduto = async (id) => {
     try {

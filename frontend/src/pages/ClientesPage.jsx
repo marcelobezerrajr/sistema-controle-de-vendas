@@ -1,117 +1,171 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal, Form, Spinner } from 'react-bootstrap';
-import MainLayout from '../layouts/MainLayout';
+import { Table, Button, Alert } from 'react-bootstrap';
+import TableRow from '../components/TableRow';
 import useCliente from '../hooks/useCliente';
+import MainLayout from '../layouts/MainLayout';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Clientes.css';
 
-const ClientesPage = () => {
+const ClientePage = () => {
   const { clientes, loading, addCliente, updateClienteData, removeCliente } = useCliente();
   const [showModal, setShowModal] = useState(false);
-  const [selectedCliente, setSelectedCliente] = useState(null);
-  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [editMode, setEditMode] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertVariant, setAlertVariant] = useState('success');
+  const [form, setForm] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+  });
+  const [currentCliente, setCurrentCliente] = useState(null);
+  const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async () => {
-    if (selectedCliente) {
-      await updateClienteData(selectedCliente.id_cliente, formData);
-    } else {
-      await addCliente(formData);
-    }
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => {
     setShowModal(false);
-    setFormData({ name: '', email: '' });
-    setSelectedCliente(null);
+    setEditMode(false);
+    setForm({ nome: '', email: '', telefone: '' });
   };
 
-  const handleDelete = async (id) => {
+  const handleFormChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleAddCliente = async () => {
+    await addCliente(form);
+    setAlertMessage("Cliente adicionado com sucesso!");
+    setAlertVariant("success");
+    handleCloseModal();
+  };
+
+  const handleEditCliente = async () => {
+    await updateClienteData(currentCliente.id_cliente, form);
+    setAlertMessage("Cliente atualizado com sucesso!");
+    setAlertVariant("success");
+    handleCloseModal();
+  };
+
+  const handleEditClick = (cliente) => {
+    setCurrentCliente(cliente);
+    setForm(cliente);
+    setEditMode(true);
+    handleShowModal();
+  };
+
+  const handleViewClick = (id) => {
+    navigate(`/cliente/view/${id}`);
+  };
+
+  const handleDeleteClick = async (id) => {
     await removeCliente(id);
+    setAlertMessage("Cliente deletado com sucesso!");
+    setAlertVariant("success");
   };
 
-  const handleOpenModal = (cliente = null) => {
-    if (cliente) {
-      setSelectedCliente(cliente);
-      setFormData({ name: cliente.nome, email: cliente.email });
-    }
-    setShowModal(true);
+  const columns = ['id_cliente','nome_cliente', 'cpf_cnpj'];
+
+  const actions = {
+    view: handleViewClick,
+    update: handleEditClick,
+    delete: handleDeleteClick
   };
 
   return (
     <MainLayout>
-      <div className="clientes-container">
-        <h1>Gerenciamento de Clientes</h1>
-        <Button variant="primary" onClick={() => handleOpenModal()}>Adicionar Cliente</Button>
+      <div className="table-container">
+        <div className="header-section">
+          <h2>Gerenciamento de Clientes</h2>
+          <Button variant="primary" className="custom-button" onClick={handleShowModal}>
+            Adicionar Cliente
+          </Button>
+        </div>
+
+        {alertMessage && (
+          <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
+            {alertMessage}
+          </Alert>
+        )}
 
         {loading ? (
-          <Spinner animation="border" />
+          <p>Carregando...</p>
+        ) : clientes.length === 0 ? (
+          <Alert className="alert" variant="warning">Nenhum cliente encontrado.</Alert>
         ) : (
-          <Table striped bordered hover className="clientes-table">
+          <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>Email</th>
+                <th>CPF/CNPJ</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.length > 0 ? (
-                clientes.map(cliente => (
-                  <tr key={cliente.id_cliente}>
-                    <td>{cliente.id_cliente}</td>
-                    <td>{cliente.nome}</td>
-                    <td>{cliente.email}</td>
-                    <td>
-                      <Button variant="warning" onClick={() => handleOpenModal(cliente)}>Editar</Button>
-                      <Button variant="danger" onClick={() => handleDelete(cliente.id_cliente)}>Excluir</Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">Nenhum cliente encontrado.</td>
-                </tr>
-              )}
+              {clientes.map((cliente) => (
+                <TableRow
+                 key={cliente.id_cliente}
+                 rowData={cliente}
+                 columns={columns}
+                 actions={actions}
+               />
+              ))}
             </tbody>
           </Table>
         )}
 
-        <Modal show={showModal} onHide={() => setShowModal(false)}>
+        {/* Modal de Adicionar/Editar Cliente
+        <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedCliente ? 'Editar Cliente' : 'Adicionar Cliente'}</Modal.Title>
+            <Modal.Title>{editMode ? 'Editar Cliente' : 'Adicionar Cliente'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group controlId="formName">
+              <Form.Group controlId="nome">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
                   type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
+                  name="nome"
+                  value={form.nome}
+                  onChange={handleFormChange}
+                  placeholder="Nome do Cliente"
                 />
               </Form.Group>
-              <Form.Group controlId="formEmail" className="mt-3">
+
+              <Form.Group controlId="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
+                  value={form.email}
+                  onChange={handleFormChange}
+                  placeholder="Email do Cliente"
+                />
+              </Form.Group>
+
+              <Form.Group controlId="telefone">
+                <Form.Label>Telefone</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="telefone"
+                  value={form.telefone}
+                  onChange={handleFormChange}
+                  placeholder="Telefone do Cliente"
                 />
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowModal(false)}>Cancelar</Button>
-            <Button variant="primary" onClick={handleSubmit}>{selectedCliente ? 'Salvar Alterações' : 'Adicionar'}</Button>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={editMode ? handleEditCliente : handleAddCliente}>
+              {editMode ? 'Salvar Alterações' : 'Adicionar Cliente'}
+            </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
       </div>
     </MainLayout>
   );
 };
 
-export default ClientesPage;
+export default ClientePage;
