@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 vendedor_router = APIRouter(prefix="/vendedor")
 
 @vendedor_router.get("/list", response_model=List[Vendedor])
-def list_vendedores(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def list_vendedores_route(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Vendedores listados com sucesso pelo usuário: {current_user.username}")
         return get_all_vendedores(db)
@@ -21,17 +21,17 @@ def list_vendedores(db: Session = Depends(get_db), current_user: User = Depends(
         logger.error(f"Erro ao listar todos os vendedores: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar vendedores")
 
-@vendedor_router.get("/view/{vendedor_id}", response_model=Vendedor)
-def view_vendedor(vendedor_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+@vendedor_router.get("/view/{id_vendedor}", response_model=Vendedor)
+def view_vendedor_route(id_vendedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Vendedo listado com sucesso pelo usuário: {current_user.username}")
-        return get_vendedor_by_id(db, vendedor_id)
+        return get_vendedor_by_id(db, id_vendedor)
     except Exception as e:
         logger.error(f"Erro ao listar o vendedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar o vendedor")
 
 @vendedor_router.post("/create", response_model=Vendedor)
-def add_vendedor(vendedor: VendedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+def add_vendedor_route(vendedor: VendedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Vendedor criado com sucesso pelo usuário: {current_user.username}")
         return create_vendedor(db, vendedor)
@@ -39,20 +39,20 @@ def add_vendedor(vendedor: VendedorCreate, db: Session = Depends(get_db), curren
         logger.error(f"Erro ao criar o vendedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar o vendedor")
 
-@vendedor_router.put("/update/{vendedor_id}", response_model=Vendedor)
-def update_vendedor(vendedor_id: int, vendedor: VendedorUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+@vendedor_router.put("/update/{id_vendedor}", response_model=Vendedor)
+def update_vendedor_route(id_vendedor: int, vendedor: VendedorUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Vendedor atualizado com sucesso pelo usuário: {current_user.username}")
-        return update_vendedor(db, vendedor_id, vendedor)
+        return update_vendedor(db, id_vendedor, vendedor)
     except Exception as e:
         logger.error(f"Erro ao atualizar o vendedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao atualizar o vendedor")
 
-@vendedor_router.delete("/delete/{vendedor_id}", response_model=Vendedor)
-def delete_vendedor(vendedor_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
+@vendedor_router.delete("/delete/{id_vendedor}", response_model=Vendedor)
+def delete_vendedor_route(id_vendedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
     try:
         logger.info(f"Vendedor deletado com sucesso pelo usuário: {current_user.username}")
-        return delete_vendedor(db, vendedor_id)
+        return delete_vendedor(db, id_vendedor)
     except Exception as e:
         logger.error(f"Erro ao deletar o vendedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao deletar o vendedor")

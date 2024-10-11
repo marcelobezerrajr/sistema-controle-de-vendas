@@ -11,10 +11,10 @@ logger = logging.getLogger(__name__)
 def get_all_clientes(db: Session):
     return db.query(models_vendas.Cliente).all()
 
-def get_cliente_by_id(db: Session, cliente_id: int):
-    cliente = db.query(models_vendas.Cliente).filter(models_vendas.Cliente.id_cliente == cliente_id).first()
+def get_cliente_by_id(db: Session, id_cliente: int):
+    cliente = db.query(models_vendas.Cliente).filter(models_vendas.Cliente.id_cliente == id_cliente).first()
     if cliente is None:
-        logger.error(f"Cliente não encontrado com o id: {cliente_id}")
+        logger.error(f"Cliente não encontrado com o id: {id_cliente}")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Cliente não existe")
     return cliente
 
@@ -33,8 +33,8 @@ def create_cliente(db: Session, cliente: schemas_vendas.ClienteCreate):
         logger.error(f"Erro ao criar o novo cliente {cliente.nome_cliente}: {str(e)}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o cliente.")
 
-def update_cliente(db: Session, cliente_id: int, cliente: schemas_vendas.ClienteUpdate):
-    clientes = get_cliente_by_id(db, cliente_id)
+def update_cliente(db: Session, id_cliente: int, cliente: schemas_vendas.ClienteUpdate):
+    clientes = get_cliente_by_id(db, id_cliente)
 
     clientes.nome_cliente = cliente.nome_cliente
     clientes.cpf_cnpj = cliente.cpf_cnpj
@@ -43,8 +43,8 @@ def update_cliente(db: Session, cliente_id: int, cliente: schemas_vendas.Cliente
     db.refresh(clientes)
     return clientes
 
-def delete_cliente(db: Session, cliente_id: int):
-    clientes = get_cliente_by_id(db, cliente_id)
+def delete_cliente(db: Session, id_cliente: int):
+    clientes = get_cliente_by_id(db, id_cliente)
     db.delete(clientes)
     db.commit()
     return clientes
@@ -106,8 +106,8 @@ def create_parcela(db: Session, parcela: schemas_vendas.ParcelaCreate):
         logger.error(f"Erro ao criar parcela: {str(e)}")
         raise
 
-def update_parcela(db: Session, parcela_id: int, parcela: schemas_vendas.ParcelaUpdate):
-    db_parcela = db.query(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == parcela_id).first()
+def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.ParcelaUpdate):
+    db_parcela = db.query(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == id_parcela).first()
     if not db_parcela:
         raise HTTPException(status_code=404, detail="Parcela não encontrada.")
     
@@ -188,8 +188,8 @@ def get_all_custos(db: Session):
 def get_all_fornecedores(db: Session):
     return db.query(models_vendas.Fornecedor).all()
 
-def get_fornecedor_by_id(db: Session, fornecedor_id: int):
-    fornecedor = db.query(models_vendas.Fornecedor).filter(models_vendas.Fornecedor.id_fornecedor == fornecedor_id).first()
+def get_fornecedor_by_id(db: Session, id_fornecedor: int):
+    fornecedor = db.query(models_vendas.Fornecedor).filter(models_vendas.Fornecedor.id_fornecedor == id_fornecedor).first()
     if not fornecedor:
         raise HTTPException(status_code=404, detail="Fornecedor não encontrado")
     return fornecedor
@@ -205,8 +205,8 @@ def create_fornecedor(db: Session, fornecedor: schemas_vendas.FornecedorCreate):
     db.refresh(db_fornecedor)
     return db_fornecedor
 
-def update_fornecedor(db: Session, fornecedor_id: int, fornecedor: schemas_vendas.FornecedorUpdate):
-    db_fornecedor = get_fornecedor_by_id(db, fornecedor_id)
+def update_fornecedor(db: Session, id_fornecedor: int, fornecedor: schemas_vendas.FornecedorUpdate):
+    db_fornecedor = get_fornecedor_by_id(db, id_fornecedor)
     db_fornecedor.nome_fornecedor = fornecedor.nome_fornecedor
     db_fornecedor.percentual_comissao = fornecedor.percentual_comissao
     db_fornecedor.impostos = fornecedor.impostos
@@ -214,8 +214,8 @@ def update_fornecedor(db: Session, fornecedor_id: int, fornecedor: schemas_venda
     db.refresh(db_fornecedor)
     return db_fornecedor
 
-def delete_fornecedor(db: Session, fornecedor_id: int):
-    fornecedor = get_fornecedor_by_id(db, fornecedor_id)
+def delete_fornecedor(db: Session, id_fornecedor: int):
+    fornecedor = get_fornecedor_by_id(db, id_fornecedor)
     db.delete(fornecedor)
     db.commit()
     return fornecedor
@@ -223,8 +223,8 @@ def delete_fornecedor(db: Session, fornecedor_id: int):
 def get_all_vendedores(db: Session):
     return db.query(models_vendas.Vendedor).all()
 
-def get_vendedor_by_id(db: Session, vendedor_id: int):
-    vendedor = db.query(models_vendas.Vendedor).filter(models_vendas.Vendedor.id_vendedor == vendedor_id).first()
+def get_vendedor_by_id(db: Session, id_vendedor: int):
+    vendedor = db.query(models_vendas.Vendedor).filter(models_vendas.Vendedor.id_vendedor == id_vendedor).first()
     if not vendedor:
         raise HTTPException(status_code=404, detail="Vendedor não encontrado")
     return vendedor
@@ -248,8 +248,8 @@ def create_vendedor(db: Session, vendedor: schemas_vendas.VendedorCreate):
     db.refresh(db_vendedor)
     return db_vendedor
 
-def update_vendedor(db: Session, vendedor_id: int, vendedor: schemas_vendas.VendedorUpdate):
-    db_vendedor = get_vendedor_by_id(db, vendedor_id)
+def update_vendedor(db: Session, id_vendedor: int, vendedor: schemas_vendas.VendedorUpdate):
+    db_vendedor = get_vendedor_by_id(db, id_vendedor)
     db_vendedor.nome_vendedor = vendedor.nome_vendedor
     db_vendedor.tipo = vendedor.tipo
 
@@ -264,8 +264,8 @@ def update_vendedor(db: Session, vendedor_id: int, vendedor: schemas_vendas.Vend
     db.refresh(db_vendedor)
     return db_vendedor
 
-def delete_vendedor(db: Session, vendedor_id: int):
-    vendedor = get_vendedor_by_id(db, vendedor_id)
+def delete_vendedor(db: Session, id_vendedor: int):
+    vendedor = get_vendedor_by_id(db, id_vendedor)
     db.delete(vendedor)
     db.commit()
     return vendedor
@@ -273,8 +273,8 @@ def delete_vendedor(db: Session, vendedor_id: int):
 def get_all_produtos(db: Session):
     return db.query(models_vendas.Produto).all()
 
-def get_produto_by_id(db: Session, produto_id: int):
-    produto = db.query(models_vendas.Produto).filter(models_vendas.Produto.id_produto == produto_id).first()
+def get_produto_by_id(db: Session, id_produto: int):
+    produto = db.query(models_vendas.Produto).filter(models_vendas.Produto.id_produto == id_produto).first()
     if not produto:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
     return produto
@@ -291,8 +291,8 @@ def create_produto(db: Session, produto: schemas_vendas.ProdutoCreate):
     db.refresh(db_produto)
     return db_produto
 
-def update_produto(db: Session, produto_id: int, produto: schemas_vendas.ProdutoUpdate):
-    db_produto = get_produto_by_id(db, produto_id)
+def update_produto(db: Session, id_produto: int, produto: schemas_vendas.ProdutoUpdate):
+    db_produto = get_produto_by_id(db, id_produto)
     db_produto.nome_produto = produto.nome_produto
     db_produto.descricao_produto = produto.descricao_produto
     db_produto.preco = produto.preco
@@ -301,8 +301,8 @@ def update_produto(db: Session, produto_id: int, produto: schemas_vendas.Produto
     db.refresh(db_produto)
     return db_produto
 
-def delete_produto(db: Session, produto_id: int):
-    produto = get_produto_by_id(db, produto_id)
+def delete_produto(db: Session, id_produto: int):
+    produto = get_produto_by_id(db, id_produto)
     db.delete(produto)
     db.commit()
     return produto
@@ -310,8 +310,8 @@ def delete_produto(db: Session, produto_id: int):
 def get_all_vendas(db: Session):
     return db.query(models_vendas.Venda).all()
 
-def get_venda_by_id(db: Session, venda_id: int):
-    venda = db.query(models_vendas.Venda).filter(models_vendas.Venda.id_venda == venda_id).first()
+def get_venda_by_id(db: Session, id_venda: int):
+    venda = db.query(models_vendas.Venda).filter(models_vendas.Venda.id_venda == id_venda).first()
     if not venda:
         raise HTTPException(status_code=404, detail="Venda não encontrada")
     return venda
@@ -331,8 +331,8 @@ def create_venda(db: Session, venda: schemas_vendas.VendaCreate):
     db.refresh(db_venda)
     return db_venda
 
-def update_venda(db: Session, venda_id: int, venda: schemas_vendas.VendaUpdate):
-    db_venda = get_venda_by_id(db, venda_id)
+def update_venda(db: Session, id_venda: int, venda: schemas_vendas.VendaUpdate):
+    db_venda = get_venda_by_id(db, id_venda)
     db_venda.tipo_venda = venda.tipo_venda
     db_venda.tipo_faturamento = venda.tipo_faturamento
     db_venda.valor_total = venda.valor_total
@@ -342,8 +342,8 @@ def update_venda(db: Session, venda_id: int, venda: schemas_vendas.VendaUpdate):
     db.refresh(db_venda)
     return db_venda
 
-def delete_venda(db: Session, venda_id: int):
-    venda = get_venda_by_id(db, venda_id)
+def delete_venda(db: Session, id_venda: int):
+    venda = get_venda_by_id(db, id_venda)
     db.delete(venda)
     db.commit()
     return venda

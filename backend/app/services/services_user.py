@@ -11,7 +11,7 @@ def get_all_users(db: Session):
     return db.query(User).all()
 
 def get_user_by_id(db: Session, user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.id_user == user_id).first()
     if not user:
         logger.error(f"User not found with id: {user_id}")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -40,7 +40,7 @@ def create_user(db: Session, user_form: UserForm) -> User:
         raise
 
 def update_user(db: Session, user_id: int, user_form: UserUpdateForm):
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.id_user == user_id).first()
     if not user:
         logger.error(f"User not found with id: {user_id}")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -55,7 +55,7 @@ def update_user(db: Session, user_id: int, user_form: UserUpdateForm):
     return user
 
 def delete_user(db: Session, user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
+    user = db.query(User).filter(User.id_user == user_id).first()
     if not user:
         logger.error(f"User not found with id: {user_id}")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")

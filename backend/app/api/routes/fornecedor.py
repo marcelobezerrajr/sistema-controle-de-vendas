@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 fornecedor_router = APIRouter(prefix="/fornecedor")
 
 @fornecedor_router.get("/list", response_model=List[Fornecedor])
-def list_fornecedores(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def list_fornecedores_route(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Fornecedores listados com sucesso pelo usuário: {current_user.username}")
         return get_all_fornecedores(db)
@@ -21,17 +21,17 @@ def list_fornecedores(db: Session = Depends(get_db), current_user: User = Depend
         logger.error(f"Erro ao listar todos os forncedores: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar fornecedores")
 
-@fornecedor_router.get("/view/{fornecedor_id}", response_model=Fornecedor)
-def view_fornecedor(fornecedor_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+@fornecedor_router.get("/view/{id_fornecedor}", response_model=Fornecedor)
+def view_fornecedor_route(id_fornecedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Fornecedor listado com sucesso pelo usuário: {current_user.username}")
-        return get_fornecedor_by_id(db, fornecedor_id)
+        return get_fornecedor_by_id(db, id_fornecedor)
     except Exception as e:
         logger.error(f"Erro ao listar o fornecedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar o fornecedor")
 
 @fornecedor_router.post("/create", response_model=Fornecedor)
-def add_fornecedor(fornecedor: FornecedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+def add_fornecedor_route(fornecedor: FornecedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Fornecedor criado com sucesso pelo usuário: {current_user.username}")
         return create_fornecedor(db, fornecedor)
@@ -39,20 +39,20 @@ def add_fornecedor(fornecedor: FornecedorCreate, db: Session = Depends(get_db), 
         logger.error(f"Erro ao criar o fornecedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar o fornecedor")
 
-@fornecedor_router.put("/update/{fornecedor_id}", response_model=Fornecedor)
-def update_fornecedor(fornecedor_id: int, fornecedor: FornecedorUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+@fornecedor_router.put("/update/{id_fornecedor}", response_model=Fornecedor)
+def update_fornecedor_route(id_fornecedor: int, fornecedor: FornecedorUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Fornecedor atualizado com sucesso pelo usuário: {current_user.username}")
-        return update_fornecedor(db, fornecedor_id, fornecedor)
+        return update_fornecedor(db, id_fornecedor, fornecedor)
     except Exception as e:
         logger.error(f"Erro ao atualizar o fornecedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao atualizar o fornecedor")
 
-@fornecedor_router.delete("/delete/{fornecedor_id}", response_model=Fornecedor)
-def delete_fornecedor(fornecedor_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
+@fornecedor_router.delete("/delete/{id_fornecedor}", response_model=Fornecedor)
+def delete_fornecedor_route(id_fornecedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
     try:
         logger.info(f"Fornecedor deletado com sucesso pelo usuário: {current_user.username}")
-        return delete_fornecedor(db, fornecedor_id)
+        return delete_fornecedor(db, id_fornecedor)
     except Exception as e:
         logger.error(f"Erro ao deletar o fornecedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao deletar o fornecedor")

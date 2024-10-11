@@ -9,9 +9,9 @@ export const getAllClientes = async () => {
   }
 };
 
-export const getClienteById = async (id) => {
+export const getClienteById = async (id_cliente) => {
   try {
-    const response = await api.get(`/cliente/view/${id}`);
+    const response = await api.get(`/cliente/view/${id_cliente}`);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao obter cliente.');
@@ -27,18 +27,18 @@ export const createCliente = async (clienteData) => {
   }
 };
 
-export const updateCliente = async (id, clienteData) => {
+export const updateCliente = async (id_cliente, clienteData) => {
   try {
-    const response = await api.put(`/cliente/update/${id}`, clienteData);
+    const response = await api.put(`/cliente/update/${id_cliente}`, clienteData);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao atualizar cliente.');
   }
 };
 
-export const deleteCliente = async (id) => {
+export const deleteCliente = async (id_cliente) => {
   try {
-    await api.delete(`/cliente/delete/${id}`);
+    await api.delete(`/cliente/delete/${id_cliente}`);
   } catch (error) {
     throw new Error('Erro ao deletar cliente.');
   }

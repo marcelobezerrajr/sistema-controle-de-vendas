@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 cliente_router = APIRouter(prefix="/cliente")
 
 @cliente_router.get("/list", response_model=List[Cliente])
-def list_clientes(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def list_clientes_route(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Clientes listados com sucesso pelo usuário: {current_user.username}")
         return get_all_clientes(db)
@@ -21,21 +21,21 @@ def list_clientes(db: Session = Depends(get_db), current_user: User = Depends(ge
         logger.error(f"Erro ao listar todos os clientes: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar clientes")
 
-@cliente_router.get("/view/{cliente_id}", response_model=Cliente)
-def view_cliente(cliente_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+@cliente_router.get("/view/{id_cliente}", response_model=Cliente)
+def view_cliente_route(id_cliente: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Detalhes de Cliente recuperado com sucesso pelo usuário: {current_user.username}")
-        return get_cliente_by_id(db, cliente_id)
+        return get_cliente_by_id(db, id_cliente)
     except HTTPException as he:
         raise he
     except Exception as e:
-        logger.error(f"Erro ao listar o cliente {cliente_id}: {str(e)}")
+        logger.error(f"Erro ao listar o cliente {id_cliente}: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar o cliente")
 
 @cliente_router.post("/create", response_model=Cliente)
-def add_cliente(cliente: ClienteCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+def add_cliente_route(cliente: ClienteCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
-        logger.info(f"Clientes criado com sucesso pelo usuário: {current_user.username}")
+        logger.info(f"Cliente criado com sucesso pelo usuário: {current_user.username}")
         return create_cliente(db, cliente)
     except HTTPException as he:
         logger.error(f"Erro HTTP ao criar o cliente {cliente.nome_cliente}: {he.detail}")
@@ -44,20 +44,20 @@ def add_cliente(cliente: ClienteCreate, db: Session = Depends(get_db), current_u
         logger.error(f"Erro ao criar o novo cliente {cliente.nome_cliente}: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar o cliente")
 
-@cliente_router.put("/update/{cliente_id}", response_model=Cliente)
-def update_cliente(cliente_id: int, cliente: ClienteUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+@cliente_router.put("/update/{id_cliente}", response_model=Cliente)
+def update_cliente_route(id_cliente: int, cliente: ClienteUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
-        logger.info(f"Clientes atualizado com sucesso pelo usuário: {current_user.username}")
-        return update_cliente(db, cliente_id, cliente)
+        logger.info(f"Cliente atualizado com sucesso pelo usuário: {current_user.username}")
+        return update_cliente(db, id_cliente, cliente)
     except Exception as e:
-        logger.error(f"Erro ao atualizar o cliente {cliente_id}: {str(e)}")
+        logger.error(f"Erro ao atualizar o cliente {id_cliente}: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao atualizar o cliente")
 
-@cliente_router.delete("/delete/{cliente_id}", response_model=Cliente)
-def delete_cliente(cliente_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
+@cliente_router.delete("/delete/{id_cliente}", response_model=Cliente)
+def delete_cliente_route(id_cliente: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
     try:
-        logger.info(f"Clientes deletado com sucesso pelo usuário: {current_user.username}")
-        return delete_cliente(db, cliente_id)
+        logger.info(f"Cliente deletado com sucesso pelo usuário: {current_user.username}")
+        return delete_cliente(db, id_cliente)
     except Exception as e:
-        logger.error(f"Erro ao deletar o cliente {cliente_id}: {str(e)}")
+        logger.error(f"Erro ao deletar o cliente {id_cliente}: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao deletar o cliente")

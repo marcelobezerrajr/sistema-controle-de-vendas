@@ -35,7 +35,7 @@ export const VendedorProvider = ({ children }) => {
       console.error("Erro ao adicionar vendedor:", error);
     }
   };
-  const updateVendedorById = async (id, vendedorData) => {
+  const updateVendedorData = async (id, vendedorData) => {
     try {
       const updatedVendedor = await updateVendedor(id, vendedorData);
       setVendedor((prev) =>
@@ -65,7 +65,7 @@ export const VendedorProvider = ({ children }) => {
   };
 
   return (
-    <VendedorContext.Provider value={{ vendedor, loading, addVendedor, updateVendedorById, getVendedor, removeVendedor }}>
+    <VendedorContext.Provider value={{ vendedor, loading, addVendedor, updateVendedorData, getVendedor, removeVendedor }}>
       {children}
     </VendedorContext.Provider>
   );

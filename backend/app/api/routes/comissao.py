@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 comissao_router = APIRouter(prefix="/comissao")
 
 @comissao_router.get("/list", response_model=List[Comissao])
-def list_comissoes(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def list_comissoes_route(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Comissões listadas com sucesso pelo usuário: {current_user.username}")
         return get_all_comissoes(db)
@@ -22,7 +22,7 @@ def list_comissoes(db: Session = Depends(get_db), current_user: User = Depends(g
         raise HTTPException(status_code=500, detail="Erro ao listar itens de venda.")
 
 @comissao_router.post("/create", response_model=Comissao)
-def add_comissao(comissao: ComissaoCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+def add_comissao_route(comissao: ComissaoCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Comissão criada com sucesso pelo usuário: {current_user.username}")
         return create_comissao(db, comissao)

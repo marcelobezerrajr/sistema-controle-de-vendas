@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 venda_vendedor_router = APIRouter(prefix="/venda-vendedor")
 
 @venda_vendedor_router.get("/list", response_model=List[VendaVendedor])
-def list_vendas_vendedor(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def list_vendas_vendedor_route(db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         logger.info(f"Venda vendedor listados com sucesso pelo usuário: {current_user.username}")
         return get_all_vendas_vendedor(db)
@@ -22,7 +22,7 @@ def list_vendas_vendedor(db: Session = Depends(get_db), current_user: User = Dep
         raise HTTPException(status_code=500, detail="Erro ao listar vendas-vendedor.")
 
 @venda_vendedor_router.get("/vendedor/{id_vendedor}", response_model=list[VendaVendedor])
-def gets_vendas_by_vendedor(id_vendedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+def gets_vendas_by_vendedor_route(id_vendedor: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
     try:
         vendas = get_vendas_by_vendedor(db, id_vendedor)
         if not vendas:
@@ -34,7 +34,7 @@ def gets_vendas_by_vendedor(id_vendedor: int, db: Session = Depends(get_db), cur
         raise HTTPException(status_code=500, detail="Erro ao listar vendas do vendedor.")
 
 @venda_vendedor_router.post("/create", response_model=VendaVendedor)
-def add_venda_vendedor(venda_vendedor: VendaVendedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+def add_venda_vendedor_route(venda_vendedor: VendaVendedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
         logger.info(f"Venda vendedor criada com sucesso pelo usuário: {current_user.username}")
         return create_venda_vendedor(db, venda_vendedor)

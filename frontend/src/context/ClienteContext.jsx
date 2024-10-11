@@ -27,9 +27,9 @@ export const ClienteProvider = ({ children }) => {
     fetchClientes();
   }, [user]);
 
-  const getCliente = async (id) => {
+  const getCliente = async (id_cliente) => {
     try {
-      const cliente = await getClienteById(id);
+      const cliente = await getClienteById(id_cliente);
       return cliente;
     } catch (error) {
     }
@@ -44,19 +44,19 @@ export const ClienteProvider = ({ children }) => {
     }
   };
 
-  const updateClienteData = async (id, updatedCliente) => {
+  const updateClienteData = async (id_cliente, updatedCliente) => {
     try {
-      const updated = await updateCliente(id, updatedCliente);
-      setClientes(clientes.map(cliente => cliente.id_cliente === id ? updated : cliente));
+      const updated = await updateCliente(id_cliente, updatedCliente);
+      setClientes(clientes.map(cliente => cliente.id_cliente === id_cliente ? updated : cliente));
     } catch (error) {
       console.error("Erro ao atualizar cliente:", error)
     }
   };
 
-  const removeCliente = async (id) => {
+  const removeCliente = async (id_cliente) => {
     try {
-      await deleteCliente(id);
-      setClientes(clientes.filter(cliente => cliente.id_cliente !== id));
+      await deleteCliente(id_cliente);
+      setClientes(clientes.filter(cliente => cliente.id_cliente !== id_cliente));
     } catch (error) {
       console.error("Erro ao deletar cliente:", error)
     }

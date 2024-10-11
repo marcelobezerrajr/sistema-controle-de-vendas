@@ -12,33 +12,36 @@ import { VendedorProvider } from './VendedorContext';
 import { LoginProvider } from './LoginContext';
 import { RequestPasswordProvider } from './RequestPasswordContext';
 import { ResetPasswordProvider } from './ResetPasswordContext';
+import { EntityProvider } from './EntityContext';
 
 const MainProvider = ({ children }) => {
   return (
     <LoginProvider>
       <RequestPasswordProvider>
         <ResetPasswordProvider>
-          <ClienteProvider>
-            <ComissaoProvider>
-              <CustoProvider>
-                <ItemVendaProvider>
-                  <ParcelaProvider>
-                    <ProdutoProvider>
-                      <VendedorProvider>
-                        <VendaProvider>
-                          <VendaVendedorProvider>
-                            <FornecedorProvider>
-                              {children}
-                            </FornecedorProvider>
-                          </VendaVendedorProvider>
-                        </VendaProvider>
-                      </VendedorProvider>
-                    </ProdutoProvider>
-                  </ParcelaProvider>
-                </ItemVendaProvider>
-              </CustoProvider>
-            </ComissaoProvider>
-          </ClienteProvider>
+          <EntityProvider>
+            <ClienteProvider>
+              <ComissaoProvider>
+                <CustoProvider>
+                  <ItemVendaProvider>
+                    <ParcelaProvider>
+                      <ProdutoProvider>
+                        <VendedorProvider>
+                          <VendaProvider>
+                            <VendaVendedorProvider>
+                              <FornecedorProvider>
+                                {children}
+                              </FornecedorProvider>
+                            </VendaVendedorProvider>
+                          </VendaProvider>
+                        </VendedorProvider>
+                      </ProdutoProvider>
+                    </ParcelaProvider>
+                  </ItemVendaProvider>
+                </CustoProvider>
+              </ComissaoProvider>
+            </ClienteProvider>
+          </EntityProvider>
         </ResetPasswordProvider>
       </RequestPasswordProvider>
     </LoginProvider>
