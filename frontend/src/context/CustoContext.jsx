@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getAllCustos, createCusto } from '../services/custoService'
+import { getAllCustos, createCusto, getCustoById } from '../services/custoService'
 import { LoginContext } from './LoginContext';
 
 
@@ -28,6 +28,14 @@ export const CustoProvider = ({ children }) => {
     fetchCustos();
   }, [user]);
 
+  const getCusto = async (id_custo) => {
+    try {
+      const custo = await getCustoById(id_custo);
+      return custo;
+    } catch (error) {
+    }
+  };
+
   const addCusto = async (custo) => {
     try {
       const newCusto = await createCusto(custo);
@@ -38,7 +46,7 @@ export const CustoProvider = ({ children }) => {
   };
 
   return (
-    <CustoContext.Provider value={{ custos, loading, addCusto }}>
+    <CustoContext.Provider value={{ custos, loading, addCusto, getCusto }}>
       {children}
     </CustoContext.Provider>
   );

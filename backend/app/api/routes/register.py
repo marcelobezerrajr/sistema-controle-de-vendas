@@ -30,11 +30,10 @@ def register_user(user_form: UserForm, db: Session = Depends(get_db)):
             detail="E-mail já cadastrado"
         )
 
-    password_hashed = get_password_hash(user_form.hashed_password)
     new_user = User(
         username=user_form.username,
         email=user_form.email,
-        hashed_password=password_hashed,
+        hashed_password=user_form.hashed_password,
         permission=user_form.permission
     )
 

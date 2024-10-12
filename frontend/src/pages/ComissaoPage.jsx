@@ -1,54 +1,43 @@
 import React, { useState } from 'react';
 import { Table, Button, Alert } from 'react-bootstrap';
+import useComissao from '../hooks/useComissao';
 import TableRow from '../components/TableRow';
-import useCliente from '../hooks/useCliente';
 import MainLayout from '../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
-const ClientePage = () => {
-  const { clientes, loading, addCliente, updateClienteData, removeCliente } = useCliente();
+const ComissaoPage = () => {
+  const { comissoes, loading, addComissao} = useComissao();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddCliente = async () => {
-    navigate(`/cliente/create`);
-  };
-
-  const handleEditCliente = async (id_cliente) => {
-    navigate(`/cliente/update/${id_cliente}`);
-  };
-
-  const handleViewCliente = async (id_cliente) => {
-    navigate(`/cliente/view/${id_cliente}`);
-  };
-
-  const handleDeleteCliente = async (id_cliente) => {
-    await removeCliente(id_cliente);
-    setAlertMessage("Cliente deletado com sucesso!");
+  const handleAddComissao = async () => {
+    navigate(`/comissao/create`);
     setAlertVariant("success");
   };
 
-  const columns = ['id_cliente', 'nome_cliente', 'cpf_cnpj'];
+  const handleViewComissao = async (id_comissao) => {
+    navigate(`/comissao/view/${id_comissao}`);
+  };
+
+  const columns = ['id_comissao', 'valor_comissao', 'data_pagamento', 'percentual_comissao', 'id_vendedor', 'id_parcela'];
 
   const actions = {
-    view: handleViewCliente,
-    update: handleEditCliente,
-    delete: handleDeleteCliente
+    view: handleViewComissao,
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Clientes</h2>
+          <h2>Gerenciamento de Comissões</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddCliente}>
-              Adicionar Cliente
+            <Button variant="primary" className="custom-button" onClick={handleAddComissao}>
+              Adicionar Comissão
             </Button>
           )}
         </div>
@@ -61,26 +50,29 @@ const ClientePage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : clientes.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum cliente encontrado.</Alert>
+        ) : comissoes.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhuma comissão encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF/CNPJ</th>
+                <th>ID Comissão</th>
+                <th>Valor Comissão</th>
+                <th>Data Pagamento</th>
+                <th>Percentual Comissão</th>
+                <th>ID Vendedor</th>
+                <th>ID Parcela</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map((cliente) => (
+              {comissoes.map((comissao) => (
                 <TableRow
-                  key={cliente.id_cliente}
-                  rowData={cliente}
+                  key={comissao.id_comissao}
+                  rowData={comissao}
                   columns={columns}
                   actions={actions}
-                  idField="id_cliente"
+                  idField="id_comissao"
                 />
               ))}
             </tbody>
@@ -91,4 +83,4 @@ const ClientePage = () => {
   );
 };
 
-export default ClientePage;
+export default ComissaoPage;

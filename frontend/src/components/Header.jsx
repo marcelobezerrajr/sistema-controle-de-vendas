@@ -43,9 +43,9 @@ function Header() {
         <Link to="/vendedores">Vendedores</Link>
         <Link to="/produtos">Produtos</Link>
         <Link to="/fornecedores">Fornecedores</Link>
-        {/* <Link to="/comissoes">Comissões</Link>
+        <Link to="/comissoes">Comissões</Link>
         <Link to="/custos">Custos</Link>
-        <Link to="/parcelas">Parcelas</Link> */}
+        {/* <Link to="/parcelas">Parcelas</Link> */}
         
         <NavDropdown
           title={

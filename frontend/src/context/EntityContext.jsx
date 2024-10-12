@@ -82,6 +82,34 @@ export const EntityProvider = ({ children }) => {
         };
         break;
 
+        case 'comissao':
+        config = {
+          entityName: 'Comissao',
+          fetchUrl: 'http://127.0.0.1:8000/comissao/view',
+          fields: [
+            { label: 'ID Comissão', key: 'id_comissao' },
+            { label: 'Valor Comissão', key: 'valor_comissao' },
+            { label: 'Data Pagamento', key: 'data_pagamento' },
+            { label: 'Percentual Comissão', key: 'percentual_comissao' },
+            { label: 'ID Vendedor', key: 'id_vendedor' },
+            { label: 'ID Parcela', key: 'id_parcela' },
+          ],
+        };
+        break;
+
+        case 'custo':
+        config = {
+          entityName: 'Custo',
+          fetchUrl: 'http://127.0.0.1:8000/custo/view',
+          fields: [
+            { label: 'ID Custo', key: 'id_custo' },
+            { label: 'Descrição', key: 'descricao' },
+            { label: 'Valor', key: 'valor' },
+            { label: 'ID Venda', key: 'id_venda' },
+          ],
+        };
+        break;
+
       default:
         config = {
           entityName: '',

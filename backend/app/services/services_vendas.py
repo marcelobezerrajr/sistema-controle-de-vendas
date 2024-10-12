@@ -70,10 +70,10 @@ def get_all_itens_venda(db: Session):
     return db.query(models_vendas.ItemVenda).all()
 
 def get_item_venda_by_id(db: Session, id_item_venda: int):
-    fornecedor = db.query(models_vendas.ItemVenda).filter(models_vendas.ItemVenda.id_item_venda == id_item_venda).first()
-    if not fornecedor:
-        raise HTTPException(status_code=404, detail="Fornecedor não encontrado")
-    return fornecedor
+    item_venda = db.query(models_vendas.ItemVenda).filter(models_vendas.ItemVenda.id_item_venda == id_item_venda).first()
+    if not item_venda:
+        raise HTTPException(status_code=404, detail="Item Venda não encontrado")
+    return item_venda
 
 def delete_item_venda(db: Session, id_item_venda: int):
     item_venda = get_item_venda_by_id(db, id_item_venda)
@@ -124,6 +124,21 @@ def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.Parcela
 def get_all_parcelas(db: Session):
     return db.query(models_vendas.Parcela).all()
 
+def get_parcela_by_id(db: Session, id_parcela: int):
+    parcela = db.query(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == id_parcela).first()
+    if not parcela:
+        raise HTTPException(status_code=404, detail="Parcela não encontrado")
+    return parcela
+
+def get_all_comissoes(db: Session):
+    return db.query(models_vendas.Comissao).all()
+
+def get_comissao_by_id(db: Session, id_comissao: int):
+    comissao = db.query(models_vendas.Comissao).filter(models_vendas.Comissao.id_comissao == id_comissao).first()
+    if not comissao:
+        raise HTTPException(status_code=404, detail="Comissão não encontrada")
+    return comissao
+
 def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate):
     try:
         venda = db.query(models_vendas.Venda).join(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == comissao.id_parcela).first()
@@ -164,8 +179,14 @@ def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate):
         logger.error(f"Erro ao criar comissão: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar comissão.")
 
-def get_all_comissoes(db: Session):
-    return db.query(models_vendas.Comissao).all()
+def get_all_custos(db: Session):
+    return db.query(models_vendas.Custo).all()
+
+def get_custo_by_id(db: Session, id_custo: int):
+    custo = db.query(models_vendas.Custo).filter(models_vendas.Custo.id_custo == id_custo).first()
+    if not custo:
+        raise HTTPException(status_code=404, detail="Custo não encontrado")
+    return custo
 
 def create_custo(db: Session, custo: schemas_vendas.CustoCreate):
     try:
@@ -181,9 +202,6 @@ def create_custo(db: Session, custo: schemas_vendas.CustoCreate):
     except Exception as e:
         logger.error(f"Erro ao criar custo: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar custo.")
-    
-def get_all_custos(db: Session):
-    return db.query(models_vendas.Custo).all()
     
 def get_all_fornecedores(db: Session):
     return db.query(models_vendas.Fornecedor).all()

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { createComissao, getAllComissoes } from '../services/comissaoService';
+import { createComissao, getAllComissoes, getComissaoById } from '../services/comissaoService';
 import { LoginContext } from './LoginContext';
 
 export const ComissaoContext = createContext();
@@ -27,6 +27,14 @@ export const ComissaoProvider = ({ children }) => {
     fetchComissoes();
   }, [user]);
 
+  const getComissao = async (id_comissao) => {
+    try {
+      const comissao = await getComissaoById(id_comissao);
+      return comissao;
+    } catch (error) {
+    }
+  };
+
   const addComissao = async (comissao) => {
     try {
       const newComissao = await createComissao(comissao);
@@ -37,7 +45,7 @@ export const ComissaoProvider = ({ children }) => {
   };
 
   return (
-    <ComissaoContext.Provider value={{ comissoes, loading, addComissao }}>
+    <ComissaoContext.Provider value={{ comissoes, loading, addComissao, getComissao }}>
       {children}
     </ComissaoContext.Provider>
   );

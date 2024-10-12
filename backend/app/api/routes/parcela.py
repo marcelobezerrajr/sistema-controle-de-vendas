@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas
+from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas, get_parcela_by_id
 from app.api.depends import get_db, get_read_user_admin, get_user_admin
 from app.database.models.models_vendas import User
 from app.schemas.schemas_vendas import Parcela, ParcelaCreate, ParcelaUpdate
@@ -20,6 +20,15 @@ def list_parcelas_route(db: Session = Depends(get_db), current_user: User = Depe
     except Exception as e:
         logger.error(f"Erro ao listar itens de venda: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao listar itens de venda.")
+
+@parcela_router.get("/view/{id_parcela}", response_model=Parcela)
+def view_item_venda_route(id_parcela: int, db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)):
+    try:
+        logger.info(f"Parcela listada com sucesso pelo usuário: {current_user.username}")
+        return get_parcela_by_id(db, id_parcela)
+    except Exception as e:
+        logger.error(f"Erro ao listar parcela: {str(e)}")
+        raise HTTPException(status_code=500, detail="Erro ao listar parcela")
 
 @parcela_router.post("/create", response_model=Parcela)
 def add_parcela_route(parcela: ParcelaCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):

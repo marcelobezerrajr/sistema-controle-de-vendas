@@ -12,6 +12,7 @@ const VendedorPage = () => {
   const [alertVariant, setAlertVariant] = useState('success');
  
   const navigate = useNavigate();
+  const userPermission = localStorage.getItem('user_permission');
 
   const handleAddVendedor = async () => {
     navigate(`/vendedor/create`);
@@ -45,9 +46,11 @@ const VendedorPage = () => {
       <div className="table-container">
         <div className="header-section">
           <h2>Gerenciamento de Vendedores</h2>
-          <Button variant="primary" className="custom-button" onClick={handleAddVendedor}>
-            Adicionar Vendedor
-          </Button>
+          {(userPermission === 'Admin' || userPermission === 'User') && (
+            <Button variant="primary" className="custom-button" onClick={handleAddVendedor}>
+              Adicionar Vendedor
+            </Button>
+          )}
         </div>
 
         {alertMessage && (

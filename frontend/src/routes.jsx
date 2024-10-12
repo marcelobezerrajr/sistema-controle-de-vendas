@@ -11,6 +11,8 @@ import FornecedorPage from './pages/FornecedorPage';
 import VendaPage from './pages/VendaPage';
 import ProdutoPage from './pages/ProdutoPage';
 import ViewPage from './pages/ViewPage';
+import ComissaoPage from './pages/ComissaoPage';
+import CustoPage from './pages/CustoPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEntityContext } from './context/EntityContext';
 
@@ -52,6 +54,8 @@ const AppRoutes = () => {
       <Route exact path="/fornecedores" element={<FornecedorPage />} />
       <Route exact path="/vendas" element={<VendaPage />} />
       <Route exact path="/produtos" element={<ProdutoPage />} />
+      <Route exact path="/comissoes" element={<ComissaoPage />} />
+      <Route exact path="/custos" element={<CustoPage />} />
       <Route exact path="/:entity/view/:id" element={<EntityViewWrapper />} />
       <Route exact path="*" element={<NotFoundPage />} />
     </Routes>

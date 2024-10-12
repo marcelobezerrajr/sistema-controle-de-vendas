@@ -1,54 +1,43 @@
 import React, { useState } from 'react';
 import { Table, Button, Alert } from 'react-bootstrap';
+import useCusto from '../hooks/useCusto';
 import TableRow from '../components/TableRow';
-import useCliente from '../hooks/useCliente';
 import MainLayout from '../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
-const ClientePage = () => {
-  const { clientes, loading, addCliente, updateClienteData, removeCliente } = useCliente();
+const CustoPage = () => {
+  const { custos, loading, addCusto} = useCusto();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddCliente = async () => {
-    navigate(`/cliente/create`);
-  };
-
-  const handleEditCliente = async (id_cliente) => {
-    navigate(`/cliente/update/${id_cliente}`);
-  };
-
-  const handleViewCliente = async (id_cliente) => {
-    navigate(`/cliente/view/${id_cliente}`);
-  };
-
-  const handleDeleteCliente = async (id_cliente) => {
-    await removeCliente(id_cliente);
-    setAlertMessage("Cliente deletado com sucesso!");
+  const handleAddCusto = async () => {
+    navigate(`/custo/create`);
     setAlertVariant("success");
   };
 
-  const columns = ['id_cliente', 'nome_cliente', 'cpf_cnpj'];
+  const handleViewCusto = async (id_custo) => {
+    navigate(`/custo/view/${id_custo}`);
+  };
+
+  const columns = ['id_custo', 'descricao', 'valor', 'id_venda'];
 
   const actions = {
-    view: handleViewCliente,
-    update: handleEditCliente,
-    delete: handleDeleteCliente
+    view: handleViewCusto,
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Clientes</h2>
+          <h2>Gerenciamento de Custos</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddCliente}>
-              Adicionar Cliente
+            <Button variant="primary" className="custom-button" onClick={handleAddCusto}>
+              Adicionar Custo
             </Button>
           )}
         </div>
@@ -61,26 +50,27 @@ const ClientePage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : clientes.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum cliente encontrado.</Alert>
+        ) : custos.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhum custo encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF/CNPJ</th>
+                <th>ID Custo</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>ID Venda</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map((cliente) => (
+              {custos.map((custo) => (
                 <TableRow
-                  key={cliente.id_cliente}
-                  rowData={cliente}
+                  key={custo.id_custo}
+                  rowData={custo}
                   columns={columns}
                   actions={actions}
-                  idField="id_cliente"
+                  idField="id_custo"
                 />
               ))}
             </tbody>
@@ -91,4 +81,4 @@ const ClientePage = () => {
   );
 };
 
-export default ClientePage;
+export default CustoPage;

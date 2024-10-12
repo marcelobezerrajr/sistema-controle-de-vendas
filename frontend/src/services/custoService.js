@@ -17,3 +17,12 @@ export const createCusto = async (custoData) => {
     throw new Error('Erro ao criar custo.');
   }
 };
+
+export const getCustoById = async (id_custo) => {
+  try {
+    const response = await api.get(`/custo/view/${id_custo}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao obter custo.');
+  }
+};
