@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Table, Button, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useCliente from '../hooks/useCliente';
-import MainLayout from '../layouts/MainLayout';
+import { Table, Alert } from 'react-bootstrap';
+import TableRow from '../../components/TableRow';
+import useCliente from '../../hooks/useCliente';
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import "../../styles/Gerenciamento.css";
 
 const ClientePage = () => {
-  const { clientes, loading, addCliente, updateClienteData, removeCliente } = useCliente();
+  const { clientes, loading, removeCliente } = useCliente();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
@@ -47,9 +47,9 @@ const ClientePage = () => {
           <h2>Gerenciamento de Clientes</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddCliente}>
+            <button variant="primary" className="custom-button" onClick={handleAddCliente}>
               Adicionar Cliente
-            </Button>
+            </button>
           )}
         </div>
 

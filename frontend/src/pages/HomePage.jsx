@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer'; 
 import logo from '../assets/logo.png';
@@ -15,10 +15,10 @@ const HomePage = () => {
           <img src={logo} alt="Logo ViperIT" className="viper-logo" />
         </Navbar.Brand>
         <div className="home-buttons">
-          <Button variant="primary" onClick={() => navigate('/login')}>Login</Button>
-          <Button variant="outline-primary" onClick={() => alert('Entrando em Contato!')}>
+          <button variant="primary" onClick={() => navigate('/login')}>Login</button>
+          <button variant="outline-primary" onClick={() => alert('Entrando em Contato!')}>
             Entre em Contato
-          </Button>
+          </button>
         </div>
       </Navbar>
 

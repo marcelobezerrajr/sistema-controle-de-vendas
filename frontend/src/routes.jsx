@@ -5,7 +5,9 @@ import LoginPage from './pages/LoginPage';
 import RequestPasswordPage from './pages/RequestPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import InvalidTokenPage from './pages/InvalidTokenPage';
-import ClientePage from './pages/ClientePage';
+import ClientePage from './pages/Cliente/ClientePage';
+import AddCliente from './pages/Cliente/AddCliente';
+import UpdateCliente from './pages/Cliente/UpdateCliente';
 import VendedorPage from './pages/VendedorPage';
 import FornecedorPage from './pages/FornecedorPage';
 import VendaPage from './pages/VendaPage';
@@ -13,6 +15,9 @@ import ProdutoPage from './pages/ProdutoPage';
 import ViewPage from './pages/ViewPage';
 import ComissaoPage from './pages/ComissaoPage';
 import CustoPage from './pages/CustoPage';
+import ParcelaPage from './pages/Parcela';
+import UsuarioPage from './pages/UsuarioPage';
+import ItemVendaPage from './pages/ItemVendaPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEntityContext } from './context/EntityContext';
 
@@ -50,12 +55,17 @@ const AppRoutes = () => {
       <Route exact path="/reset-password" element={<ResetPasswordPage />} />
       <Route exact path="/invalid-token" element={<InvalidTokenPage />} />
       <Route exact path="/clientes" element={<ClientePage />} />
+      <Route exact path="/cliente/create" element={<AddCliente />} />
+      <Route exact path="/cliente/update/:id_cliente" element={<UpdateCliente />} />
       <Route exact path="/vendedores" element={<VendedorPage />} />
       <Route exact path="/fornecedores" element={<FornecedorPage />} />
       <Route exact path="/vendas" element={<VendaPage />} />
       <Route exact path="/produtos" element={<ProdutoPage />} />
       <Route exact path="/comissoes" element={<ComissaoPage />} />
       <Route exact path="/custos" element={<CustoPage />} />
+      <Route exact path="/parcelas" element={<ParcelaPage />} />
+      <Route exact path="/usuarios" element={<UsuarioPage />} />
+      <Route exact path="/item-venda" element={<ItemVendaPage />} />
       <Route exact path="/:entity/view/:id" element={<EntityViewWrapper />} />
       <Route exact path="*" element={<NotFoundPage />} />
     </Routes>

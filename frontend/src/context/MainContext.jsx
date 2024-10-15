@@ -13,6 +13,7 @@ import { LoginProvider } from './LoginContext';
 import { RequestPasswordProvider } from './RequestPasswordContext';
 import { ResetPasswordProvider } from './ResetPasswordContext';
 import { EntityProvider } from './EntityContext';
+import { UsuarioProvider } from './UsuarioContext';
 
 const MainProvider = ({ children }) => {
   return (
@@ -28,11 +29,13 @@ const MainProvider = ({ children }) => {
                       <ProdutoProvider>
                         <VendedorProvider>
                           <VendaProvider>
-                            <VendaVendedorProvider>
-                              <FornecedorProvider>
-                                {children}
-                              </FornecedorProvider>
-                            </VendaVendedorProvider>
+                            <UsuarioProvider>
+                              <VendaVendedorProvider>
+                                <FornecedorProvider>
+                                  {children}
+                                </FornecedorProvider>
+                              </VendaVendedorProvider>
+                            </UsuarioProvider>
                           </VendaProvider>
                         </VendedorProvider>
                       </ProdutoProvider>

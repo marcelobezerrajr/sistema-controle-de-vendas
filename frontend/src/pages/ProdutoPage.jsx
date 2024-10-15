@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Alert } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../components/TableRow';
 import useProdutos from '../hooks/useProduto'
 import MainLayout from '../layouts/MainLayout';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
 const ProdutoPage = () => {
-  const { produtos, loading, addProduto, updateProdutoData, removeProduto } = useProdutos();
+  const { produtos, loading, removeProduto } = useProdutos();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
  
@@ -47,9 +47,9 @@ const ProdutoPage = () => {
         <div className="header-section">
           <h2>Gerenciamento de Produtos</h2>
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddProduto}>
+            <button variant="primary" className="custom-button" onClick={handleAddProduto}>
                 Adicionar Produto
-            </Button>
+            </button>
           )}
         </div>
 

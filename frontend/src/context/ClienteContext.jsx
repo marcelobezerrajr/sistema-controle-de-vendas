@@ -32,6 +32,8 @@ export const ClienteProvider = ({ children }) => {
       const cliente = await getClienteById(id_cliente);
       return cliente;
     } catch (error) {
+      console.error(`Erro ao carregar cliente com ID ${id_cliente}:`, error);
+      throw error;
     }
   };
 

@@ -51,10 +51,6 @@ export const LoginProvider = ({ children }) => {
     navigate('/login');
   };
 
-  // if (loading) {
-  //   return <div>Carregando...</div>;
-  // }
-
   return (
     <LoginContext.Provider value={{ user, login, logout, loading, error }}>
       {children}

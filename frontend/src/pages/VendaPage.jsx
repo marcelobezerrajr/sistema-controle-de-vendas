@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Alert } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../components/TableRow';
 import useVendas from '../hooks/useVenda'
 import MainLayout from '../layouts/MainLayout';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
 const VendaPage = () => {
-  const { vendas, loading, addVenda, updateVendaData, removeVenda } = useVendas();
+  const { vendas, loading, removeVenda } = useVendas();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
  
@@ -47,9 +47,9 @@ const VendaPage = () => {
         <div className="header-section">
           <h2>Gerenciamento de Vendas</h2>
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddVenda}>
+            <button variant="primary" className="custom-button" onClick={handleAddVenda}>
                 Adicionar Venda
-            </Button>
+            </button>
           )}
         </div>
 

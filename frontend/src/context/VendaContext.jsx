@@ -27,9 +27,9 @@ export const VendaProvider = ({ children }) => {
     fetchVendas();
   }, [user]);
 
-  const getVenda = async (id) => {
+  const getVenda = async (id_venda) => {
     try {
-      const venda = await getVendaById(id);
+      const venda = await getVendaById(id_venda);
       return venda;
     } catch (error) {
     }
@@ -44,19 +44,19 @@ export const VendaProvider = ({ children }) => {
     }
   };
 
-  const updateVendaData = async (id, updatedVenda) => {
+  const updateVendaData = async (id_venda, updatedVenda) => {
     try {
       const updated = await updateVenda(id, updatedVenda);
-      setVendas(vendas.map(venda => venda.id_venda === id ? updated : venda));
+      setVendas(vendas.map(venda => venda.id_venda === id_venda ? updated : venda));
     } catch (error) {
       console.error("Erro ao atualizar venda:", error)
     }
   };
 
-  const removeVenda = async (id) => {
+  const removeVenda = async (id_venda) => {
     try {
-      await deleteVenda(id);
-      setVendas(vendas.filter(venda => venda.id_venda !== id));
+      await deleteVenda(id_venda);
+      setVendas(vendas.filter(venda => venda.id_venda !== id_venda));
     } catch (error) {
       console.error("Erro ao deletar venda:", error)
     }

@@ -1,54 +1,48 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../components/TableRow';
-import useVendedores from '../hooks/useVendedor'
+import useParcelas from '../hooks/useParcela'
 import MainLayout from '../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
-const VendedorPage = () => {
-  const { vendedor, loading, removeVendedor } = useVendedores();
+const ParcelaPage = () => {
+  const { parcelas, loading } = useParcelas();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddVendedor = async () => {
-    navigate(`/vendedor/create`);
+  const handleAddParcela = async () => {
+    navigate(`/parcela/create`);
   };
 
-  const handleEditVendedor = async (id_vendedor) => {
-    navigate(`/vendedor/update/${id_vendedor}`);
+  const handleEditParcela = async (id_parcela) => {
+    navigate(`/parcela/update/${id_parcela}`);
 
   };
 
-  const handleViewVendedor = async (id_vendedor) => {
-    navigate(`/vendedor/view/${id_vendedor}`);
+  const handleViewParcela = async (id_parcela) => {
+    navigate(`/parcela/view/${id_parcela}`);
   };
 
-  const handleDeleteVendedor = async (id_vendedor) => {
-    await removeVendedor(id_vendedor);
-    setAlertMessage("Vendedor deletado com sucesso!");
-    setAlertVariant("success");
-  };
 
-  const columns = ['id_vendedor','nome_vendedor', 'tipo', 'percentual_comissao'];
+  const columns = ['id_parcela', 'id_venda', 'numero_parcela', 'valor_parcela', 'data_prevista', 'data_recebimento', 'status', 'forma_recebimento'];
 
   const actions = {
-    view: handleViewVendedor,
-    update: handleEditVendedor,
-    delete: handleDeleteVendedor
+    view: handleViewParcela,
+    update: handleEditParcela,
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Vendedores</h2>
+          <h2>Gerenciamento de Parcela</h2>
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddVendedor}>
-              Adicionar Vendedor
+            <button variant="primary" className="custom-button" onClick={handleAddParcela}>
+                Adicionar Parcela
             </button>
           )}
         </div>
@@ -61,27 +55,31 @@ const VendedorPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : vendedor.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum vendedor encontrado.</Alert>
+        ) : parcelas.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhuma parcela encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Percentual de Comissão</th>
+                <th>ID Parcela</th>
+                <th>ID Venda</th>
+                <th>Número Parcela</th>
+                <th>Valor Parcela</th>
+                <th>Data Prevista</th>
+                <th>Data Recebimento</th>
+                <th>Status</th>
+                <th>Forma Recebimento</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {vendedor.map((vendedor) => (
+              {parcelas.map((parcela) => (
                 <TableRow
-                 key={vendedor.id_vendedor}
-                 rowData={vendedor}
+                 key={parcela.id_parcela}
+                 rowData={parcela}
                  columns={columns}
                  actions={actions}
-                 idField="id_vendedor"
+                 idField="id_parcela"
                />
               ))}
             </tbody>
@@ -92,4 +90,4 @@ const VendedorPage = () => {
   );
 };
 
-export default VendedorPage;
+export default ParcelaPage;

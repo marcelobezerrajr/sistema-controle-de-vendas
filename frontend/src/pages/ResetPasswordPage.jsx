@@ -88,13 +88,13 @@ const ResetPasswordPage = () => {
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="reset-form-control-custom"
                                 />
-                                <Button 
+                                <button 
                                     variant="link" 
                                     className="reset-password-toggle" 
                                     onClick={() => togglePasswordVisibility('newPassword')}
                                 >
                                     {showPasswords.newPassword ? <FaEye /> : <FaEyeSlash />}
-                                </Button>
+                                </button>
                             </div>
                         </Form.Group>
                         <Form.Group>
@@ -107,13 +107,13 @@ const ResetPasswordPage = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="reset-form-control-custom"
                                 />
-                                <Button 
+                                <button 
                                     variant="link" 
                                     className="reset-password-toggle" 
                                     onClick={() => togglePasswordVisibility('confirmPassword')}
                                 >
                                     {showPasswords.confirmPassword ? <FaEye /> : <FaEyeSlash />}
-                                </Button>
+                                </button>
                             </div>
                             <div className="reset-back-login">
                                 <a href="/login">Voltar para Login</a>

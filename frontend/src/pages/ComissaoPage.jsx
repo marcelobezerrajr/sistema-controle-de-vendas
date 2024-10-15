@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Alert } from 'react-bootstrap';
+import { Table, Alert } from 'react-bootstrap';
 import useComissao from '../hooks/useComissao';
 import TableRow from '../components/TableRow';
 import MainLayout from '../layouts/MainLayout';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Gerenciamento.css';
 
 const ComissaoPage = () => {
-  const { comissoes, loading, addComissao} = useComissao();
+  const { comissoes, loading } = useComissao();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
@@ -36,9 +36,9 @@ const ComissaoPage = () => {
           <h2>Gerenciamento de Comissões</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <Button variant="primary" className="custom-button" onClick={handleAddComissao}>
+            <button variant="primary" className="custom-button" onClick={handleAddComissao}>
               Adicionar Comissão
-            </Button>
+            </button>
           )}
         </div>
 

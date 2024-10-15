@@ -110,6 +110,51 @@ export const EntityProvider = ({ children }) => {
         };
         break;
 
+        case 'parcela':
+        config = {
+          entityName: 'Parcela',
+          fetchUrl: 'http://127.0.0.1:8000/parcela/view',
+          fields: [
+            { label: 'ID Parcela', key: 'id_parcela' },
+            { label: 'ID Venda', key: 'id_venda' },
+            { label: 'Número Parcela', key: 'numero_parcela' },
+            { label: 'Valor Parcela', key: 'valor_parcela' },
+            { label: 'Data Prevista', key: 'data_prevista' },
+            { label: 'Data Recebimento', key: 'data_recebimento' },
+            { label: 'Status', key: 'status' },
+            { label: 'Forma Recebimento', key: 'forma_recebimento' },
+          ],
+        };
+        break;
+
+        case 'user':
+        config = {
+          entityName: 'Usuario',
+          fetchUrl: 'http://127.0.0.1:8000/user/view',
+          fields: [
+            { label: 'ID Usuário', key: 'id_user' },
+            { label: 'Username', key: 'username' },
+            { label: 'Email', key: 'email' },
+            { label: 'Permissão', key: 'permission' },
+          ],
+        };
+        break;
+
+        case 'item-venda':
+        config = {
+          entityName: 'Item Venda',
+          fetchUrl: 'http://127.0.0.1:8000/item-venda/view',
+          fields: [
+            { label: 'ID Item Venda', key: 'id_item_venda' },
+            { label: 'ID Venda', key: 'id_venda' },
+            { label: 'ID Produto', key: 'id_produto' },
+            { label: 'Quantidade', key: 'quantidade' },
+            { label: 'Preço Unitário', key: 'preco_unitario' },
+            { label: 'Subtotal', key: 'subtotal' },
+          ],
+        };
+        break;
+
       default:
         config = {
           entityName: '',
