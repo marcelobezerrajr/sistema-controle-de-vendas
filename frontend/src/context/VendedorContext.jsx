@@ -27,6 +27,15 @@ export const VendedorProvider = ({ children }) => {
     fetchVendedores();
   }, [user]);
 
+  const getVendedor = async (id_vendedor) => {
+    try {
+      const vendedor = await getVendedorById(id_vendedor);
+      return vendedor;
+    } catch (error) {
+      console.error("Erro ao obter vendedor:", error);
+    }
+  };
+
   const addVendedor = async (vendedor) => {
     try {
       const newVendedor = await createVendedor(vendedor);
@@ -35,30 +44,22 @@ export const VendedorProvider = ({ children }) => {
       console.error("Erro ao adicionar vendedor:", error);
     }
   };
-  const updateVendedorData = async (id, vendedorData) => {
+
+  const updateVendedorData = async (id_vendedor, vendedorData) => {
     try {
-      const updatedVendedor = await updateVendedor(id, vendedorData);
+      const updatedVendedor = await updateVendedor(id_vendedor, vendedorData);
       setVendedor((prev) =>
-        prev.map((vendedor) => (vendedor.id === id ? updatedVendedor : vendedor))
+        prev.map((vendedor) => (vendedor.id_vendedor === id_vendedor ? updatedVendedor : vendedor))
       );
     } catch (error) {
       console.error("Erro ao atualizar vendedor:", error);
     }
   };
 
-  const getVendedor = async (id) => {
+  const removeVendedor = async (id_vendedor) => {
     try {
-      const vendedor = await getVendedorById(id);
-      return vendedor;
-    } catch (error) {
-      console.error("Erro ao obter vendedor:", error);
-    }
-  };
-
-  const removeVendedor = async (id) => {
-    try {
-      await deleteVendedor(id);
-      setVendedor((prev) => prev.filter((vendedor) => vendedor.id !== id));
+      await deleteVendedor(id_vendedor);
+      setVendedor((prev) => prev.filter((vendedor) => vendedor.id_vendedor !== id_vendedor));
     } catch (error) {
       console.error("Erro ao deletar vendedor:", error);
     }

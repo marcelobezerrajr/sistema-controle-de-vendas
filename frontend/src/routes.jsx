@@ -8,9 +8,13 @@ import InvalidTokenPage from './pages/InvalidTokenPage';
 import ClientePage from './pages/Cliente/ClientePage';
 import AddCliente from './pages/Cliente/AddCliente';
 import UpdateCliente from './pages/Cliente/UpdateCliente';
-import VendedorPage from './pages/VendedorPage';
+import VendedorPage from './pages/Vendedor/VendedorPage';
+import AddVendedor from './pages/Vendedor/AddVendedor';
+import UpdateVendedor from './pages/Vendedor/UpdateVendedor';
 import FornecedorPage from './pages/FornecedorPage';
-import VendaPage from './pages/VendaPage';
+import VendaPage from './pages/Venda/VendaPage';
+import AddVenda from './pages/Venda/AddVenda';
+import UpdateVenda from './pages/Venda/UpdateVenda';
 import ProdutoPage from './pages/ProdutoPage';
 import ViewPage from './pages/ViewPage';
 import ComissaoPage from './pages/ComissaoPage';
@@ -58,8 +62,12 @@ const AppRoutes = () => {
       <Route exact path="/cliente/create" element={<AddCliente />} />
       <Route exact path="/cliente/update/:id_cliente" element={<UpdateCliente />} />
       <Route exact path="/vendedores" element={<VendedorPage />} />
+      <Route exact path="/vendedor/create" element={<AddVendedor />} />
+      <Route exact path="/vendedor/update/:id_vendedor" element={<UpdateVendedor />} />
       <Route exact path="/fornecedores" element={<FornecedorPage />} />
       <Route exact path="/vendas" element={<VendaPage />} />
+      <Route exact path="/venda/create" element={<AddVenda />} />
+      <Route exact path="/venda/update/:id_venda" element={<UpdateVenda />} />
       <Route exact path="/produtos" element={<ProdutoPage />} />
       <Route exact path="/comissoes" element={<ComissaoPage />} />
       <Route exact path="/custos" element={<CustoPage />} />

@@ -1,13 +1,16 @@
-.add-cliente-container {
-    margin-top: 40px;
+.add-vendedor-container {
     display: flex;
     justify-content: center;
     align-items: center;
     animation: slideIn 1s ease;
 }
 
-.add-cliente-card {
-    width: 30%;
+.vendedor-container {
+    padding: 10px;
+}
+
+.add-vendedor-card {
+    width: 100%;
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
@@ -15,12 +18,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add-cliente-card:hover {
+.add-vendedor-card:hover {
     transform: scale(1.02);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.add-cliente-card-header {
+.add-vendedor-card-header {
     color: #fff;
     background-color: #004F98;
     border-radius: 15px 15px 0 0;
@@ -28,7 +31,7 @@
     padding: 15px;
 }
 
-.add-cliente-card-header h4 {
+.add-vendedor-card-header h4 {
     margin: 0;
     font-size: 1.75rem;
     display: flex;
@@ -36,21 +39,17 @@
     justify-content: center;
 }
 
-.add-cliente-card-body {
+.add-vendedor-card-body {
     padding: 20px;
 }
 
-.cliente-form-label {
+.vendedor-form-label {
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
 }
 
-.nome-form-label {
-    margin-bottom: 20px;
-}
-
-.cpf-cnpj-form-label {
+.vendedor-form-group {
     margin-bottom: 20px;
 }
 
@@ -77,6 +76,20 @@
     border-color: #dc3545;
 }
 
+.form-control-custom {
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+    color: #1684BF;
+    margin-left: 10px;
+}
+
+.form-control-custom:focus {
+    box-shadow: none;
+    color: #1684BF;
+}
+
 .invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
@@ -96,13 +109,13 @@
     background-color: #0056b3;
 }
 
-.add-cliente-spinner {
+.add-vendedor-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-cliente-alert {
+.add-vendedor-alert {
     margin-top: 10px;
     color: #004F98;
 }
@@ -124,7 +137,7 @@
   }
 
 @media (max-width: 768px) {
-    .add-cliente-card {
+    .add-vendedor-card {
         margin: 20px;
     }
 }

@@ -124,13 +124,12 @@ const AddCliente = () => {
                 </Col>
               </Row>
 
-              <Button
-                type="submit"
-                className="btn btn-primary mt-3"
-                disabled={loading}
-              >
-                {loading ? <Spinner animation="border" size="sm" /> : <FaSave />} Salvar
-              </Button>
+              <div className="button-container">
+                <Button variant="primary" type="submit" disabled={loading}>
+                  <FaSave className="me-2" />
+                  {loading ? 'Salvando...' : 'Salvar Cliente'}
+                </Button>
+              </div>
             </Form>
           </Card.Body>
         </Card>

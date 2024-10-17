@@ -46,7 +46,7 @@ export const VendaProvider = ({ children }) => {
 
   const updateVendaData = async (id_venda, updatedVenda) => {
     try {
-      const updated = await updateVenda(id, updatedVenda);
+      const updated = await updateVenda(id_venda, updatedVenda);
       setVendas(vendas.map(venda => venda.id_venda === id_venda ? updated : venda));
     } catch (error) {
       console.error("Erro ao atualizar venda:", error)

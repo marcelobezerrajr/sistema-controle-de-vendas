@@ -46,7 +46,7 @@ function Header() {
         <Link to="/comissoes">Comissões</Link>
         <Link to="/custos">Custos</Link>
         <Link to="/parcelas">Parcelas</Link>
-        <Link to="/usuarios">Usuários</Link>
+        {/* <Link to="/usuarios">Usuários</Link> */}
         {/* <Link to="/parcelas">VendaVendedor</Link> */}
         <Link to="/item-venda">Item Venda</Link>
         

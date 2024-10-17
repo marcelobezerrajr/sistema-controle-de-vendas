@@ -1,13 +1,16 @@
-.update-cliente-container {
-  margin-top: 40px;
+.update-venda-container {
   display: flex;
   justify-content: center;
   align-items: center;
   animation: slideIn 1s ease;
 }
 
-.update-cliente-card {
-  width: 30%;
+.venda-container {
+  padding: 10px;
+}
+
+.update-venda-card {
+  width: 100%;
   max-width: 700px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
@@ -15,12 +18,12 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.update-cliente-card:hover {
+.update-venda-card:hover {
   transform: scale(1.02);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.update-cliente-card-header {
+.update-venda-card-header {
   color: #fff;
   background-color: #004F98;
   border-radius: 15px 15px 0 0;
@@ -28,7 +31,7 @@
   padding: 15px;
 }
 
-.update-cliente-card-header h4 {
+.update-venda-card-header h4 {
   margin: 0;
   font-size: 1.75rem;
   display: flex;
@@ -36,21 +39,17 @@
   justify-content: center;
 }
 
-.update-cliente-card-body {
+.update-venda-card-body {
   padding: 20px;
 }
 
-.cliente-form-label {
+.venda-form-label {
   color: #004F98;
   font-weight: bold;
   padding-left: 7px;
 }
 
-.nome-form-label {
-  margin-bottom: 20px;
-}
-
-.cpf-cnpj-form-label {
+.venda-form-group {
   margin-bottom: 20px;
 }
 
@@ -77,6 +76,20 @@
   border-color: #dc3545;
 }
 
+.form-control-custom {
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  color: #1684BF;
+  margin-left: 10px;
+}
+
+.form-control-custom:focus {
+  box-shadow: none;
+  color: #1684BF;
+}
+
 .invalid-feedback {
   color: #dc3545;
   font-size: 0.875rem;
@@ -96,13 +109,13 @@
   background-color: #0056b3;
 }
 
-.update-cliente-spinner {
+.update-venda-spinner {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.update-cliente-alert {
+.update-venda-alert {
   margin-top: 10px;
   color: #004F98;
 }
@@ -124,7 +137,7 @@
 }
 
 @media (max-width: 768px) {
-  .add-cliente-card {
+  .update-venda-card {
       margin: 20px;
   }
 }

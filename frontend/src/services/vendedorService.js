@@ -9,9 +9,9 @@ export const getAllVendedores = async () => {
   }
 };
 
-export const getVendedorById = async (id) => {
+export const getVendedorById = async (id_vendedor) => {
   try {
-    const response = await api.get(`/vendedor/view/${id}`);
+    const response = await api.get(`/vendedor/view/${id_vendedor}`);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao obter vendedor.');
@@ -27,18 +27,18 @@ export const createVendedor = async (vendedorData) => {
   }
 };
 
-export const updateVendedor = async (id, vendedorData) => {
+export const updateVendedor = async (id_vendedor, vendedorData) => {
   try {
-    const response = await api.put(`/vendedor/update/${id}`, vendedorData);
+    const response = await api.put(`/vendedor/update/${id_vendedor}`, vendedorData);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao atualizar vendedor.');
   }
 };
 
-export const deleteVendedor = async (id) => {
+export const deleteVendedor = async (id_vendedor) => {
   try {
-    await api.delete(`/vendedor/delete/${id}`);
+    await api.delete(`/vendedor/delete/${id_vendedor}`);
   } catch (error) {
     throw new Error('Erro ao deletar vendedor.');
   }
