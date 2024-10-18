@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useFornecedores from '../hooks/useFornecedor'
-import MainLayout from '../layouts/MainLayout';
+import TableRow from '../../components/TableRow';
+import useFornecedores from '../../hooks/useFornecedor'
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import '../../styles/Gerenciamento.css';
 
 const FornecedorPage = () => {
   const { fornecedores, loading, removeFornecedor } = useFornecedores();

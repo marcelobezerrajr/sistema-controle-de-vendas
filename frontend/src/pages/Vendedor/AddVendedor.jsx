@@ -3,7 +3,7 @@ import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-b
 import { FaSave } from 'react-icons/fa';
 import useVendedores from '../../hooks/useVendedor';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/vendedor/Addvendedor.css";
+import "../../styles/Vendedor/AddVendedor.css";
 
 const AddVendedor = () => {
   const { addVendedor } = useVendedores();

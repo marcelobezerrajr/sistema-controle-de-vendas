@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import ChangePassword from './pages/ChangePasswordPage';
 import RequestPasswordPage from './pages/RequestPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import InvalidTokenPage from './pages/InvalidTokenPage';
@@ -11,11 +12,15 @@ import UpdateCliente from './pages/Cliente/UpdateCliente';
 import VendedorPage from './pages/Vendedor/VendedorPage';
 import AddVendedor from './pages/Vendedor/AddVendedor';
 import UpdateVendedor from './pages/Vendedor/UpdateVendedor';
-import FornecedorPage from './pages/FornecedorPage';
+import FornecedorPage from './pages/Fornecedor/FornecedorPage';
+import AddFornecedor from './pages/Fornecedor/AddFornecedor';
+import UpdateFornecedor from './pages/Fornecedor/UpdateFornecedor';
 import VendaPage from './pages/Venda/VendaPage';
 import AddVenda from './pages/Venda/AddVenda';
 import UpdateVenda from './pages/Venda/UpdateVenda';
-import ProdutoPage from './pages/ProdutoPage';
+import ProdutoPage from './pages/Produto/ProdutoPage';
+import AddProduto from './pages/Produto/AddProduto';
+import UpdateProduto from './pages/Produto/UpdateProduto';
 import ViewPage from './pages/ViewPage';
 import ComissaoPage from './pages/ComissaoPage';
 import CustoPage from './pages/CustoPage';
@@ -58,6 +63,7 @@ const AppRoutes = () => {
       <Route exact path="/request-password" element={<RequestPasswordPage />} />
       <Route exact path="/reset-password" element={<ResetPasswordPage />} />
       <Route exact path="/invalid-token" element={<InvalidTokenPage />} />
+      <Route exact path="/change-password" element={<ChangePassword />} />
       <Route exact path="/clientes" element={<ClientePage />} />
       <Route exact path="/cliente/create" element={<AddCliente />} />
       <Route exact path="/cliente/update/:id_cliente" element={<UpdateCliente />} />
@@ -65,10 +71,14 @@ const AppRoutes = () => {
       <Route exact path="/vendedor/create" element={<AddVendedor />} />
       <Route exact path="/vendedor/update/:id_vendedor" element={<UpdateVendedor />} />
       <Route exact path="/fornecedores" element={<FornecedorPage />} />
+      <Route exact path="/fornecedor/create" element={<AddFornecedor />} />
+      <Route exact path="/fornecedor/update/:id_fornecedor" element={<UpdateFornecedor />} />
       <Route exact path="/vendas" element={<VendaPage />} />
       <Route exact path="/venda/create" element={<AddVenda />} />
       <Route exact path="/venda/update/:id_venda" element={<UpdateVenda />} />
       <Route exact path="/produtos" element={<ProdutoPage />} />
+      <Route exact path="/produto/update/:id_produto" element={<UpdateProduto />} />
+      <Route exact path="/produto/create" element={<AddProduto />} />
       <Route exact path="/comissoes" element={<ComissaoPage />} />
       <Route exact path="/custos" element={<CustoPage />} />
       <Route exact path="/parcelas" element={<ParcelaPage />} />

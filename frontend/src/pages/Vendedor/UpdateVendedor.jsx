@@ -113,7 +113,7 @@ const UpdateVendedor = () => {
                 <Col md={12} lg={10}>
                     <Card className="update-vendedor-card">
                     <Card.Header className="update-vendedor-card-header">
-                        <h4>+ Adicionar Vendedor</h4>
+                        <h4>Atualizar Vendedor</h4>
                     </Card.Header>
                     <Card.Body className="update-vendedor-card-body">
                         {loading && (

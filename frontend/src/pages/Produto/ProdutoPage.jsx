@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useProdutos from '../hooks/useProduto'
-import MainLayout from '../layouts/MainLayout';
+import TableRow from '../../components/TableRow';
+import useProdutos from '../../hooks/useProduto'
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import '../../styles/Gerenciamento.css';
 
 const ProdutoPage = () => {
   const { produtos, loading, removeProduto } = useProdutos();

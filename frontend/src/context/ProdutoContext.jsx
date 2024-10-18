@@ -27,9 +27,9 @@ export const ProdutoProvider = ({ children }) => {
     fetchProdutos();
   }, [user]);
 
-  const getProduto = async (id) => {
+  const getProduto = async (id_produto) => {
     try {
-      const produto = await getProdutoById(id);
+      const produto = await getProdutoById(id_produto);
       return produto;
     } catch (error) {
       console.error("Erro ao obter produto:", error);
@@ -45,21 +45,21 @@ export const ProdutoProvider = ({ children }) => {
     }
   };
 
-  const updateProdutoData = async (id, produtoData) => {
+  const updateProdutoData = async (id_produto, produtoData) => {
     try {
-      const updatedProduto = await updateProduto(id, produtoData);
+      const updatedProduto = await updateProduto(id_produto, produtoData);
       setProdutos((prev) =>
-        prev.map((produto) => (produto.id === id ? updatedProduto : produto))
+        prev.map((produto) => (produto.id_produto === id_produto ? updatedProduto : produto))
       );
     } catch (error) {
       console.error("Erro ao atualizar produto:", error);
     }
   };
 
-  const removeProduto = async (id) => {
+  const removeProduto = async (id_produto) => {
     try {
-      await deleteProduto(id);
-      setProdutos((prev) => prev.filter((produto) => produto.id !== id));
+      await deleteProduto(id_produto);
+      setProdutos((prev) => prev.filter((produto) => produto.id_produto !== id_produto));
     } catch (error) {
       console.error("Erro ao deletar produto:", error);
     }

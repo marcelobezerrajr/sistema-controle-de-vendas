@@ -70,7 +70,7 @@ function Header() {
           </div>
           <NavDropdown.Divider />
           <NavDropdown.Item as={Link} to="/profile">Perfil</NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/changepassword">Alterar Senha</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/change-password">Alterar Senha</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
         </NavDropdown>
