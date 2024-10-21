@@ -3,7 +3,7 @@ import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-b
 import { FaSave } from 'react-icons/fa';
 import useProdutos from '../../hooks/useProduto';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Produto/AddProduto.css"
+import "../../styles/Produto.css"
 
 const AddProduto = () => {
   const { addProduto } = useProdutos();
@@ -47,9 +47,9 @@ const AddProduto = () => {
     try {
       const cleanedData = {
         ...produtoData,
-        preco: parseFloat(produtoData.preco),  // Certificar que o preço é um número
+        preco: parseFloat(produtoData.preco),
       };
-      console.log(cleanedData);  // Verificar os dados enviados
+      console.log(cleanedData);
       await addProduto(cleanedData);
       setSuccess('Produto adicionado com sucesso!');
       setProdutoData({ nome_produto: '', descricao_produto: '', preco: '', tipo: '' });
@@ -69,17 +69,17 @@ const AddProduto = () => {
 
   return (
     <MainLayout>
-      <div className="add-produto-container">
+      <div className="produto-div">
         <Container className='produto-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
-                    <Card className="add-produto-card">
-                    <Card.Header className="add-produto-card-header">
+                    <Card className="produto-card">
+                    <Card.Header className="produto-card-header">
                         <h4>+ Adicionar Produto</h4>
                     </Card.Header>
-                    <Card.Body className="add-produto-card-body">
+                    <Card.Body className="produto-card-body">
                         {loading && (
-                        <div className="add-produto-spinner">
+                        <div className="produto-spinner">
                             <Spinner animation="border" />
                         </div>
                         )}
@@ -163,7 +163,7 @@ const AddProduto = () => {
                         <div className="button-container">
                             <Button variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : 'Salvar Produto'}
+                            {loading ? 'Salvando...' : ' Salvar Produto'}
                             </Button>
                         </div>
                         </Form>

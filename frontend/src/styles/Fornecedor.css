@@ -1,15 +1,15 @@
-.add-venda-container {
+.fornecedor-div {
     display: flex;
     justify-content: center;
     align-items: center;
     animation: slideIn 1s ease;
 }
 
-.venda-container {
+.fornecedor-container {
     padding: 10px;
 }
 
-.add-venda-card {
+.fornecedor-card {
     width: 100%;
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -18,12 +18,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add-venda-card:hover {
+.fornecedor-card:hover {
     transform: scale(1.02);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.add-venda-card-header {
+.fornecedor-card-header {
     color: #fff;
     background-color: #004F98;
     border-radius: 15px 15px 0 0;
@@ -31,7 +31,7 @@
     padding: 15px;
 }
 
-.add-venda-card-header h4 {
+.fornecedor-card-header h4 {
     margin: 0;
     font-size: 1.75rem;
     display: flex;
@@ -39,17 +39,17 @@
     justify-content: center;
 }
 
-.add-venda-card-body {
+.fornecedor-card-body {
     padding: 20px;
 }
 
-.venda-form-label {
+.fornecedor-form-label {
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
 }
 
-.venda-form-group {
+.fornecedor-form-group {
     margin-bottom: 20px;
 }
 
@@ -109,13 +109,13 @@
     background-color: #0056b3;
 }
 
-.add-venda-spinner {
+.fornecedor-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-venda-alert {
+.fornecedor-alert {
     margin-top: 10px;
     color: #004F98;
 }
@@ -137,7 +137,7 @@
   }
 
 @media (max-width: 768px) {
-    .add-venda-card {
+    .fornecedor-card {
         margin: 20px;
     }
 }

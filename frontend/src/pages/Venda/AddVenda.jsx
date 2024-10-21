@@ -3,7 +3,7 @@ import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-b
 import { FaSave } from 'react-icons/fa';
 import useVendas from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Venda/AddVenda.css"
+import "../../styles/Venda.css"
 
 const AddVenda = () => {
   const { addVenda } = useVendas();
@@ -97,17 +97,17 @@ const AddVenda = () => {
 
   return (
     <MainLayout>
-      <div className="add-venda-container">
+      <div className="venda-div">
         <Container className='venda-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
-                    <Card className="add-venda-card">
-                    <Card.Header className="add-venda-card-header">
+                    <Card className="venda-card">
+                    <Card.Header className="venda-card-header">
                         <h4>+ Adicionar Venda</h4>
                     </Card.Header>
-                    <Card.Body className="add-venda-card-body">
+                    <Card.Body className="venda-card-body">
                         {loading && (
-                        <div className="add-venda-spinner">
+                        <div className="venda-spinner">
                             <Spinner animation="border" />
                         </div>
                         )}
@@ -250,7 +250,7 @@ const AddVenda = () => {
                         <div className="button-container">
                             <Button variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : 'Salvar Venda'}
+                            {loading ? 'Salvando...' : ' Salvar Venda'}
                             </Button>
                         </div>
                         </Form>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, Spinner, Alert, Form, Button, Row, Col, Container, InputGroup } from 'react-bootstrap';
+import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import useFornecedores from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Fornecedor/AddFornecedor.css";
+import "../../styles/Fornecedor.css";
 
 const AddFornecedor = () => {
   const { addFornecedor } = useFornecedores();
@@ -62,17 +62,17 @@ const AddFornecedor = () => {
 
   return (
     <MainLayout>
-      <div className="add-fornecedor-container">
+      <div className="fornecedor-div">
         <Container className='fornecedor-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
-                    <Card className="add-fornecedor-card">
-                    <Card.Header className="add-fornecedor-card-header">
+                    <Card className="fornecedor-card">
+                    <Card.Header className="fornecedor-card-header">
                         <h4>+ Adicionar Fornecedor</h4>
                     </Card.Header>
-                    <Card.Body className="add-fornecedor-card-body">
+                    <Card.Body className="fornecedor-card-body">
                         {loading && (
-                        <div className="add-fornecedor-spinner">
+                        <div className="fornecedor-spinner">
                             <Spinner animation="border" />
                         </div>
                         )}
@@ -140,7 +140,7 @@ const AddFornecedor = () => {
                         <div className="button-container">
                             <Button variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : 'Salvar Vendedor'}
+                            {loading ? 'Salvando...' : ' Salvar Fornecedor'}
                             </Button>
                         </div>
                         </Form>

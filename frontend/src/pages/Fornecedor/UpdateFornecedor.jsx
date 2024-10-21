@@ -4,7 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import useFornecedores from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Fornecedor/UpdateFornecedor.css";
+import "../../styles/Fornecedor.css";
 
 const UpdateFornecedor = () => {
   const { id_fornecedor } = useParams()
@@ -77,17 +77,17 @@ const UpdateFornecedor = () => {
 
   return (
     <MainLayout>
-      <div className="update-fornecedor-container">
+      <div className="fornecedor-div">
         <Container className='fornecedor-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
-                    <Card className="update-fornecedor-card">
-                    <Card.Header className="update-fornecedor-card-header">
+                    <Card className="fornecedor-card">
+                    <Card.Header className="fornecedor-card-header">
                         <h4>Atualizar Fornecedor</h4>
                     </Card.Header>
-                    <Card.Body className="update-fornecedor-card-body">
+                    <Card.Body className="fornecedor-card-body">
                         {loading && (
-                        <div className="update-fornecedor-spinner">
+                        <div className="fornecedor-spinner">
                             <Spinner animation="border" />
                         </div>
                         )}
@@ -155,7 +155,7 @@ const UpdateFornecedor = () => {
                         <div className="button-container">
                             <Button variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : 'Salvar Vendedor'}
+                            {loading ? 'Salvando...' : ' Salvar Fornecedor'}
                             </Button>
                         </div>
                         </Form>

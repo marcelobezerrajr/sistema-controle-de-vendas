@@ -5,7 +5,7 @@ import InputMask from 'react-input-mask';
 import useCliente from '../../hooks/useCliente';
 import MainLayout from '../../layouts/MainLayout';
 import { useParams } from 'react-router-dom';
-import "../../styles/Cliente/UpdateCliente.css";
+import "../../styles/Cliente.css";
 
 const validateName = (value) => value.trim() === '' ? 'Nome é obrigatório.' : null;
 const validateCpfCnpj = (value) => {
@@ -87,14 +87,14 @@ const UpdateCliente = () => {
 
   return (
     <MainLayout>
-      <div className="update-cliente-container">
-        <Card className="update-cliente-card">
-          <Card.Header className="update-cliente-card-header">
+      <div className="cliente-div">
+        <Card className="cliente-card">
+          <Card.Header className="cliente-card-header">
             <h4>Atualizar Cliente</h4>
           </Card.Header>
-          <Card.Body className="update-cliente-card-body">
+          <Card.Body className="cliente-card-body">
             {loading && (
-              <div className="update-cliente-spinner">
+              <div className="cliente-spinner">
                 <Spinner animation="border" />
               </div>
             )}
@@ -148,7 +148,7 @@ const UpdateCliente = () => {
               <div className="button-container">
                 <Button variant="primary" type="submit" disabled={loading}>
                   <FaSave className="me-2" />
-                  {loading ? 'Salvando...' : 'Salvar Cliente'}
+                  {loading ? 'Salvando...' : ' Salvar Cliente'}
                 </Button>
               </div>
             </Form>

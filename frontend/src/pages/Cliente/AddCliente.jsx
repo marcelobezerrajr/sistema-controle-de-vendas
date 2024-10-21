@@ -4,7 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import InputMask from 'react-input-mask';
 import useCliente from '../../hooks/useCliente';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Cliente/AddCliente.css"
+import "../../styles/Cliente.css"
 
 const validateName = (value) => value.trim() === '' ? 'Nome é obrigatório.' : null;
 const validateCpfCnpj = (value) => {
@@ -70,14 +70,14 @@ const AddCliente = () => {
 
   return (
     <MainLayout>
-      <div className="add-cliente-container">
-        <Card className="add-cliente-card">
-          <Card.Header className="add-cliente-card-header">
+      <div className="cliente-div">
+        <Card className="cliente-card">
+          <Card.Header className="cliente-card-header">
             <h4>+ Adicionar Cliente</h4>
           </Card.Header>
-          <Card.Body className="add-cliente-card-body">
+          <Card.Body className="cliente-card-body">
             {loading && (
-              <div className="add-cliente-spinner">
+              <div className="cliente-spinner">
                 <Spinner animation="border" />
               </div>
             )}
@@ -127,7 +127,7 @@ const AddCliente = () => {
               <div className="button-container">
                 <Button variant="primary" type="submit" disabled={loading}>
                   <FaSave className="me-2" />
-                  {loading ? 'Salvando...' : 'Salvar Cliente'}
+                  {loading ? 'Salvando...' : ' Salvar Cliente'}
                 </Button>
               </div>
             </Form>

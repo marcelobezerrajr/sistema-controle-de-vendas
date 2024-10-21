@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useParcelas from '../hooks/useParcela'
-import MainLayout from '../layouts/MainLayout';
+import TableRow from '../../components/TableRow';
+import useParcelas from '../../hooks/useParcela'
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import '../../styles/Gerenciamento.css';
 
 const ParcelaPage = () => {
   const { parcelas, loading } = useParcelas();
@@ -63,8 +63,8 @@ const ParcelaPage = () => {
               <tr>
                 <th>ID Parcela</th>
                 <th>ID Venda</th>
-                <th>Número Parcela</th>
-                <th>Valor Parcela</th>
+                <th>Número da Parcela</th>
+                <th>Valor da Parcela</th>
                 <th>Data Prevista</th>
                 <th>Data Recebimento</th>
                 <th>Status</th>

@@ -9,6 +9,19 @@ export const getAllParcelas = async () => {
   }
 };
 
+export const getParcelaById = async (id_parcela) => {
+  if (!id_parcela) {
+    throw new Error('ID de parcela não definido.');
+  }
+  try {
+    const response = await api.get(`/parcela/view/${id_parcela}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar parcela:', error);
+    throw error;
+  }
+};
+
 export const createParcela = async (parcelaData) => {
   try {
     const response = await api.post('/parcela/create', parcelaData);
@@ -18,9 +31,9 @@ export const createParcela = async (parcelaData) => {
   }
 };
 
-export const updateParcela = async (id, parcelaData) => {
+export const updateParcela = async (id_parcela, parcelaData) => {
   try {
-    const response = await api.put(`/parcela/update/${id}`, parcelaData);
+    const response = await api.put(`/parcela/update/${id_parcela}`, parcelaData);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao atualizar parcela.');

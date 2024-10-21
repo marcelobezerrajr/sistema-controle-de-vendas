@@ -24,7 +24,9 @@ import UpdateProduto from './pages/Produto/UpdateProduto';
 import ViewPage from './pages/ViewPage';
 import ComissaoPage from './pages/ComissaoPage';
 import CustoPage from './pages/CustoPage';
-import ParcelaPage from './pages/Parcela';
+import ParcelaPage from './pages/Parcela/ParcelaPage';
+import AddParcela from './pages/Parcela/AddParcela';
+import UpdateParcela from './pages/Parcela/UpdateParcela';
 import UsuarioPage from './pages/UsuarioPage';
 import ItemVendaPage from './pages/ItemVendaPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -82,6 +84,8 @@ const AppRoutes = () => {
       <Route exact path="/comissoes" element={<ComissaoPage />} />
       <Route exact path="/custos" element={<CustoPage />} />
       <Route exact path="/parcelas" element={<ParcelaPage />} />
+      <Route exact path="/parcela/create" element={<AddParcela />} />
+      <Route exact path="/parcela/update/:id_parcela" element={<UpdateParcela />} />
       <Route exact path="/usuarios" element={<UsuarioPage />} />
       <Route exact path="/item-venda" element={<ItemVendaPage />} />
       <Route exact path="/:entity/view/:id" element={<EntityViewWrapper />} />

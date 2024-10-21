@@ -1,15 +1,15 @@
-.update-produto-container {
+.parcela-div {
     display: flex;
     justify-content: center;
     align-items: center;
     animation: slideIn 1s ease;
 }
 
-.produto-container {
+.parcela-container {
     padding: 10px;
 }
 
-.update-produto-card {
+.parcela-card {
     width: 100%;
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -18,12 +18,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.update-produto-card:hover {
+.parcela-card:hover {
     transform: scale(1.02);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.update-produto-card-header {
+.parcela-card-header {
     color: #fff;
     background-color: #004F98;
     border-radius: 15px 15px 0 0;
@@ -31,7 +31,7 @@
     padding: 15px;
 }
 
-.update-produto-card-header h4 {
+.parcela-card-header h4 {
     margin: 0;
     font-size: 1.75rem;
     display: flex;
@@ -39,17 +39,17 @@
     justify-content: center;
 }
 
-.update-produto-card-body {
+.parcela-card-body {
     padding: 20px;
 }
 
-.produto-form-label {
+.parcela-form-label {
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
 }
 
-.produto-form-group {
+.parcela-form-group {
     margin-bottom: 20px;
 }
 
@@ -109,13 +109,13 @@
     background-color: #0056b3;
 }
 
-.update-produto-spinner {
+.parcela-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.update-produto-alert {
+.parcela-alert {
     margin-top: 10px;
     color: #004F98;
 }
@@ -137,7 +137,7 @@
   }
 
 @media (max-width: 768px) {
-    .update-produto-card {
+    .parcela-card {
         margin: 20px;
     }
 }

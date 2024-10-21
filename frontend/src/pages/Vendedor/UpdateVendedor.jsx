@@ -4,7 +4,7 @@ import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import useVendedores from '../../hooks/useVendedor';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Vendedor/UpdateVendedor.css";
+import "../../styles/Vendedor.css";
 
 const UpdateVendedor = () => {
   const { id_vendedor } = useParams();
@@ -107,17 +107,17 @@ const UpdateVendedor = () => {
 
   return (
     <MainLayout>
-      <div className="update-vendedor-container">
+      <div className="vendedor-div">
         <Container className='vendedor-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
-                    <Card className="update-vendedor-card">
-                    <Card.Header className="update-vendedor-card-header">
+                    <Card className="vendedor-card">
+                    <Card.Header className="vendedor-card-header">
                         <h4>Atualizar Vendedor</h4>
                     </Card.Header>
-                    <Card.Body className="update-vendedor-card-body">
+                    <Card.Body className="vendedor-card-body">
                         {loading && (
-                        <div className="update-vendedor-spinner">
+                        <div className="vendedor-spinner">
                             <Spinner animation="border" />
                         </div>
                         )}
@@ -180,7 +180,7 @@ const UpdateVendedor = () => {
                         <div className="button-container">
                             <Button variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : 'Salvar Vendedor'}
+                            {loading ? 'Salvando...' : ' Salvar Vendedor'}
                             </Button>
                         </div>
                         </Form>
