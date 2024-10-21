@@ -1,42 +1,43 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useItemVenda from '../hooks/useItemVenda';
-import MainLayout from '../layouts/MainLayout';
+import useCusto from '../../hooks/useCusto';
+import TableRow from '../../components/TableRow';
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import "../styles/Gerenciamento.css"
+import '../../styles/Gerenciamento.css';
 
-const ItemVendaPage = () => {
-  const { itemVenda, loading } = useItemVenda();
+const CustoPage = () => {
+  const { custos, loading } = useCusto();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddItemVenda = async () => {
-    navigate(`/item-venda/create`);
+  const handleAddCusto = async () => {
+    navigate(`/custo/create`);
+    setAlertVariant("success");
   };
 
-  const handleViewItemVenda = async (id_item_venda) => {
-    navigate(`/item-venda/view/${id_item_venda}`);
+  const handleViewCusto = async (id_custo) => {
+    navigate(`/custo/view/${id_custo}`);
   };
 
-  const columns = ['id_item_venda', 'id_venda', 'id_produto', 'quantidade', 'preco_unitario', 'subtotal'];
+  const columns = ['id_custo', 'descricao', 'valor', 'id_venda'];
 
   const actions = {
-    view: handleViewItemVenda
+    view: handleViewCusto,
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Item Venda</h2>
+          <h2>Gerenciamento de Custos</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddItemVenda}>
-              Adicionar Item Venda
+            <button variant="primary" className="custom-button" onClick={handleAddCusto}>
+              Adicionar Custo
             </button>
           )}
         </div>
@@ -49,29 +50,27 @@ const ItemVendaPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : itemVenda.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhuma item venda encontrada.</Alert>
+        ) : custos.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhum custo encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID Item Venda</th>
+                <th>ID Custo</th>
+                <th>Descrição</th>
+                <th>Valor</th>
                 <th>ID Venda</th>
-                <th>ID Produto</th>
-                <th>Quantidade</th>
-                <th>Preço Unitário</th>
-                <th>Subtotal</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {itemVenda.map((itemvenda) => (
+              {custos.map((custo) => (
                 <TableRow
-                  key={itemvenda.id_item_venda}
-                  rowData={itemvenda}
+                  key={custo.id_custo}
+                  rowData={custo}
                   columns={columns}
                   actions={actions}
-                  idField="id_item_venda"
+                  idField="id_custo"
                 />
               ))}
             </tbody>
@@ -82,4 +81,4 @@ const ItemVendaPage = () => {
   );
 };
 
-export default ItemVendaPage;
+export default CustoPage;

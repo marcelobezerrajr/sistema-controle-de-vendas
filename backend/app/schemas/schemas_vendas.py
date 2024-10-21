@@ -148,13 +148,13 @@ class ParcelaBase(BaseModel):
     @validator('data_prevista', pre=True, always=True)
     def validate_data_prevista(cls, v):
         if isinstance(v, date):
-            return v.strftime('%Y/%m/%d')
+            return v.strftime('%d/%m/%Y')
         return v
 
     @validator('data_recebimento', pre=True, always=True)
     def validate_data_recebimento(cls, v):
         if isinstance(v, date):
-            return v.strftime('%Y/%m/%d')
+            return v.strftime('%d/%m/%Y')
         return v
 
     class Config:
@@ -183,7 +183,7 @@ class ComissaoBase(BaseModel):
     @validator('data_pagamento', pre=True, always=True)
     def validate_data_pagamento(cls, v):
         if isinstance(v, date):
-            return v.strftime('%Y/%m/%d')
+            return v.strftime('%d/%m/%Y')
         return v
 
     class Config:

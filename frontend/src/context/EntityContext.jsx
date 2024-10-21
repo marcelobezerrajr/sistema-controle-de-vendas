@@ -18,54 +18,54 @@ export const EntityProvider = ({ children }) => {
           entityName: 'Cliente',
           fetchUrl: 'http://127.0.0.1:8000/cliente/view',
           fields: [
-            { label: 'ID', key: 'id_cliente' },
+            { label: 'ID Cliente', key: 'id_cliente' },
             { label: 'Nome', key: 'nome_cliente' },
             { label: 'CPF/CNPJ', key: 'cpf_cnpj' },
           ],
         };
-        break;
+      break;
 
       case 'fornecedor':
         config = {
           entityName: 'Fornecedor',
           fetchUrl: 'http://127.0.0.1:8000/fornecedor/view',
           fields: [
-            { label: 'ID', key: 'id_fornecedor' },
+            { label: 'ID Fornecedor', key: 'id_fornecedor' },
             { label: 'Nome', key: 'nome_fornecedor' },
             { label: 'Percentual de Comissão', key: 'percentual_comissao' },
             { label: 'Impostos', key: 'impostos' },
           ],
         };
-        break;
+      break;
 
-        case 'vendedor':
+      case 'vendedor':
         config = {
           entityName: 'Vendedor',
           fetchUrl: 'http://127.0.0.1:8000/vendedor/view',
           fields: [
-            { label: 'ID', key: 'id_vendedor' },
+            { label: 'ID Vendedor', key: 'id_vendedor' },
             { label: 'Nome', key: 'nome_vendedor' },
             { label: 'Tipo', key: 'tipo' },
             { label: 'Percentual de Comissão', key: 'percentual_comissao' },
           ],
         };
-        break;
+      break;
 
-        case 'produto':
+      case 'produto':
         config = {
           entityName: 'Produto',
           fetchUrl: 'http://127.0.0.1:8000/produto/view',
           fields: [
-            { label: 'ID', key: 'id_produto' },
+            { label: 'ID Produto', key: 'id_produto' },
             { label: 'Nome', key: 'nome_produto' },
             { label: 'Descrição', key: 'descricao_produto' },
             { label: 'Preço', key: 'preco' },
             { label: 'Tipo', key: 'tipo' },
           ],
         };
-        break;
+      break;
 
-        case 'venda':
+      case 'venda':
         config = {
           entityName: 'Venda',
           fetchUrl: 'http://127.0.0.1:8000/venda/view',
@@ -80,9 +80,9 @@ export const EntityProvider = ({ children }) => {
             { label: 'ID Fornecedor', key: 'id_fornecedor' },
           ],
         };
-        break;
+      break;
 
-        case 'comissao':
+      case 'comissao':
         config = {
           entityName: 'Comissao',
           fetchUrl: 'http://127.0.0.1:8000/comissao/view',
@@ -95,9 +95,9 @@ export const EntityProvider = ({ children }) => {
             { label: 'ID Parcela', key: 'id_parcela' },
           ],
         };
-        break;
+      break;
 
-        case 'custo':
+      case 'custo':
         config = {
           entityName: 'Custo',
           fetchUrl: 'http://127.0.0.1:8000/custo/view',
@@ -108,39 +108,39 @@ export const EntityProvider = ({ children }) => {
             { label: 'ID Venda', key: 'id_venda' },
           ],
         };
-        break;
+      break;
 
-        case 'parcela':
+      case 'parcela':
         config = {
           entityName: 'Parcela',
           fetchUrl: 'http://127.0.0.1:8000/parcela/view',
           fields: [
             { label: 'ID Parcela', key: 'id_parcela' },
             { label: 'ID Venda', key: 'id_venda' },
-            { label: 'Número Parcela', key: 'numero_parcela' },
-            { label: 'Valor Parcela', key: 'valor_parcela' },
+            { label: 'Número da Parcela', key: 'numero_parcela' },
+            { label: 'Valor da Parcela', key: 'valor_parcela' },
             { label: 'Data Prevista', key: 'data_prevista' },
             { label: 'Data Recebimento', key: 'data_recebimento' },
             { label: 'Status', key: 'status' },
             { label: 'Forma Recebimento', key: 'forma_recebimento' },
           ],
         };
-        break;
+      break;
 
-        case 'user':
+      case 'user':
         config = {
-          entityName: 'Usuario',
+          entityName: 'Usuário',
           fetchUrl: 'http://127.0.0.1:8000/user/view',
           fields: [
             { label: 'ID Usuário', key: 'id_user' },
-            { label: 'Username', key: 'username' },
+            { label: 'Nome de Usuário', key: 'username' },
             { label: 'Email', key: 'email' },
             { label: 'Permissão', key: 'permission' },
           ],
         };
-        break;
+      break;
 
-        case 'item-venda':
+      case 'item-venda':
         config = {
           entityName: 'Item Venda',
           fetchUrl: 'http://127.0.0.1:8000/item-venda/view',
@@ -153,7 +153,7 @@ export const EntityProvider = ({ children }) => {
             { label: 'Subtotal', key: 'subtotal' },
           ],
         };
-        break;
+      break;
 
       default:
         config = {

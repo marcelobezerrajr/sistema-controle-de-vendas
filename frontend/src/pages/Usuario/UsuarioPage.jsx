@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../components/TableRow';
-import useUsuario from '../hooks/useUsuario';
-import MainLayout from '../layouts/MainLayout';
+import TableRow from '../../components/TableRow';
+import useUsuario from '../../hooks/useUsuario';
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import '../../styles/Gerenciamento.css';
 
 const UsuarioPage = () => {
   const { usuarios, loading, removeUsuario } = useUsuario();
@@ -46,6 +46,7 @@ const UsuarioPage = () => {
       <div className="table-container">
         <div className="header-section">
           <h2>Gerenciamento de Usuários</h2>
+
           {(userPermission === 'Admin' || userPermission === 'User') && (
             <button variant="primary" className="custom-button" onClick={handleAddUsuario}>
                 Adicionar Usuário
@@ -61,14 +62,14 @@ const UsuarioPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : usuarios.length === 0 ? (
+        ) : !Array.isArray(usuarios) || usuarios.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhum usuário encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Username</th>
+                <th>ID Usuário</th>
+                <th>Nome de Usuário</th>
                 <th>Email</th>
                 <th>Permissão</th>
                 <th>Ações</th>
@@ -77,12 +78,12 @@ const UsuarioPage = () => {
             <tbody>
               {usuarios.map((user) => (
                 <TableRow
-                 key={user.id_user}
-                 rowData={user}
-                 columns={columns}
-                 actions={actions}
-                 idField="id_user"
-               />
+                key={user.id_user}
+                rowData={user}
+                columns={columns}
+                actions={actions}
+                idField="id_user"
+              />
               ))}
             </tbody>
           </Table>

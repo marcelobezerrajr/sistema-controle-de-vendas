@@ -67,7 +67,7 @@ const VendedorPage = () => {
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>ID Vendedor</th>
                 <th>Nome</th>
                 <th>Tipo</th>
                 <th>Percentual de Comissão</th>

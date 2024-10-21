@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap';
+import { Form, Card, Alert, Spinner } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import useLogin from '../hooks/useLogin';
@@ -69,7 +69,7 @@ const LoginPage = () => {
                             </div>
                         </Form.Group>
 
-                        <Button type="submit" className="login-button-custom" disabled={loading}>
+                        <button type="submit" className="login-button-custom" disabled={loading}>
                             {loading ? (
                                 <>
                                     <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
@@ -78,7 +78,7 @@ const LoginPage = () => {
                             ) : (
                                 "Entrar"
                             )}
-                        </Button>
+                        </button>
                     </Form>
                 </Card.Body>
             </Card>

@@ -146,7 +146,7 @@ const AddProduto = () => {
                             <Form.Group className="produto-form-group" controlId="tipo">
                                 <Form.Label className='produto-form-label'>Tipo de Produto</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="produto-select-custom"
                                 name="tipo"
                                 value={produtoData.tipo}
                                 onChange={handleChange}

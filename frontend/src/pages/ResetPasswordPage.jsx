@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
+import { Card, Form, Alert, Spinner } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useResetPassword from '../hooks/useResetPassword';
 import logo from '../assets/logo.png';
@@ -119,9 +119,9 @@ const ResetPasswordPage = () => {
                                 <a href="/login">Voltar para Login</a>
                             </div>
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
+                        <button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
                             {loading ? <Spinner animation="border" size="sm" /> : "Redefinir Senha"}
-                        </Button>
+                        </button>
                     </Form>
                 </Card.Body>
             </Card>

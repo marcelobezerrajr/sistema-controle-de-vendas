@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import useCusto from '../hooks/useCusto';
-import TableRow from '../components/TableRow';
-import MainLayout from '../layouts/MainLayout';
+import useComissao from '../../hooks/useComissao';
+import TableRow from '../../components/TableRow';
+import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Gerenciamento.css';
+import '../../styles/Gerenciamento.css';
 
-const CustoPage = () => {
-  const { custos, loading } = useCusto();
+const ComissaoPage = () => {
+  const { comissoes, loading } = useComissao();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddCusto = async () => {
-    navigate(`/custo/create`);
+  const handleAddComissao = async () => {
+    navigate(`/comissao/create`);
     setAlertVariant("success");
   };
 
-  const handleViewCusto = async (id_custo) => {
-    navigate(`/custo/view/${id_custo}`);
+  const handleViewComissao = async (id_comissao) => {
+    navigate(`/comissao/view/${id_comissao}`);
   };
 
-  const columns = ['id_custo', 'descricao', 'valor', 'id_venda'];
+  const columns = ['id_comissao', 'valor_comissao', 'data_pagamento', 'percentual_comissao', 'id_vendedor', 'id_parcela'];
 
   const actions = {
-    view: handleViewCusto,
+    view: handleViewComissao,
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Custos</h2>
+          <h2>Gerenciamento de Comissões</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddCusto}>
-              Adicionar Custo
+            <button variant="primary" className="custom-button" onClick={handleAddComissao}>
+              Adicionar Comissão
             </button>
           )}
         </div>
@@ -50,27 +50,29 @@ const CustoPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : custos.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum custo encontrado.</Alert>
+        ) : comissoes.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhuma comissão encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID Custo</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-                <th>ID Venda</th>
+                <th>ID Comissão</th>
+                <th>Valor Comissão</th>
+                <th>Data Pagamento</th>
+                <th>Percentual Comissão</th>
+                <th>ID Vendedor</th>
+                <th>ID Parcela</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {custos.map((custo) => (
+              {comissoes.map((comissao) => (
                 <TableRow
-                  key={custo.id_custo}
-                  rowData={custo}
+                  key={comissao.id_comissao}
+                  rowData={comissao}
                   columns={columns}
                   actions={actions}
-                  idField="id_custo"
+                  idField="id_comissao"
                 />
               ))}
             </tbody>
@@ -81,4 +83,4 @@ const CustoPage = () => {
   );
 };
 
-export default CustoPage;
+export default ComissaoPage;

@@ -12,13 +12,14 @@ export const UsuarioProvider = ({ children }) => {
   useEffect(() => {
     const fetchUsuarios = async () => {
       if (!user) return;
-
+    
       setLoading(true);
       try {
         const data = await getAllUsuarios();
+        console.log("Dados retornados:", data);
         setUsuarios(data);
       } catch (error) {
-        console.error('Erro ao carregar usuários:', error);
+        console.error('Erro ao carregar Usuários:', error);
       } finally {
         setLoading(false);
       }
@@ -32,6 +33,8 @@ export const UsuarioProvider = ({ children }) => {
       const usuario = await getUsuarioById(id_user);
       return usuario;
     } catch (error) {
+      console.error(`Erro ao carregar usuário com ID ${id_user}:`, error);
+      throw error;
     }
   };
 

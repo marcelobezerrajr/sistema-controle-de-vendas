@@ -29,7 +29,6 @@ class UserForm(BaseModel):
 class UserUpdateForm(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
-    hashed_password: Optional[str] = None
     permission: Optional[PermissionType] = None
 
     class Config:

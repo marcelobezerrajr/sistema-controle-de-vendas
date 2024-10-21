@@ -1,54 +1,42 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
-import useCliente from '../../hooks/useCliente';
+import useItemVenda from '../../hooks/useItemVenda';
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
-import "../../styles/Gerenciamento.css";
+import "../../styles/Gerenciamento.css"
 
-const ClientePage = () => {
-  const { clientes, loading, removeCliente } = useCliente();
+const ItemVendaPage = () => {
+  const { itemVenda, loading } = useItemVenda();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
 
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
-  const handleAddCliente = async () => {
-    navigate(`/cliente/create`);
+  const handleAddItemVenda = async () => {
+    navigate(`/item-venda/create`);
   };
 
-  const handleEditCliente = async (id_cliente) => {
-    navigate(`/cliente/update/${id_cliente}`);
+  const handleViewItemVenda = async (id_item_venda) => {
+    navigate(`/item-venda/view/${id_item_venda}`);
   };
 
-  const handleViewCliente = async (id_cliente) => {
-    navigate(`/cliente/view/${id_cliente}`);
-  };
-
-  const handleDeleteCliente = async (id_cliente) => {
-    await removeCliente(id_cliente);
-    setAlertMessage("Cliente deletado com sucesso!");
-    setAlertVariant("success");
-  };
-
-  const columns = ['id_cliente', 'nome_cliente', 'cpf_cnpj'];
+  const columns = ['id_item_venda', 'id_venda', 'id_produto', 'quantidade', 'preco_unitario', 'subtotal'];
 
   const actions = {
-    view: handleViewCliente,
-    update: handleEditCliente,
-    delete: handleDeleteCliente
+    view: handleViewItemVenda
   };
 
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
-          <h2>Gerenciamento de Clientes</h2>
+          <h2>Gerenciamento de Item Venda</h2>
 
           {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddCliente}>
-              Adicionar Cliente
+            <button variant="primary" className="custom-button" onClick={handleAddItemVenda}>
+              Adicionar Item Venda
             </button>
           )}
         </div>
@@ -61,26 +49,29 @@ const ClientePage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : clientes.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum cliente encontrado.</Alert>
+        ) : itemVenda.length === 0 ? (
+          <Alert className="alert-error" variant="warning">Nenhuma item venda encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
               <tr>
-                <th>ID Cliente</th>
-                <th>Nome</th>
-                <th>CPF/CNPJ</th>
+                <th>ID Item Venda</th>
+                <th>ID Venda</th>
+                <th>ID Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Subtotal</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map((cliente) => (
+              {itemVenda.map((itemvenda) => (
                 <TableRow
-                  key={cliente.id_cliente}
-                  rowData={cliente}
+                  key={itemvenda.id_item_venda}
+                  rowData={itemvenda}
                   columns={columns}
                   actions={actions}
-                  idField="id_cliente"
+                  idField="id_item_venda"
                 />
               ))}
             </tbody>
@@ -91,4 +82,4 @@ const ClientePage = () => {
   );
 };
 
-export default ClientePage;
+export default ItemVendaPage;

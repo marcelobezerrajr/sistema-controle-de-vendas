@@ -1,15 +1,15 @@
-.produto-div {
+.custo-div {
     display: flex;
     justify-content: center;
     align-items: center;
     animation: slideIn 1s ease;
 }
 
-.produto-container {
+.custo-container {
     padding: 10px;
 }
 
-.produto-card {
+.custo-card {
     width: 100%;
     max-width: 700px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -18,12 +18,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.produto-card:hover {
+.custo-card:hover {
     transform: scale(1.02);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.produto-card-header {
+.custo-card-header {
     color: #fff;
     background-color: #004F98;
     border-radius: 15px 15px 0 0;
@@ -31,7 +31,7 @@
     padding: 15px;
 }
 
-.produto-card-header h4 {
+.custo-card-header h4 {
     margin: 0;
     font-size: 1.75rem;
     display: flex;
@@ -39,17 +39,17 @@
     justify-content: center;
 }
 
-.produto-card-body {
+.custo-card-body {
     padding: 20px;
 }
 
-.produto-form-label {
+.custo-form-label {
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
 }
 
-.produto-form-group {
+.custo-form-group {
     margin-bottom: 20px;
 }
 
@@ -76,7 +76,7 @@
     border-color: #dc3545;
 }
 
-.produto-select-custom {
+.form-control-custom {
     border-radius: 8px;
     padding: 10px;
     border: 1px solid #ced4da;
@@ -85,7 +85,7 @@
     margin-left: 10px;
 }
 
-.produto-select-custom:focus {
+.form-control-custom:focus {
     box-shadow: none;
     color: #1684BF;
 }
@@ -109,13 +109,13 @@
     background-color: #0056b3;
 }
 
-.produto-spinner {
+.custo-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.produto-alert {
+.custo-alert {
     margin-top: 10px;
     color: #004F98;
 }
@@ -137,7 +137,7 @@
   }
 
 @media (max-width: 768px) {
-    .produto-card {
+    .custo-card {
         margin: 20px;
     }
 }

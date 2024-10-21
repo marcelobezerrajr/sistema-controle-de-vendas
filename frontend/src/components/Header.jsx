@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaSignOutAlt, FaUsers, FaKey } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import '../styles/Header.css';
 
@@ -8,7 +9,9 @@ function Header() {
   const [userUsername, setUserUsername] = useState("Username");
   const [userEmail, setUserEmail] = useState(null);
   const [userPermission, setUserPermission] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const storedUserUsername = localStorage.getItem('user_username') || 'Username';
@@ -32,6 +35,27 @@ function Header() {
     navigate('/login');
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleClickOutside = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
   return (
     <Navbar expand="lg" className="header">
       <div className="header-left">
@@ -46,35 +70,39 @@ function Header() {
         <Link to="/comissoes">Comissões</Link>
         <Link to="/custos">Custos</Link>
         <Link to="/parcelas">Parcelas</Link>
-        {/* <Link to="/usuarios">Usuários</Link> */}
-        {/* <Link to="/parcelas">VendaVendedor</Link> */}
         <Link to="/item-venda">Item Venda</Link>
-        
-        <NavDropdown
-          title={
-            <span className="d-flex align-items-center avatar-link">
-              <div className="user-initials-icon">
-                {getInitials(userUsername)}
-              </div>
-              {/* <span className="user-info">
-                {userUsername !== 'Username' ? userUsername : userEmail}
-              </span> */}
-            </span>
-          }
-          id="user-nav-dropdown"
-          className="custom-user-dropdown"
-        >
-          <div className="dropdown-user-info">
-            <strong>{userUsername !== 'Username' ? userUsername : userEmail}</strong>
-            {userEmail && <p>{userEmail}</p>}
-          </div>
-          <NavDropdown.Divider />
-          <NavDropdown.Item as={Link} to="/profile">Perfil</NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/change-password">Alterar Senha</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-        </NavDropdown>
       </nav>
+      <div className="user-avatar-container" ref={dropdownRef}>
+        <span className="avatar-link" onClick={toggleDropdown}>
+          <div className="user-initials-icon">
+            {getInitials(userUsername)}
+          </div>
+        </span>
+        {dropdownOpen && (
+          <div className="custom-user-dropdown-menu">
+            <div className="dropdown-user-info">
+              <strong>{userUsername !== 'Username' ? userUsername : userEmail}</strong>
+              {userEmail && <p>{userEmail}</p>}
+            </div>
+            <NavDropdown.Divider />
+            <NavDropdown.Item as={Link} to="/perfil">
+              <FaUser className="me-2" /> Perfil
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/change-password">
+              <FaKey className="me-2" /> Alterar Senha
+            </NavDropdown.Item>
+            {(userPermission === 'Admin' || userPermission === 'User') && (
+              <NavDropdown.Item as={Link} to="/users">
+                <FaUsers className="me-2" /> Usuários
+              </NavDropdown.Item>
+            )}
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={handleLogout}>
+              <FaSignOutAlt className="me-2" /> Sair
+            </NavDropdown.Item>
+          </div>
+        )}
+      </div>
     </Navbar>
   );
 }

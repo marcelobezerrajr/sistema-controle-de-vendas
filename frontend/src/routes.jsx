@@ -22,13 +22,18 @@ import ProdutoPage from './pages/Produto/ProdutoPage';
 import AddProduto from './pages/Produto/AddProduto';
 import UpdateProduto from './pages/Produto/UpdateProduto';
 import ViewPage from './pages/ViewPage';
-import ComissaoPage from './pages/ComissaoPage';
-import CustoPage from './pages/CustoPage';
+import ComissaoPage from './pages/Comissao/ComissaoPage';
+import AddComissao from './pages/Comissao/AddComissao';
+import CustoPage from './pages/Custo/CustoPage';
+import AddCusto from './pages/Custo/AddCusto';
 import ParcelaPage from './pages/Parcela/ParcelaPage';
 import AddParcela from './pages/Parcela/AddParcela';
 import UpdateParcela from './pages/Parcela/UpdateParcela';
-import UsuarioPage from './pages/UsuarioPage';
-import ItemVendaPage from './pages/ItemVendaPage';
+import UsuarioPage from './pages/Usuario/UsuarioPage';
+import AddUsuario from './pages/Usuario/AddUsuario';
+import UpdateUsuario from './pages/Usuario/UpdateUsuario';
+import ItemVendaPage from './pages/ItemVenda/ItemVendaPage';
+import AddItemVenda from './pages/ItemVenda/AddItemVenda';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEntityContext } from './context/EntityContext';
 
@@ -82,12 +87,17 @@ const AppRoutes = () => {
       <Route exact path="/produto/update/:id_produto" element={<UpdateProduto />} />
       <Route exact path="/produto/create" element={<AddProduto />} />
       <Route exact path="/comissoes" element={<ComissaoPage />} />
+      <Route exact path="/comissao/create" element={<AddComissao />} />
       <Route exact path="/custos" element={<CustoPage />} />
+      <Route exact path="/custo/create" element={<AddCusto />} />
       <Route exact path="/parcelas" element={<ParcelaPage />} />
       <Route exact path="/parcela/create" element={<AddParcela />} />
       <Route exact path="/parcela/update/:id_parcela" element={<UpdateParcela />} />
-      <Route exact path="/usuarios" element={<UsuarioPage />} />
+      <Route exact path="/users" element={<UsuarioPage />} />
+      <Route exact path="/user/create" element={<AddUsuario />} />
+      <Route exact path="/user/update/:id_user" element={<UpdateUsuario />} />
       <Route exact path="/item-venda" element={<ItemVendaPage />} />
+      <Route exact path="/item-venda/create" element={<AddItemVenda />} />
       <Route exact path="/:entity/view/:id" element={<EntityViewWrapper />} />
       <Route exact path="*" element={<NotFoundPage />} />
     </Routes>
