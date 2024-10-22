@@ -66,7 +66,7 @@ const ResetPasswordPage = () => {
                 <Card.Header className="reset-card-header-custom">
                     <h4>Redefinir senha</h4>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body className="reset-card-body">
                     {feedback.message && (
                         <Alert className="reset-alert-custom-success" variant={feedback.error ? "danger" : "success"}>
                             {feedback.message}

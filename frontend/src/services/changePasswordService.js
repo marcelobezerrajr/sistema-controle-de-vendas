@@ -10,8 +10,9 @@ export const changePasswordService = async (currentPassword, newPassword) => {
     return response.data;
   } catch (error) {
     if (error.response && error.response.data) {
-      throw new Error(error.response.data.detail || 'Failed to change password');
+      throw new Error(error.response.data.detail || 'Erro ao tentar alterar a senha');
     }
-    throw new Error('An unexpected error occurred');
+
+    throw new Error('Ocorreu um erro inesperado ao tentar alterar a senha.');
   }
 };

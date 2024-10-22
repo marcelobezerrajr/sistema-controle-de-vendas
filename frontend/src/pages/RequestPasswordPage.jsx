@@ -25,7 +25,7 @@ const RequestPasswordPage = () => {
         <Card.Header className="request-card-header-custom">
           <h4>Recuperar Senha</h4>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="request-card-body">
           {error && <Alert className="request-alert-custom-error" variant="danger">{error}</Alert>}
           {successMessage && <Alert className="request-alert-custom-success" variant="success">{successMessage}</Alert>}
           <Form onSubmit={handleSubmit}>

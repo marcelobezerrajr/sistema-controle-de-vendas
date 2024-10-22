@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
-import InputMask from 'react-input-mask';
 import useCliente from '../../hooks/useCliente';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Cliente.css"
+import "../../styles/Cliente.css";
 
 const validateName = (value) => value.trim() === '' ? 'Nome é obrigatório.' : null;
 const validateCpfCnpj = (value) => {
@@ -22,22 +21,31 @@ const AddCliente = () => {
 
   const cpf_cnpjRef = useRef(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setClienteData({
-      ...clienteData,
-      [name]: value,
-    });
-    setErrors({ ...errors, [name]: null });
+  const formatCpfCnpj = (value) => {
+    const digitsOnly = value.replace(/\D/g, '');
+    if (digitsOnly.length <= 11) {
+      return digitsOnly.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4').substr(0, 14);
+    } else {
+      return digitsOnly.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5').substr(0, 18);
+    }
   };
 
-  const getCpfCnpjMask = () => {
-    const digitsOnly = clienteData.cpf_cnpj.replace(/\D/g, '');
-    if (digitsOnly.length > 11) {
-        return '99.999.999/9999-99';
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === 'cpf_cnpj') {
+      const formattedValue = formatCpfCnpj(value);
+      setClienteData({
+        ...clienteData,
+        [name]: formattedValue,
+      });
     } else {
-        return '999.999.999-99';
+      setClienteData({
+        ...clienteData,
+        [name]: value,
+      });
     }
+    setErrors({ ...errors, [name]: null });
   };
 
   const handleSubmit = async (e) => {
@@ -110,8 +118,8 @@ const AddCliente = () => {
                 <Col md={6}>
                   <Form.Group className="cpf-cnpj-form-label" controlId="cpf_cnpj">
                     <Form.Label className="cliente-form-label">CPF/CNPJ</Form.Label>
-                    <InputMask
-                      mask={getCpfCnpjMask()}
+                    <Form.Control
+                      type="text"
                       value={clienteData.cpf_cnpj}
                       onChange={handleChange}
                       name="cpf_cnpj"

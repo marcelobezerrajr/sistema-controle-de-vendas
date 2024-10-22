@@ -27,19 +27,19 @@ export const ChangePasswordProvider = ({ children }) => {
     setMessage('');
 
     try {
-      await changePasswordService(currentPassword, newPassword);
-      setMessage('Password changed successfully.');
-    } catch (error) {
-      setError(error.message || 'An unexpected error occurred');
+      const response = await changePasswordService(currentPassword, newPassword);
+      setMessage(response.message || 'Senha alterada com sucesso!');
+    } catch (err) {
+      setError(err.message || 'Erro ao tentar alterar a senha');
     } finally {
       setLoading(false);
     }
   };
 
   const togglePasswordVisibility = (field) => {
-    setShowPasswords((prevState) => ({
-      ...prevState,
-      [field]: !prevState[field],
+    setShowPasswords((prev) => ({
+      ...prev,
+      [field]: !prev[field],
     }));
   };
 

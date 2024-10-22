@@ -28,7 +28,7 @@ const LoginPage = () => {
                 <Card.Header className="login-card-header-custom">
                     <h4>Login</h4>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body className="login-card-body">
                     {error && <Alert className="login-alert-custom" variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
