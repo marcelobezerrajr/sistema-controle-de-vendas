@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaSignOutAlt, FaUsers, FaKey } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaUsers, FaKey, FaShoppingCart, FaBoxOpen, FaUserTie, FaCaretDown } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import '../styles/Header.css';
 
@@ -10,8 +10,10 @@ function Header() {
   const [userEmail, setUserEmail] = useState(null);
   const [userPermission, setUserPermission] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [vendasDropdownOpen, setVendasDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const vendasDropdownRef = useRef(null);
 
   useEffect(() => {
     const storedUserUsername = localStorage.getItem('user_username') || 'Username';
@@ -39,14 +41,21 @@ function Header() {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const toggleVendasDropdown = () => {
+    setVendasDropdownOpen(!vendasDropdownOpen);
+  };
+
   const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setDropdownOpen(false);
     }
+    if (vendasDropdownRef.current && !vendasDropdownRef.current.contains(e.target)) {
+      setVendasDropdownOpen(false);
+    }
   };
 
   useEffect(() => {
-    if (dropdownOpen) {
+    if (dropdownOpen || vendasDropdownOpen) {
       document.addEventListener('click', handleClickOutside);
     } else {
       document.removeEventListener('click', handleClickOutside);
@@ -54,7 +63,7 @@ function Header() {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen, vendasDropdownOpen]);
 
   return (
     <Navbar expand="lg" className="header">
@@ -63,15 +72,34 @@ function Header() {
       </div>
       <nav className="header-nav">
         <Link to="/clientes">Clientes</Link>
-        <Link to="/vendas">Vendas</Link>
+        <div className="vendas-dropdown-container" ref={vendasDropdownRef}>
+          <span className="vendas-link" onClick={toggleVendasDropdown}>
+            Vendas <FaCaretDown className={`caret-icon ${vendasDropdownOpen ? 'open' : ''}`} />
+          </span>
+          {vendasDropdownOpen && (
+            <div className="custom-vendas-dropdown-menu">
+              <Link to="/vendas" className="dropdown-item">
+                <FaShoppingCart className="me-2" /> Vendas
+              </Link>
+            <NavDropdown.Divider />
+              <Link to="/item-venda" className="dropdown-item">
+                <FaBoxOpen className="me-2" /> Item Venda
+              </Link>
+            <NavDropdown.Divider />
+              <Link to="/venda-vendedor" className="dropdown-item">
+                <FaUserTie className="me-2" /> Venda Vendedor
+              </Link>
+            </div>
+          )}
+        </div>
         <Link to="/vendedores">Vendedores</Link>
         <Link to="/produtos">Produtos</Link>
         <Link to="/fornecedores">Fornecedores</Link>
         <Link to="/comissoes">Comissões</Link>
         <Link to="/custos">Custos</Link>
         <Link to="/parcelas">Parcelas</Link>
-        <Link to="/item-venda">Item Venda</Link>
       </nav>
+
       <div className="user-avatar-container" ref={dropdownRef}>
         <span className="avatar-link" onClick={toggleDropdown}>
           <div className="user-initials-icon">

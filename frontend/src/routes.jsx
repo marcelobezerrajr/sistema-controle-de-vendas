@@ -34,6 +34,7 @@ import AddUsuario from './pages/Usuario/AddUsuario';
 import UpdateUsuario from './pages/Usuario/UpdateUsuario';
 import ItemVendaPage from './pages/ItemVenda/ItemVendaPage';
 import AddItemVenda from './pages/ItemVenda/AddItemVenda';
+import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEntityContext } from './context/EntityContext';
 
@@ -98,6 +99,7 @@ const AppRoutes = () => {
       <Route exact path="/user/update/:id_user" element={<UpdateUsuario />} />
       <Route exact path="/item-venda" element={<ItemVendaPage />} />
       <Route exact path="/item-venda/create" element={<AddItemVenda />} />
+      <Route exact path="/perfil" element={<ProfilePage />} />
       <Route exact path="/:entity/view/:id" element={<EntityViewWrapper />} />
       <Route exact path="*" element={<NotFoundPage />} />
     </Routes>

@@ -58,7 +58,7 @@ const ResetPasswordPage = () => {
     return (
         <div className="reset-container">
             <div className="reset-logo-container">
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a href="/login" target="_blank" rel="noopener noreferrer">
                     <img src={logo} alt="Viper IT logo" className="reset-viper-logo" />
                 </a>
             </div>
@@ -116,7 +116,7 @@ const ResetPasswordPage = () => {
                                 </button>
                             </div>
                             <div className="reset-back-login">
-                                <a href="/login">Voltar para Login</a>
+                                <a href="/login">Ir para Login</a>
                             </div>
                         </Form.Group>
                         <button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>

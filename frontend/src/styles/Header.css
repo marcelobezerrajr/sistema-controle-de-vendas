@@ -1,18 +1,16 @@
 .header {
   background-color: #ffffff;
-  padding: 5px 25px;
+  padding: 5px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 1s ease;
 }
 
 .header-left {
   display: flex;
   align-items: center;
 }
-
 
 .header-logo {
   width: 150px;
@@ -35,6 +33,20 @@
 }
 
 .header-nav a:hover {
+  color: #1684BF;
+  transform: scale(1.1);
+}
+
+.header-nav .custom-dropdown a {
+  color: #004F98;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease;
+  margin-left: 15px;
+}
+
+.header-nav .custom-dropdown a:hover {
   color: #1684BF;
   transform: scale(1.1);
 }
@@ -62,6 +74,11 @@
   justify-content: center;
   font-size: 1.25rem;
   margin-right: 10px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.user-initials-icon:hover {
+  transform: scale(1.1);
 }
 
 .custom-user-dropdown-menu {
@@ -71,12 +88,13 @@
   top: 100%;
   background-color: #34495e;
   border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
   padding: 10px;
   min-width: 220px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  animation: fadeIn 0.7s ease;
 }
 
 .custom-user-dropdown-menu .dropdown-item {
@@ -103,4 +121,56 @@
   margin: 0;
   font-size: 0.9rem;
   color: #bdc3c7;
+}
+
+.vendas-link {
+  color: #004F98;
+  margin: 0 15px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.vendas-link:hover {
+  color: #1684BF;
+  transform: scale(1.1);
+}
+
+.custom-vendas-dropdown-menu {
+  margin-top: 10px;
+  margin-left: -10px;
+  position: absolute;
+  background-color: #34495e;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 1);
+  padding: 5px;
+  min-width: 180px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.7s ease;
+}
+
+.custom-vendas-dropdown-menu .dropdown-item {
+  color: #ecf0f1;
+  font-size: 1rem;
+  padding: 10px 10px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.custom-vendas-dropdown-menu .dropdown-item:hover {
+  /* background-color: #1684BF; */
+  color: #fff;
+  border-radius: 5px;
+}
+
+.caret-icon {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.caret-icon.open {
+  transform: rotate(180deg);
 }
