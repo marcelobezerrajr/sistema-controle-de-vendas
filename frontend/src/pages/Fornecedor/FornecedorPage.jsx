@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
+import SearchComponent from '../../components/SearchComponent';
 import useFornecedores from '../../hooks/useFornecedor'
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,25 @@ const FornecedorPage = () => {
   const { fornecedores, loading, removeFornecedor } = useFornecedores();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [filteredFornecedores, setFilteredFornecedores] = useState([]);
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
+
+  useEffect(() => {
+    setFilteredFornecedores(fornecedores);
+  }, [fornecedores]);
+
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm) {
+      setFilteredFornecedores(fornecedores);
+    } else {
+      const filtered = fornecedores.filter(fornecedor =>
+        fornecedor.nome_fornecedor.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredFornecedores(filtered);
+    }
+  };
 
   const handleAddFornecedor = async () => {
     navigate(`/fornecedor/create`);
@@ -44,13 +61,19 @@ const FornecedorPage = () => {
   return (
     <MainLayout>
       <div className="table-container">
-        <div className="header-section">
+        <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Fornecedores</h2>
-          {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddFornecedor}>
-                Adicionar Fornecedor
-            </button>
-          )}
+
+          <div className="actions-section d-flex align-items-center">
+            <SearchComponent placeholder="Buscar fornecedores..." onSearch={handleSearch} />
+
+            {(userPermission === 'Admin' || userPermission === 'User') && (
+              <button variant="primary" className="custom-button" onClick={handleAddFornecedor}>
+                  Adicionar Fornecedor
+              </button>
+            )}
+
+          </div>
         </div>
 
         {alertMessage && (
@@ -61,7 +84,7 @@ const FornecedorPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : fornecedores.length === 0 ? (
+        ) : filteredFornecedores.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhum fornecedor encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
@@ -75,7 +98,7 @@ const FornecedorPage = () => {
               </tr>
             </thead>
             <tbody>
-              {fornecedores.map((fornecedor) => (
+              {filteredFornecedores.map((fornecedor) => (
                 <TableRow
                  key={fornecedor.id_fornecedor}
                  rowData={fornecedor}

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
+import SearchComponent from '../../components/SearchComponent';
 import useProdutos from '../../hooks/useProduto'
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,25 @@ const ProdutoPage = () => {
   const { produtos, loading, removeProduto } = useProdutos();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [filteredProdutos, setFilteredProdutos] = useState([]);
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
+
+  useEffect(() => {
+    setFilteredProdutos(produtos);
+  }, [produtos]);
+
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm) {
+      setFilteredProdutos(produtos);
+    } else {
+      const filtered = produtos.filter(produto =>
+        produto.nome_produto.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProdutos(filtered);
+    }
+  };
 
   const handleAddProduto = async () => {
     navigate(`/produto/create`);
@@ -44,13 +61,19 @@ const ProdutoPage = () => {
   return (
     <MainLayout>
       <div className="table-container">
-        <div className="header-section">
+        <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Produtos</h2>
+
+          <div className="actions-section d-flex align-items-center">
+            <SearchComponent placeholder="Buscar produtos..." onSearch={handleSearch} />
+
           {(userPermission === 'Admin' || userPermission === 'User') && (
             <button variant="primary" className="custom-button" onClick={handleAddProduto}>
                 Adicionar Produto
             </button>
           )}
+
+          </div>
         </div>
 
         {alertMessage && (
@@ -61,7 +84,7 @@ const ProdutoPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : produtos.length === 0 ? (
+        ) : filteredProdutos.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhum produto encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
@@ -76,7 +99,7 @@ const ProdutoPage = () => {
               </tr>
             </thead>
             <tbody>
-              {produtos.map((produto) => (
+              {filteredProdutos.map((produto) => (
                 <TableRow
                  key={produto.id_produto}
                  rowData={produto}

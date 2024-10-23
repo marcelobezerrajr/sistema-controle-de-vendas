@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
+import SearchComponent from '../../components/SearchComponent';
 import useVendedores from '../../hooks/useVendedor'
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,25 @@ const VendedorPage = () => {
   const { vendedor, loading, removeVendedor } = useVendedores();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
- 
+  const [filteredVendedores, setFilteredVendedores] = useState([]);
+
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
+
+  useEffect(() => {
+    setFilteredVendedores(vendedor);
+  }, [vendedor]);
+
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm) {
+      setFilteredVendedores(vendedor);
+    } else {
+      const filtered = vendedor.filter(vendedores =>
+        vendedores.nome_vendedor.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredVendedores(filtered);
+    }
+  };
 
   const handleAddVendedor = async () => {
     navigate(`/vendedor/create`);
@@ -44,13 +61,19 @@ const VendedorPage = () => {
   return (
     <MainLayout>
       <div className="table-container">
-        <div className="header-section">
+        <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Vendedores</h2>
-          {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddVendedor}>
-              Adicionar Vendedor
-            </button>
-          )}
+
+          <div className="actions-section d-flex align-items-center">
+            <SearchComponent placeholder="Buscar vendedores..." onSearch={handleSearch} />
+
+            {(userPermission === 'Admin' || userPermission === 'User') && (
+              <button variant="primary" className="custom-button" onClick={handleAddVendedor}>
+                Adicionar Vendedor
+              </button>
+            )}
+
+          </div>
         </div>
 
         {alertMessage && (
@@ -61,7 +84,7 @@ const VendedorPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : vendedor.length === 0 ? (
+        ) : filteredVendedores.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhum vendedor encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
@@ -75,7 +98,7 @@ const VendedorPage = () => {
               </tr>
             </thead>
             <tbody>
-              {vendedor.map((vendedor) => (
+              {filteredVendedores.map((vendedor) => (
                 <TableRow
                  key={vendedor.id_vendedor}
                  rowData={vendedor}
