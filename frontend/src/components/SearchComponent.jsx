@@ -20,9 +20,9 @@ const SearchComponent = ({ placeholder, onSearch }) => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
       />
-      <Button type="submit" className="search-button">
+      <button type="submit" className="search-button">
         <FaSearch />
-      </Button>
+      </button>
     </Form>
   );
 };

@@ -4,6 +4,7 @@ import TableRow from '../../components/TableRow';
 import SearchComponent from '../../components/SearchComponent';
 import useProdutos from '../../hooks/useProduto'
 import MainLayout from '../../layouts/MainLayout';
+import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
@@ -11,24 +12,31 @@ const ProdutoPage = () => {
   const { produtos, loading, removeProduto } = useProdutos();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [tipoProdutoFilter, setTipoProdutoFilter] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredProdutos, setFilteredProdutos] = useState([]);
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
   useEffect(() => {
-    setFilteredProdutos(produtos);
-  }, [produtos]);
+    const filtered = produtos.filter((produto) => {
+      const matchesTipoProduto = tipoProdutoFilter ? produto.tipo === tipoProdutoFilter : true;
+      const matchesSearchTerm = searchTerm ?
+        produto.nome_produto.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+
+      return matchesTipoProduto && matchesSearchTerm;
+    });
+
+    setFilteredProdutos(filtered);
+  }, [produtos, tipoProdutoFilter, searchTerm]);
 
   const handleSearch = (searchTerm) => {
-    if (!searchTerm) {
-      setFilteredProdutos(produtos);
-    } else {
-      const filtered = produtos.filter(produto =>
-        produto.nome_produto.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredProdutos(filtered);
-    }
+    setSearchTerm(searchTerm);
+  };
+
+  const handleFilterChange = (filterValue) => {
+    setTipoProdutoFilter(filterValue);
   };
 
   const handleAddProduto = async () => {
@@ -58,11 +66,25 @@ const ProdutoPage = () => {
     delete: handleDeleteProduto
   };
 
+  const tipoProdutoOptions = [
+    { value: 'Produto', label: 'Produto' },
+    { value: 'Serviço', label: 'Serviço' },
+  ];
+
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Produtos</h2>
+
+          <div className="filters-section">
+            <FilterComponent
+              filterOptions={tipoProdutoOptions}
+              filterLabel="Tipo de Produto"
+              onFilterChange={handleFilterChange}
+              selectedFilter={tipoProdutoFilter}
+            />
+          </div>
 
           <div className="actions-section d-flex align-items-center">
             <SearchComponent placeholder="Buscar produtos..." onSearch={handleSearch} />

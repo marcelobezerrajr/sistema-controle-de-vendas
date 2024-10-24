@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
+import SearchComponent from '../../components/SearchComponent';
 import useUsuario from '../../hooks/useUsuario';
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +11,25 @@ const UsuarioPage = () => {
   const { usuarios, loading, removeUsuario } = useUsuario();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [filteredUsuarios, setFilteredUsuarios] = useState([]);
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
+
+  useEffect(() => {
+    setFilteredUsuarios(usuarios);
+  }, [usuarios]);
+
+  const handleSearch = (searchTerm) => {
+    if (!searchTerm) {
+      setFilteredUsuarios(usuarios);
+    } else {
+      const filtered = usuarios.filter(usuario =>
+        usuario.username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredUsuarios(filtered);
+    }
+  };
 
   const handleAddUsuario = async () => {
     navigate(`/user/create`);
@@ -44,14 +61,19 @@ const UsuarioPage = () => {
   return (
     <MainLayout>
       <div className="table-container">
-        <div className="header-section">
+        <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Usuários</h2>
 
-          {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddUsuario}>
-                Adicionar Usuário
-            </button>
-          )}
+          <div className="actions-section d-flex align-items-center">
+            <SearchComponent placeholder="Buscar usuários..." onSearch={handleSearch} />
+
+            {(userPermission === 'Admin' || userPermission === 'User') && (
+              <button variant="primary" className="custom-button" onClick={handleAddUsuario}>
+                  Adicionar Usuário
+              </button>
+            )}
+
+          </div>
         </div>
 
         {alertMessage && (
@@ -62,7 +84,7 @@ const UsuarioPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : !Array.isArray(usuarios) || usuarios.length === 0 ? (
+        ) : !Array.isArray(filteredUsuarios) || filteredUsuarios.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhum usuário encontrado.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
@@ -76,7 +98,7 @@ const UsuarioPage = () => {
               </tr>
             </thead>
             <tbody>
-              {usuarios.map((user) => (
+              {filteredUsuarios.map((user) => (
                 <TableRow
                 key={user.id_user}
                 rowData={user}

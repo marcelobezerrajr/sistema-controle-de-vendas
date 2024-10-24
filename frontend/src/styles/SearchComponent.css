@@ -8,10 +8,13 @@
 .search-input {
   padding: 8px 15px;
   border: 1px solid #1684BF;
-  border-radius: 5px 0 0 5px;
-  width: 200px !important;
-  transition: transform 0.3s ease !important;
-  margin-right: 10px;
+  border-radius: 5px 0 0 5px !important;
+  width: 200px;
+  transition: border-color 0.3s ease, transform 0.3s ease !important;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
+  margin-top: 0px !important;
 }
 
 .search-input:focus {
@@ -21,8 +24,7 @@
 }
 
 .search-input:hover {
-  transition: transform 0.3s ease;
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .search-button {
@@ -31,6 +33,7 @@
   color: #fff;
   padding: 8px 12px;
   border-radius: 0 5px 5px 0;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,10 +51,11 @@
 
 @media (max-width: 768px) {
   .search-input {
-      width: 180px;
+    width: 180px;
   }
 
   .search-button {
-      padding: 6px 10px;
+    padding: 6px 10px;
+    height: 36px;
   }
 }

@@ -27,9 +27,9 @@ export const VendaVendedorProvider = ({ children }) => {
     fetchVendaVendedor();
   }, [user]);
 
-  const getVendaVendedor = async (id) => {
+  const getVendaVendedor = async (id_vendedor) => {
     try {
-      const vendaByVendedor = await getVendasByVendedor(id);
+      const vendaByVendedor = await getVendasByVendedor(id_vendedor);
       return vendaByVendedor;
     } catch (error) {
     }

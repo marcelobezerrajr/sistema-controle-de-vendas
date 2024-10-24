@@ -3,6 +3,7 @@ import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
 import useParcelas from '../../hooks/useParcela'
 import MainLayout from '../../layouts/MainLayout';
+import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
@@ -10,9 +11,17 @@ const ParcelaPage = () => {
   const { parcelas, loading } = useParcelas();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [tipoStatusFilter, setTipoStatusFilter] = useState('');
+  const [tipoFormaRecebimentoFilter, setTipoFormaRecebimentoFilter] = useState('');
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
+
+  const filteredParcelas = parcelas.filter((parcela) => {
+    const matchesTipoStatus = tipoStatusFilter ? parcela.status === tipoStatusFilter : true;
+    const matchesTipoFormaRecebimento = tipoFormaRecebimentoFilter ? parcela.forma_recebimento === tipoFormaRecebimentoFilter : true;
+    return matchesTipoStatus && matchesTipoFormaRecebimento;
+  });
 
   const handleAddParcela = async () => {
     navigate(`/parcela/create`);
@@ -35,11 +44,38 @@ const ParcelaPage = () => {
     update: handleEditParcela,
   };
 
+  const tipoStatusOptions = [
+    { value: 'Pendente', label: 'Pendente' },
+    { value: 'Pago', label: 'Pago' },
+    { value: 'Atrasado', label: 'Atrasado' },
+  ];
+
+  const tipoFormaRecebimentoOptions = [
+    { value: 'Primeira', label: 'Primeira' },
+    { value: 'Subsequente', label: 'Subsequente' },
+  ];
+
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section">
           <h2>Gerenciamento de Parcela</h2>
+
+          <div className="filters-section">
+              <FilterComponent
+                filterOptions={tipoStatusOptions}
+                filterLabel="Tipo Status"
+                onFilterChange={setTipoStatusFilter}
+                selectedFilter={tipoStatusFilter}
+              />
+              <FilterComponent
+                filterOptions={tipoFormaRecebimentoOptions}
+                filterLabel="Tipo Forma de Recebimento"
+                onFilterChange={setTipoFormaRecebimentoFilter}
+                selectedFilter={tipoFormaRecebimentoFilter}
+              />
+            </div>
+
           {(userPermission === 'Admin' || userPermission === 'User') && (
             <button variant="primary" className="custom-button" onClick={handleAddParcela}>
                 Adicionar Parcela
@@ -55,7 +91,7 @@ const ParcelaPage = () => {
 
         {loading ? (
           <p>Carregando...</p>
-        ) : parcelas.length === 0 ? (
+        ) : filteredParcelas.length === 0 ? (
           <Alert className="alert-error" variant="warning">Nenhuma parcela encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
@@ -73,7 +109,7 @@ const ParcelaPage = () => {
               </tr>
             </thead>
             <tbody>
-              {parcelas.map((parcela) => (
+              {filteredParcelas.map((parcela) => (
                 <TableRow
                  key={parcela.id_parcela}
                  rowData={parcela}

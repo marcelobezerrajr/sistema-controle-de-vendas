@@ -9,18 +9,18 @@ export const getAllVendaVendedor = async () => {
   }
 };
 
-export const getVendasByVendedor = async (id) => {
+export const getVendasByVendedor = async (id_vendedor) => {
   try {
-    const response = await api.get(`/venda-vendedor/vendedor/${id}`);
+    const response = await api.get(`/venda-vendedor/vendedor/${id_vendedor}`);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao obter venda-vendedor.');
   }
 };
 
-export const createVendaVendedor = async (clienteData) => {
+export const createVendaVendedor = async (vendavendedorData) => {
   try {
-    const response = await api.post('/venda-vendedor/create', clienteData);
+    const response = await api.post('/venda-vendedor/create', vendavendedorData);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao criar venda-vendedor.');
