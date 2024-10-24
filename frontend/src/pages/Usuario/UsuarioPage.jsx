@@ -4,6 +4,7 @@ import TableRow from '../../components/TableRow';
 import SearchComponent from '../../components/SearchComponent';
 import useUsuario from '../../hooks/useUsuario';
 import MainLayout from '../../layouts/MainLayout';
+import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
@@ -11,24 +12,31 @@ const UsuarioPage = () => {
   const { usuarios, loading, removeUsuario } = useUsuario();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
+  const [tipoUsuarioFilter, setTipoUsuarioFilter] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [filteredUsuarios, setFilteredUsuarios] = useState([]);
  
   const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
   useEffect(() => {
-    setFilteredUsuarios(usuarios);
-  }, [usuarios]);
+    const filtered = usuarios.filter((usuario) => {
+      const matchesTipoUsuario = tipoUsuarioFilter ? usuario.permission === tipoUsuarioFilter : true;
+      const matchesSearchTerm = searchTerm ?
+        usuario.username.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+
+      return matchesTipoUsuario && matchesSearchTerm;
+    });
+
+    setFilteredUsuarios(filtered);
+  }, [usuarios, tipoUsuarioFilter, searchTerm]);
 
   const handleSearch = (searchTerm) => {
-    if (!searchTerm) {
-      setFilteredUsuarios(usuarios);
-    } else {
-      const filtered = usuarios.filter(usuario =>
-        usuario.username.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredUsuarios(filtered);
-    }
+    setSearchTerm(searchTerm);
+  };
+
+  const handleFilterChange = (filterValue) => {
+    setTipoUsuarioFilter(filterValue);
   };
 
   const handleAddUsuario = async () => {
@@ -58,11 +66,26 @@ const UsuarioPage = () => {
     delete: handleDeleteUsuario
   };
 
+  const tipoUsuarioOptions = [
+    { value: 'Admin', label: 'Admin' },
+    { value: 'User', label: 'User' },
+    { value: 'Read', label: 'Read' },
+  ];
+
   return (
     <MainLayout>
       <div className="table-container">
         <div className="header-section d-flex justify-content-between align-items-center">
           <h2>Gerenciamento de Usuários</h2>
+
+          <div className="filters-section">
+            <FilterComponent
+              filterOptions={tipoUsuarioOptions}
+              filterLabel="Permissão Usuário"
+              onFilterChange={handleFilterChange}
+              selectedFilter={tipoUsuarioFilter}
+            />
+          </div>
 
           <div className="actions-section d-flex align-items-center">
             <SearchComponent placeholder="Buscar usuários..." onSearch={handleSearch} />

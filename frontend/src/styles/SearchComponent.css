@@ -9,10 +9,9 @@
   padding: 8px 15px;
   border: 1px solid #1684BF;
   border-radius: 5px 0 0 5px !important;
-  width: 200px;
+  width: 100px;
   transition: border-color 0.3s ease, transform 0.3s ease !important;
   height: 38px;
-  line-height: 38px;
   vertical-align: middle;
   margin-top: 0px !important;
 }
