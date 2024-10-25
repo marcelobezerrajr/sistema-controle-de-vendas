@@ -99,6 +99,7 @@ const AddProduto = () => {
                             <Form.Group className="produto-form-group" controlId="nome_produto">
                                 <Form.Label className="produto-form-label">Nome</Form.Label>
                                 <Form.Control
+                                className="produto-form-control-custom"
                                 type="text"
                                 name="nome_produto"
                                 value={produtoData.nome_produto}
@@ -114,6 +115,7 @@ const AddProduto = () => {
                             <Form.Group className="produto-form-group" controlId="descricao_produto">
                                 <Form.Label className="produto-form-label">Descrição Produto</Form.Label>
                                 <Form.Control
+                                className="produto-form-control-custom"
                                 type="text"
                                 name="descricao_produto"
                                 value={produtoData.descricao_produto}
@@ -129,6 +131,7 @@ const AddProduto = () => {
                             <Form.Group className="produto-form-group" controlId="preco">
                                 <Form.Label className='produto-form-label'>Preço</Form.Label>
                                 <Form.Control
+                                className="produto-form-select-custom"
                                 type="number"
                                 name="preco"
                                 value={produtoData.preco}
@@ -146,7 +149,7 @@ const AddProduto = () => {
                             <Form.Group className="produto-form-group" controlId="tipo">
                                 <Form.Label className='produto-form-label'>Tipo de Produto</Form.Label>
                                 <Form.Select
-                                className="produto-select-custom"
+                                className="produto-form-select-custom"
                                 name="tipo"
                                 value={produtoData.tipo}
                                 onChange={handleChange}
@@ -161,7 +164,7 @@ const AddProduto = () => {
                             </Col>
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="produto-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Produto'}
                             </Button>

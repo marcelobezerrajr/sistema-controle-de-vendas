@@ -53,6 +53,29 @@
     margin-bottom: 20px;
 }
 
+.usuario-form-control-custom {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+    color: #1684BF;
+    font-size: 13px;
+}
+
+.usuario-form-control-custom::placeholder{
+    color: #1684BF;
+}
+
+.usuario-form-control-custom:focus {
+    border-color: #1684BF;
+    box-shadow: none;
+}
+
+.usuario-form-control-custom.is-invalid {
+    border-color: #dc3545;
+}
+
 .usuario-password-container {
     position: relative;
 }
@@ -71,49 +94,22 @@
     cursor: pointer;
 }
 
-.form-control {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    margin-top: 10px;
-}
-
-.form-control::placeholder{
-    color: #1684BF;
-}
-
-.form-control:focus {
-    border-color: #1684BF;
-    box-shadow: none;
-}
-
-.form-control.is-invalid {
-    border-color: #dc3545;
-}
-
-.usuario-select-custom {
-    border-radius: 8px;
+.usuario-form-select-custom {
     padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
     margin-left: 10px;
+    font-size: 13px !important;
 }
 
-.usuario-select-custom:focus {
-    box-shadow: none;
-    color: #1684BF;
-}
-
-.invalid-feedback {
+.usuario-invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
 }
 
-.btn {
+.usuario-btn {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -123,7 +119,7 @@
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+.usuario-btn:hover {
     background-color: #0056b3;
 }
 
@@ -138,20 +134,20 @@
     color: #004F98;
 }
 
-.alert-error {
+.usuario-alert-error {
     padding: 7px;
     background-color: #f8d7da;
-    border: 1px solid #f5c6cb !important;
-    color: #721c24 !important;
-    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    margin-bottom: 15px;
   }
   
-  .alert-success {
+  .usuario-alert-success {
     padding: 7px;
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
-    color: #155724 !important;
-    margin-bottom: 10px;
+    color: #155724;
+    margin-bottom: 15px;
   }
 
 @media (max-width: 768px) {

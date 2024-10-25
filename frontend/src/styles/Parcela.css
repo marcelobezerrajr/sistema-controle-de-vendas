@@ -47,55 +47,53 @@
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
+    font-size: 16px;
 }
 
 .parcela-form-group {
     margin-bottom: 20px;
 }
 
-.form-control {
-    width: 100%;
+.parcela-form-control-custom {
+    margin-left: 10px;
+    width: 54%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
-    margin-top: 10px;
+    font-size: 14px;
 }
 
-.form-control::placeholder{
+.parcela-form-control-custom::placeholder{
     color: #1684BF;
 }
 
-.form-control:focus {
+.parcela-form-control-custom:focus {
     border-color: #1684BF;
     box-shadow: none;
 }
 
-.form-control.is-invalid {
+.parcela-form-control-custom.is-invalid {
     border-color: #dc3545;
 }
 
-.form-control-custom {
-    border-radius: 8px;
+.parcela-form-select-custom {
     padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
     margin-left: 10px;
+    font-size: 14px !important;
 }
 
-.form-control-custom:focus {
-    box-shadow: none;
-    color: #1684BF;
-}
-
-.invalid-feedback {
+.parcela-invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
 }
 
-.btn {
+.parcela-btn {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -105,7 +103,7 @@
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+.parcela-btn:hover {
     background-color: #0056b3;
 }
 
@@ -120,21 +118,35 @@
     color: #004F98;
 }
 
-.alert-error {
+.parcela-alert-error {
     padding: 7px;
     background-color: #f8d7da;
-    border: 1px solid #f5c6cb !important;
-    color: #721c24 !important;
-    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    margin-bottom: 15px;
   }
   
-  .alert-success {
+  .parcela-alert-success {
     padding: 7px;
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
-    color: #155724 !important;
-    margin-bottom: 10px;
+    color: #155724;
+    margin-bottom: 15px;
   }
+
+  .parcela-button-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #1684BF;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+    }
+
+    .parcela-button-container:hover {
+        background-color: #0056b3;
+    }
 
 @media (max-width: 768px) {
     .parcela-card {

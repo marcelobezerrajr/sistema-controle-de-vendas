@@ -138,12 +138,12 @@ const formatDate = (date) => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="parcela-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="parcela-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -153,6 +153,7 @@ const formatDate = (date) => {
                             <Form.Group className="parcela-form-group" controlId="id_venda">
                                 <Form.Label className='parcela-form-label'>ID Venda</Form.Label>
                                 <Form.Control
+                                className="parcela-form-control-custom"
                                 type="number"
                                 name="id_venda"
                                 value={parcelaData.id_venda}
@@ -170,6 +171,7 @@ const formatDate = (date) => {
                             <Form.Group className="parcela-form-group" controlId="numero_parcela">
                                 <Form.Label className='parcela-form-label'>Número da Parcela</Form.Label>
                                 <Form.Control
+                                className="parcela-form-control-custom"
                                 type="number"
                                 name="numero_parcela"
                                 value={parcelaData.numero_parcela}
@@ -187,6 +189,7 @@ const formatDate = (date) => {
                             <Form.Group className="parcela-form-group" controlId="valor_parcela">
                                 <Form.Label className='parcela-form-label'>Valor da Parcela</Form.Label>
                                 <Form.Control
+                                className="parcela-form-control-custom"
                                 type="number"
                                 name="valor_parcela"
                                 value={parcelaData.valor_parcela}
@@ -204,7 +207,7 @@ const formatDate = (date) => {
                             <Form.Group className="parcela-form-group" controlId="status">
                                 <Form.Label className='parcela-form-label'>Status Parcela</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="parcela-form-select-custom"
                                 name="status"
                                 value={parcelaData.status}
                                 onChange={handleChange}
@@ -222,7 +225,7 @@ const formatDate = (date) => {
                             <Form.Group className="parcela-form-group" controlId="forma_recebimento">
                                 <Form.Label className='parcela-form-label'>Forma Recebimento</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="parcela-form-select-custom"
                                 name="forma_recebimento"
                                 value={parcelaData.forma_recebimento}
                                 onChange={handleChange}
@@ -240,6 +243,7 @@ const formatDate = (date) => {
                               <Form.Group className="parcela-form-group" controlId="data_prevista">
                                 <Form.Label className='parcela-form-label'>Data Prevista</Form.Label>
                                 <Form.Control
+                                  className="parcela-form-control-custom"
                                   type="date"
                                   name="data_prevista"
                                   value={parcelaData.data_prevista}
@@ -255,6 +259,7 @@ const formatDate = (date) => {
                               <Form.Group className="parcela-form-group" controlId="data_recebimento">
                                 <Form.Label className='parcela-form-label'>Data de Recebimento</Form.Label>
                                 <Form.Control
+                                  className="parcela-form-control-custom"
                                   type="date"
                                   name="data_recebimento"
                                   value={parcelaData.data_recebimento}
@@ -267,7 +272,7 @@ const formatDate = (date) => {
                         </Row>
 
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="parcela-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Parcela'}
                             </Button>

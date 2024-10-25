@@ -47,55 +47,43 @@
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
+    font-size: 16px;
 }
 
 .comissao-form-group {
     margin-bottom: 20px;
 }
 
-.form-control {
-    width: 100%;
+.comissao-form-control-custom {
+    margin-left: 10px;
+    width: 47%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
-    margin-top: 10px;
+    font-size: 14px;
 }
 
-.form-control::placeholder{
+.comissao-form-control-custom::placeholder{
     color: #1684BF;
 }
 
-.form-control:focus {
+.comissao-form-control-custom:focus {
     border-color: #1684BF;
     box-shadow: none;
 }
 
-.form-control.is-invalid {
+.comissao-form-control-custom.is-invalid {
     border-color: #dc3545;
 }
 
-.form-control-custom {
-    border-radius: 8px;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    margin-left: 10px;
-}
-
-.form-control-custom:focus {
-    box-shadow: none;
-    color: #1684BF;
-}
-
-.invalid-feedback {
+.comissao-invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
 }
 
-.btn {
+.comissao-btn {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -105,7 +93,7 @@
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+.comissao-btn:hover {
     background-color: #0056b3;
 }
 
@@ -120,21 +108,35 @@
     color: #004F98;
 }
 
-.alert-error {
+.comissao-alert-error {
     padding: 7px;
     background-color: #f8d7da;
-    border: 1px solid #f5c6cb !important;
-    color: #721c24 !important;
-    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    margin-bottom: 15px;
   }
   
-  .alert-success {
+  .comissao-alert-success {
     padding: 7px;
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
-    color: #155724 !important;
-    margin-bottom: 10px;
+    color: #155724;
+    margin-bottom: 15px;
   }
+
+  .comissao-button-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #1684BF;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+    }
+
+    .comissao-button-container:hover {
+        background-color: #0056b3;
+    }
 
 @media (max-width: 768px) {
     .comissao-card {

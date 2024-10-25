@@ -123,12 +123,12 @@ const AddUsuario = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="usuario-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="usuario-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -138,6 +138,7 @@ const AddUsuario = () => {
                             <Form.Group className="usuario-form-group" controlId="username">
                                 <Form.Label className="usuario-form-label">Nome de Usuário</Form.Label>
                                 <Form.Control
+                                className="usuario-form-control-custom"
                                 type="text"
                                 name="username"
                                 value={usuarioData.username}
@@ -153,6 +154,7 @@ const AddUsuario = () => {
                             <Form.Group className="usuario-form-group" controlId="email">
                                 <Form.Label className="usuario-form-label">Email</Form.Label>
                                 <Form.Control
+                                className="usuario-form-control-custom"
                                 type="text"
                                 name="email"
                                 value={usuarioData.email}
@@ -165,29 +167,29 @@ const AddUsuario = () => {
                             </Col>
 
                             <Col md={6}>
-                                <Form.Group className="usuario-form-group" controlId="hashed_password">
-                                    <Form.Label className='usuario-form-label'>Senha</Form.Label>
+                              <Form.Group className="usuario-form-group" controlId="hashed_password">
+                                  <Form.Label className='usuario-form-label'>Senha</Form.Label>
                                     <div className="usuario-password-container">
-                                        <Form.Control 
-                                            type={showPassword ? "text" : "password"} 
-                                            name="hashed_password" 
-                                            value={usuarioData.hashed_password} 
-                                            onChange={handleChange}
-                                            isInvalid={!!errors.hashed_password}
-                                            placeholder="Digite sua senha" 
-                                            className="usuario-form-control-custom"
-                                            required
-                                        />
-                                        <button 
-                                            type="button"
-                                            className="usuario-password-toggle" 
-                                            onClick={() => setShowPassword(!showPassword)}
-                                        >
-                                            {showPassword ? <FaEye /> : <FaEyeSlash />}
-                                        </button>
-                                        <Form.Control.Feedback type="invalid">
-                                            {errors.hashed_password}
-                                        </Form.Control.Feedback>
+                                      <Form.Control 
+                                          className="usuario-form-control-custom"
+                                          type={showPassword ? "text" : "password"} 
+                                          name="hashed_password" 
+                                          value={usuarioData.hashed_password} 
+                                          onChange={handleChange}
+                                          isInvalid={!!errors.hashed_password}
+                                          placeholder="Digite sua senha" 
+                                          required
+                                      />
+                                      <button 
+                                          type="button"
+                                          className="usuario-password-toggle" 
+                                          onClick={() => setShowPassword(!showPassword)}
+                                      >
+                                          {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                      </button>
+                                      <Form.Control.Feedback type="invalid">
+                                          {errors.hashed_password}
+                                      </Form.Control.Feedback>
                                     </div>
                                 </Form.Group>
                             </Col>
@@ -196,7 +198,7 @@ const AddUsuario = () => {
                             <Form.Group className="usuario-form-group" controlId="permission">
                                 <Form.Label className='usuario-form-label'>Permissão</Form.Label>
                                 <Form.Select
-                                className="usuario-select-custom"
+                                className="usuario-form-select-custom"
                                 name="permission"
                                 value={usuarioData.permission}
                                 onChange={handleChange}

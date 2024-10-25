@@ -87,12 +87,12 @@ const AddComissao = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="comissao-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="comissao-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -102,6 +102,7 @@ const AddComissao = () => {
                             <Form.Group className="comissao-form-group" controlId="id_vendedor">
                                 <Form.Label className='comissao-form-label'>ID do Vendedor</Form.Label>
                                 <Form.Control
+                                className="comissao-form-control-custom"
                                 type="number"
                                 name="id_vendedor"
                                 value={comissaoData.id_vendedor}
@@ -119,6 +120,7 @@ const AddComissao = () => {
                             <Form.Group className="comissao-form-group" controlId="id_parcela">
                                 <Form.Label className='comissao-form-label'>ID da Parcela</Form.Label>
                                 <Form.Control
+                                className="comissao-form-control-custom"
                                 type="number"
                                 name="id_parcela"
                                 value={comissaoData.id_parcela}
@@ -136,6 +138,7 @@ const AddComissao = () => {
                             <Form.Group className="comissao-form-group" controlId="valor_comissao">
                                 <Form.Label className='comissao-form-label'>Valor da Comissão</Form.Label>
                                 <Form.Control
+                                className="comissao-form-control-custom"
                                 type="number"
                                 name="valor_comissao"
                                 value={comissaoData.valor_comissao}
@@ -153,6 +156,7 @@ const AddComissao = () => {
                             <Form.Group className="comissao-form-group" controlId="percentual_comissao">
                                 <Form.Label className='comissao-form-label'>Percentual da Comissão</Form.Label>
                                 <Form.Control
+                                className="comissao-form-control-custom"
                                 type="number"
                                 name="percentual_comissao"
                                 value={comissaoData.percentual_comissao}
@@ -170,6 +174,7 @@ const AddComissao = () => {
                               <Form.Group className="comissao-form-group" controlId="data_pagamento">
                                 <Form.Label className='comissao-form-label'>Data de Pagamento</Form.Label>
                                 <Form.Control
+                                  className="comissao-form-control-custom"
                                   type="date"
                                   name="data_pagamento"
                                   value={comissaoData.data_pagamento}
@@ -183,7 +188,7 @@ const AddComissao = () => {
 
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="comissao-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Comissão'}
                             </Button>

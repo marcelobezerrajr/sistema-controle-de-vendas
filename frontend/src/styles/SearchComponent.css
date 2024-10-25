@@ -5,15 +5,18 @@
   margin-right: 20px;
 }
 
+
 .search-input {
   padding: 8px 15px;
   border: 1px solid #1684BF;
-  border-radius: 5px 0 0 5px !important;
-  width: 100px;
-  transition: border-color 0.3s ease, transform 0.3s ease !important;
+  border-radius: 5px 0 0 5px;
+  width: 170px;
   height: 38px;
-  vertical-align: middle;
-  margin-top: 0px !important;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-input::placeholder{
+  color: #1684BF;
 }
 
 .search-input:focus {

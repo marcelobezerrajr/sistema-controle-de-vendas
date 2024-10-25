@@ -73,12 +73,12 @@ const AddCusto = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="custo-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="custo-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -88,6 +88,7 @@ const AddCusto = () => {
                             <Form.Group className="custo-form-group" controlId="descricao">
                                 <Form.Label className="custo-form-label">Descrição do Custo</Form.Label>
                                 <Form.Control
+                                className="custo-form-control-descricao-custom"
                                 type="text"
                                 name="descricao"
                                 value={custoData.descricao}
@@ -103,6 +104,7 @@ const AddCusto = () => {
                             <Form.Group className="custo-form-group" controlId="valor">
                                 <Form.Label className='custo-form-label'>Valor</Form.Label>
                                 <Form.Control
+                                className="custo-form-control-custom"
                                 type="number"
                                 name="valor"
                                 value={custoData.valor}
@@ -120,6 +122,7 @@ const AddCusto = () => {
                             <Form.Group className="custo-form-group" controlId="id_venda">
                                 <Form.Label className='custo-form-label'>ID da Venda</Form.Label>
                                 <Form.Control
+                                className="custo-form-control-custom"
                                 type="number"
                                 name="id_venda"
                                 value={custoData.id_venda}
@@ -135,7 +138,7 @@ const AddCusto = () => {
 
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="custo-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Custo'}
                             </Button>

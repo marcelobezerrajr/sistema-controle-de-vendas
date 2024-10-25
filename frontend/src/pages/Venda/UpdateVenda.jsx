@@ -86,10 +86,31 @@ const UpdateVenda = () => {
     }
   };
 
+  const getTipoVendaOptions = () => (
+    <>
+      <option value="Transacional">Transacional</option>
+      <option value="Recorrente">Recorrente</option>
+    </>
+  );
+
+  const getTipoFaturamentoOptions = () => (
+    <>
+      <option value="Empresa">Empresa</option>
+      <option value="Fornecedor">Fornecedor</option>
+    </>
+  );
+
+  const getMoedaOptions = () => (
+    <>
+      <option value="BRL">BRL</option>
+      <option value="USD">USD</option>
+    </>
+  );
+
   return (
     <MainLayout>
       <div className="venda-div">
-      <Container className='venda-container'>
+        <Container className='venda-container'>
             <Row className='justify-content-md-center'>
                 <Col md={12} lg={10}>
                     <Card className="venda-card">
@@ -103,12 +124,12 @@ const UpdateVenda = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="venda-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="venda-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -118,19 +139,17 @@ const UpdateVenda = () => {
                             <Form.Group className="venda-form-group" controlId="tipo_venda">
                                 <Form.Label className='venda-form-label'>Tipo Venda</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="tipo_venda"
                                 value={vendaData.tipo_venda}
                                 onChange={handleChange}
                                 isInvalid={!!errors.tipo_venda}
+                                required
                                 >
                                 <option value="">Selecionar Tipo Venda</option>
-                                <option value="Transacional">Transacional</option>
-                                <option value="Recorrente">Recorrente</option>
+                                {getTipoVendaOptions()}
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                {errors.tipo_venda}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.tipo_venda}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
 
@@ -138,19 +157,17 @@ const UpdateVenda = () => {
                             <Form.Group className="venda-form-group" controlId="tipo_faturamento">
                                 <Form.Label className='venda-form-label'>Tipo Faturamento</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="tipo_faturamento"
                                 value={vendaData.tipo_faturamento}
                                 onChange={handleChange}
                                 isInvalid={!!errors.tipo_faturamento}
+                                required
                                 >
                                 <option value="">Selecionar Tipo Faturamento</option>
-                                <option value="Empresa">Empresa</option>
-                                <option value="Fornecedor">Fornecedor</option>
+                                {getTipoFaturamentoOptions()}
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                {errors.tipo_faturamento}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.tipo_faturamento}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
 
@@ -158,26 +175,25 @@ const UpdateVenda = () => {
                             <Form.Group className="venda-form-group" controlId="moeda">
                                 <Form.Label className='venda-form-label'>Moeda</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="moeda"
                                 value={vendaData.moeda}
                                 onChange={handleChange}
                                 isInvalid={!!errors.moeda}
+                                required
                                 >
                                 <option value="">Selecionar Moeda</option>
-                                <option value="BRL">BRL</option>
-                                <option value="USD">USD</option>
+                                {getMoedaOptions()}
                                 </Form.Select>
-                                <Form.Control.Feedback type="invalid">
-                                {errors.moeda}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.moeda}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
-
+                            
                             <Col md={6}>
                             <Form.Group className="venda-form-group" controlId="valor_total">
                                 <Form.Label className='venda-form-label'>Valor Total</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="valor_total"
                                 value={vendaData.valor_total}
@@ -185,24 +201,28 @@ const UpdateVenda = () => {
                                 isInvalid={!!errors.valor_total}
                                 placeholder="Digite o Valor Total"
                                 step="0.01"
+                                required
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                {errors.valor_total}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.valor_total}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
+
 
                             <Col md={6}>
                             <Form.Group className="venda-form-group" controlId="valor_convertido">
                                 <Form.Label className='venda-form-label'>Valor Convertido</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="valor_convertido"
                                 value={vendaData.valor_convertido}
                                 onChange={handleChange}
+                                isInvalid={!!errors.valor_convertido}
                                 placeholder="Digite o Valor Convertido"
                                 step="0.01"
+                                required
                                 />
+                                <Form.Control.Feedback type="invalid">{errors.valor_convertido}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
 
@@ -210,16 +230,17 @@ const UpdateVenda = () => {
                             <Form.Group className="venda-form-group" controlId="id_cliente">
                                 <Form.Label className='venda-form-label'>ID Cliente</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="id_cliente"
                                 value={vendaData.id_cliente}
                                 onChange={handleChange}
                                 isInvalid={!!errors.id_cliente}
                                 placeholder="Digite o ID do Cliente"
+                                step="1"
+                                required
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                {errors.id_cliente}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.id_cliente}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
 
@@ -227,22 +248,23 @@ const UpdateVenda = () => {
                             <Form.Group className="venda-form-group" controlId="id_fornecedor">
                                 <Form.Label className='venda-form-label'>ID Fornecedor</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="id_fornecedor"
                                 value={vendaData.id_fornecedor}
                                 onChange={handleChange}
                                 isInvalid={!!errors.id_fornecedor}
                                 placeholder="Digite o ID do Fornecedor"
+                                step="1"
+                                required
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                {errors.id_fornecedor}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.id_fornecedor}</Form.Control.Feedback>
                             </Form.Group>
                             </Col>
                         </Row>
 
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="venda-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Venda'}
                             </Button>

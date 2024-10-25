@@ -110,88 +110,92 @@ const UpdateUsuario = () => {
     <MainLayout>
       <div className="usuario-div">
         <Container className='usuario-container'>
-          <Row className='justify-content-md-center'>
-            <Col md={12} lg={10}>
-              <Card className="usuario-card">
-                <Card.Header className="usuario-card-header">
-                  <h4>Atualizar Usuário</h4>
-                </Card.Header>
-                <Card.Body className="usuario-card-body">
-                  {loading && (
-                    <div className="usuario-spinner">
-                      <Spinner animation="border" />
-                    </div>
-                  )}
-                  {errors.form && (
-                    <Alert variant="danger" className="alert-error">
-                      {errors.form}
-                    </Alert>
-                  )}
-                  {success && (
-                    <Alert variant="success" className="alert-success">
-                      {success}
-                    </Alert>
-                  )}
-                  <Form onSubmit={handleSubmit}>
-                    <Row>
-                      <Col md={6}>
-                        <Form.Group className="usuario-form-group" controlId="username">
-                          <Form.Label className="usuario-form-label">Nome de Usuário</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="username"
-                            value={usuarioData.username}
-                            onChange={handleChange}
-                            isInvalid={!!errors.username}
-                            placeholder="Digite o Username"
-                          />
-                          <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
-                        </Form.Group>
-                      </Col>
+            <Row className='justify-content-md-center'>
+                <Col md={12} lg={10}>
+                    <Card className="usuario-card">
+                    <Card.Header className="usuario-card-header">
+                        <h4>Atualizar Usuário</h4>
+                    </Card.Header>
+                    <Card.Body className="usuario-card-body">
+                        {loading && (
+                        <div className="usuario-spinner">
+                            <Spinner animation="border" />
+                        </div>
+                        )}
+                        {errors.form && (
+                        <Alert variant="danger" className="usuario-alert-error">
+                            {errors.form}
+                        </Alert>
+                        )}
+                        {success && (
+                        <Alert variant="success" className="usuario-alert-success">
+                            {success}
+                        </Alert>
+                        )}
+                        <Form onSubmit={handleSubmit}>
+                        <Row>
+                            <Col md={6}>
+                            <Form.Group className="usuario-form-group" controlId="username">
+                                <Form.Label className="usuario-form-label">Nome de Usuário</Form.Label>
+                                <Form.Control
+                                className="usuario-form-control-custom"
+                                type="text"
+                                name="username"
+                                value={usuarioData.username}
+                                onChange={handleChange}
+                                isInvalid={!!errors.username}
+                                placeholder="Digite o Username"
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+                            </Form.Group>
+                            </Col>
 
-                      <Col md={6}>
-                        <Form.Group className="usuario-form-group" controlId="email">
-                          <Form.Label className="usuario-form-label">Email</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="email"
-                            value={usuarioData.email}
-                            onChange={handleChange}
-                            isInvalid={!!errors.email}
-                            placeholder="Digite o Email"
-                          />
-                          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                        </Form.Group>
-                      </Col>
+                            <Col md={6}>
+                            <Form.Group className="usuario-form-group" controlId="email">
+                                <Form.Label className="usuario-form-label">Email</Form.Label>
+                                <Form.Control
+                                className="usuario-form-control-custom"
+                                type="text"
+                                name="email"
+                                value={usuarioData.email}
+                                onChange={handleChange}
+                                isInvalid={!!errors.email}
+                                placeholder="Digite o Email"
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                            </Form.Group>
+                            </Col>
 
-                      <Col md={6}>
-                        <Form.Group className="usuario-form-group" controlId="permission">
-                          <Form.Label className='usuario-form-label'>Permissão</Form.Label>
-                          <Form.Select
-                            className="usuario-select-custom"
-                            name="permission"
-                            value={usuarioData.permission}
-                            onChange={handleChange}
-                            isInvalid={!!errors.permission}
-                          >
-                            <option value="">Selecionar Permissão do Usuário</option>
-                            {getPermissionOptions()}
-                          </Form.Select>
-                          <Form.Control.Feedback type="invalid">{errors.permission}</Form.Control.Feedback>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <div className="button-container">
-                      <Button variant="primary" type="submit" disabled={loading}>
-                        <FaSave className="me-2" />
-                        {loading ? 'Salvando...' : ' Salvar Usuário'}
-                      </Button>
-                    </div>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+                            <Col md={6}>
+                            <Form.Group className="usuario-form-group" controlId="permission">
+                                <Form.Label className='usuario-form-label'>Permissão</Form.Label>
+                                <Form.Select
+                                className="usuario-form-select-custom"
+                                name="permission"
+                                value={usuarioData.permission}
+                                onChange={handleChange}
+                                isInvalid={!!errors.permission}
+                                required
+                                >
+                                <option value="">Selecionar Permissão do Usuário</option>
+                                {getPermissionOptions()}
+                                </Form.Select>
+                                <Form.Control.Feedback type="invalid">{errors.permission}</Form.Control.Feedback>
+                            </Form.Group>
+                            </Col>
+
+                        </Row>
+                        <div className="button-container">
+                            <Button variant="primary" type="submit" disabled={loading}>
+                            <FaSave className="me-2" />
+                            {loading ? 'Salvando...' : ' Salvar Usuário'}
+                            </Button>
+                        </div>
+                        </Form>
+                    </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
       </div>
     </MainLayout>

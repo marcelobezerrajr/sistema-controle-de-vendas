@@ -112,12 +112,12 @@ const AddVenda = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="venda-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="venda-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -127,7 +127,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="tipo_venda">
                                 <Form.Label className='venda-form-label'>Tipo Venda</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="tipo_venda"
                                 value={vendaData.tipo_venda}
                                 onChange={handleChange}
@@ -145,7 +145,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="tipo_faturamento">
                                 <Form.Label className='venda-form-label'>Tipo Faturamento</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="tipo_faturamento"
                                 value={vendaData.tipo_faturamento}
                                 onChange={handleChange}
@@ -163,7 +163,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="moeda">
                                 <Form.Label className='venda-form-label'>Moeda</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="venda-form-select-custom"
                                 name="moeda"
                                 value={vendaData.moeda}
                                 onChange={handleChange}
@@ -181,6 +181,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="valor_total">
                                 <Form.Label className='venda-form-label'>Valor Total</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="valor_total"
                                 value={vendaData.valor_total}
@@ -199,6 +200,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="valor_convertido">
                                 <Form.Label className='venda-form-label'>Valor Convertido</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="valor_convertido"
                                 value={vendaData.valor_convertido}
@@ -216,6 +218,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="id_cliente">
                                 <Form.Label className='venda-form-label'>ID Cliente</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="id_cliente"
                                 value={vendaData.id_cliente}
@@ -233,6 +236,7 @@ const AddVenda = () => {
                             <Form.Group className="venda-form-group" controlId="id_fornecedor">
                                 <Form.Label className='venda-form-label'>ID Fornecedor</Form.Label>
                                 <Form.Control
+                                className="venda-form-control-custom"
                                 type="number"
                                 name="id_fornecedor"
                                 value={vendaData.id_fornecedor}
@@ -248,7 +252,7 @@ const AddVenda = () => {
                         </Row>
 
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="venda-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Venda'}
                             </Button>

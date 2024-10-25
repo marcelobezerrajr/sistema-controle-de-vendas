@@ -102,12 +102,12 @@ const AddVendedor = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="vendedor-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="vendedor-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -117,6 +117,7 @@ const AddVendedor = () => {
                             <Form.Group className="vendedor-form-group" controlId="nome_vendedor">
                                 <Form.Label className="vendedor-form-label">Nome</Form.Label>
                                 <Form.Control
+                                className="vendedor-form-control-custom"
                                 type="text"
                                 name="nome_vendedor"
                                 value={vendedorData.nome_vendedor}
@@ -132,7 +133,7 @@ const AddVendedor = () => {
                             <Form.Group className="vendedor-form-group" controlId="tipo">
                                 <Form.Label className='vendedor-form-label'>Tipo Vendedor</Form.Label>
                                 <Form.Select
-                                className="form-control-custom select-custom"
+                                className="vendedor-form-select-custom"
                                 name="tipo"
                                 value={vendedorData.tipo}
                                 onChange={handleChange}
@@ -150,6 +151,7 @@ const AddVendedor = () => {
                               <Form.Group className="vendedor-form-group" controlId="percentual_comissao">
                                   <Form.Label className='vendedor-form-label'>Percentual Comissão</Form.Label>
                                   <Form.Control
+                                    className="vendedor-form-select-custom"
                                     type="text"
                                     value={percentualComissao || '—'}
                                     readOnly
@@ -158,7 +160,7 @@ const AddVendedor = () => {
                             </Col>
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="vendedor-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Vendedor'}
                             </Button>

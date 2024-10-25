@@ -77,12 +77,12 @@ const AddFornecedor = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="fornecedor-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="fornecedor-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -92,6 +92,7 @@ const AddFornecedor = () => {
                             <Form.Group className="fornecedor-form-group" controlId="nome_fornecedor">
                                 <Form.Label className="fornecedor-form-label">Nome</Form.Label>
                                 <Form.Control
+                                className="fornecedor-form-control-nome-custom"
                                 type="text"
                                 name="nome_fornecedor"
                                 value={fornecedorData.nome_fornecedor}
@@ -107,6 +108,7 @@ const AddFornecedor = () => {
                             <Form.Group className="venda-form-group" controlId="percentual_comissao">
                                 <Form.Label className='venda-form-label'>Percentual de Comissão</Form.Label>
                                 <Form.Control
+                                className="fornecedor-form-control-percentual-custom"
                                 type="number"
                                 name="percentual_comissao"
                                 value={fornecedorData.percentual_comissao}
@@ -124,6 +126,7 @@ const AddFornecedor = () => {
                             <Form.Group className="venda-form-group" controlId="impostos">
                                 <Form.Label className='venda-form-label'>Imposto</Form.Label>
                                 <Form.Control
+                                className="fornecedor-form-control-custom"
                                 type="number"
                                 name="impostos"
                                 value={fornecedorData.impostos}
@@ -138,7 +141,7 @@ const AddFornecedor = () => {
                             </Col>
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="fornecedor-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Fornecedor'}
                             </Button>

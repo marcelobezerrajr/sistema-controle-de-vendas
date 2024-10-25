@@ -53,51 +53,46 @@
     margin-bottom: 20px;
 }
 
-.form-control {
-    font-size: 13px;
-    width: 100%;
+.venda-vendedor-form-control-custom {
+    margin-left: 10px;
+    width: 50%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
-    margin-top: 10px;
+    font-size: 13px;
 }
 
-.form-control::placeholder{
+.venda-vendedor-form-control-custom::placeholder{
     color: #1684BF;
 }
 
-.form-control:focus {
+.venda-vendedor-form-control-custom:focus {
     border-color: #1684BF;
     box-shadow: none;
 }
 
-.form-control.is-invalid {
+.venda-vendedor-form-control-custom.is-invalid {
     border-color: #dc3545;
 }
 
-.form-control-custom {
-    font-size: 13px;
-    border-radius: 8px;
+.venda-vendedor-form-select-custom {
     padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
     margin-left: 10px;
+    font-size: 13px !important;
 }
 
-.form-control-custom:focus {
-    box-shadow: none;
-    color: #1684BF;
-}
-
-.invalid-feedback {
+.venda-vendedor-invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
 }
 
-.btn {
+.venda-vendedor-btn {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -107,7 +102,7 @@
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+.venda-vendedor-btn:hover {
     background-color: #0056b3;
 }
 
@@ -122,21 +117,35 @@
     color: #004F98;
 }
 
-.alert-error {
+.venda-vendedor-alert-error {
     padding: 7px;
     background-color: #f8d7da;
-    border: 1px solid #f5c6cb !important;
-    color: #721c24 !important;
-    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    margin-bottom: 15px;
   }
   
-  .alert-success {
+  .venda-vendedor-alert-success {
     padding: 7px;
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
-    color: #155724 !important;
-    margin-bottom: 10px;
+    color: #155724;
+    margin-bottom: 15px;
   }
+
+  .venda-vendedor-button-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #1684BF;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+    }
+
+    .venda-vendedor-button-container:hover {
+        background-color: #0056b3;
+    }
 
 @media (max-width: 768px) {
     .venda-vendedor-card {

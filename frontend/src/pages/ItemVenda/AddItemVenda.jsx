@@ -75,12 +75,12 @@ const AddItemVenda = () => {
                         </div>
                         )}
                         {errors.form && (
-                        <Alert variant="danger" className="alert-error">
+                        <Alert variant="danger" className="item-venda-alert-error">
                             {errors.form}
                         </Alert>
                         )}
                         {success && (
-                        <Alert variant="success" className="alert-success">
+                        <Alert variant="success" className="item-venda-alert-success">
                             {success}
                         </Alert>
                         )}
@@ -90,6 +90,7 @@ const AddItemVenda = () => {
                             <Form.Group className="item-venda-form-group" controlId="id_venda">
                                 <Form.Label className='item-venda-form-label'>ID da Venda</Form.Label>
                                 <Form.Control
+                                className="item-venda-form-control-custom"
                                 type="number"
                                 name="id_venda"
                                 value={itemvendaData.id_venda}
@@ -107,6 +108,7 @@ const AddItemVenda = () => {
                             <Form.Group className="item-venda-form-group" controlId="id_produto">
                                 <Form.Label className='item-venda-form-label'>ID do Produto</Form.Label>
                                 <Form.Control
+                                className="item-venda-form-control-custom"
                                 type="number"
                                 name="id_produto"
                                 value={itemvendaData.id_produto}
@@ -124,6 +126,7 @@ const AddItemVenda = () => {
                             <Form.Group className="item-venda-form-group" controlId="quantidade">
                                 <Form.Label className='item-venda-form-label'>Quantidade</Form.Label>
                                 <Form.Control
+                                className="item-venda-form-control-custom"
                                 type="number"
                                 name="quantidade"
                                 value={itemvendaData.quantidade}
@@ -141,6 +144,7 @@ const AddItemVenda = () => {
                             <Form.Group className="item-venda-form-group" controlId="preco_unitario">
                                 <Form.Label className='item-venda-form-label'>Preço Unitário</Form.Label>
                                 <Form.Control
+                                className="item-venda-form-control-custom"
                                 type="number"
                                 name="preco_unitario"
                                 value={itemvendaData.preco_unitario}
@@ -158,6 +162,7 @@ const AddItemVenda = () => {
                             <Form.Group className="item-venda-form-group" controlId="subtotal">
                                 <Form.Label className='item-venda-form-label'>Subtotal</Form.Label>
                                 <Form.Control
+                                className="item-venda-form-control-custom"
                                 type="number"
                                 name="subtotal"
                                 value={itemvendaData.subtotal}
@@ -174,7 +179,7 @@ const AddItemVenda = () => {
 
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
+                            <Button className="item-venda-button-container" variant="primary" type="submit" disabled={loading}>
                             <FaSave className="me-2" />
                             {loading ? 'Salvando...' : ' Salvar Item Venda'}
                             </Button>

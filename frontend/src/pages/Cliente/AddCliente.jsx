@@ -90,21 +90,22 @@ const AddCliente = () => {
               </div>
             )}
             {errors.form && (
-              <Alert variant="danger" className="alert-error">
+              <Alert variant="danger" className="cliente-alert-error">
                 {errors.form}
               </Alert>
             )}
             {success && (
-              <Alert variant="success" className="alert-success">
+              <Alert variant="success" className="cliente-alert-success">
                 {success}
               </Alert>
             )}
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col md={6}>
-                  <Form.Group className="nome-form-label" controlId="nome_cliente">
+                  <Form.Group className="cliente-form-group" controlId="nome_cliente">
                     <Form.Label className="cliente-form-label">Nome</Form.Label>
                     <Form.Control
+                      className="cliente-form-control-custom"
                       type="text"
                       name="nome_cliente"
                       value={clienteData.nome_cliente}
@@ -116,15 +117,16 @@ const AddCliente = () => {
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                  <Form.Group className="cpf-cnpj-form-label" controlId="cpf_cnpj">
+                  <Form.Group className="cliente-form-group" controlId="cpf_cnpj">
                     <Form.Label className="cliente-form-label">CPF/CNPJ</Form.Label>
                     <Form.Control
+                      className="cliente-form-cpf-cnpj-custom"
                       type="text"
                       value={clienteData.cpf_cnpj}
                       onChange={handleChange}
                       name="cpf_cnpj"
-                      className={`form-control ${errors.cpf_cnpj ? 'is-invalid' : ''}`}
                       placeholder="Digite o CPF ou CNPJ"
+                      isInvalid={!!errors.cpf_cnpj}
                       ref={cpf_cnpjRef}
                     />
                     <Form.Control.Feedback type="invalid">{errors.cpf_cnpj}</Form.Control.Feedback>
@@ -133,7 +135,7 @@ const AddCliente = () => {
               </Row>
 
               <div className="button-container">
-                <Button variant="primary" type="submit" disabled={loading}>
+                <Button className="cliente-button-container" variant="primary" type="submit" disabled={loading}>
                   <FaSave className="me-2" />
                   {loading ? 'Salvando...' : ' Salvar Cliente'}
                 </Button>
