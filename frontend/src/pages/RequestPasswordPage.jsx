@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Card, Alert, Spinner } from 'react-bootstrap';
+import { Form, Card, Alert, Spinner, Button } from 'react-bootstrap';
 import useRequestPassword from '../hooks/useRequestPassword';
 import '../styles/RequestPassword.css';
 import logo from '../assets/logo.png';
@@ -45,9 +45,9 @@ const RequestPasswordPage = () => {
                 <a href="/login">Voltar para Login</a>
             </div>
             </Form.Group>
-            <button variant="primary" type="submit" className="request-button-custom" disabled={loading}>
+            <Button variant="primary" type="submit" className="request-button-custom" disabled={loading}>
               {loading ? <Spinner animation="border" size="sm" /> : "Enviar"}
-            </button>
+            </Button>
           </Form>
         </Card.Body>
       </Card>

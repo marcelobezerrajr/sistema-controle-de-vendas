@@ -35,7 +35,7 @@
     background-color: #004F98;
     border-radius: 15px 15px 0 0;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
 }
 
 .login-card-header-custom h4 {
@@ -67,9 +67,13 @@
     font-size: 15px;
 }
 
+.login-form-control-custom::placeholder {
+    color: #1684BF;
+}
+
 .login-form-control-custom:focus {
     box-shadow: none;
-    color: #1684BF;
+    border-color: #1684BF;
 }
 
 .login-email-container {
@@ -84,7 +88,7 @@
 
 .login-password-toggle {
     position: absolute;
-    top: 53%;
+    top: 48%;
     right: 10px;
     transform: translateY(-50%);
     z-index: 10;

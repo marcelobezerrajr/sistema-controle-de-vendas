@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Card, Form, Alert, Spinner } from 'react-bootstrap';
+import { Card, Form, Alert, Spinner, Button } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useResetPassword from '../hooks/useResetPassword';
 import logo from '../assets/logo.png';
@@ -88,13 +88,13 @@ const ResetPasswordPage = () => {
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="reset-form-control-custom"
                                 />
-                                <button 
+                                <Button 
                                     variant="link" 
                                     className="reset-password-toggle" 
                                     onClick={() => togglePasswordVisibility('newPassword')}
                                 >
                                     {showPasswords.newPassword ? <FaEye /> : <FaEyeSlash />}
-                                </button>
+                                </Button>
                             </div>
                         </Form.Group>
                         <Form.Group>
@@ -107,21 +107,21 @@ const ResetPasswordPage = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="reset-form-control-custom"
                                 />
-                                <button 
+                                <Button 
                                     variant="link" 
                                     className="reset-password-toggle" 
                                     onClick={() => togglePasswordVisibility('confirmPassword')}
                                 >
                                     {showPasswords.confirmPassword ? <FaEye /> : <FaEyeSlash />}
-                                </button>
+                                </Button>
                             </div>
                             <div className="reset-back-login">
                                 <a href="/login">Ir para Login</a>
                             </div>
                         </Form.Group>
-                        <button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
+                        <Button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
                             {loading ? <Spinner animation="border" size="sm" /> : "Redefinir Senha"}
-                        </button>
+                        </Button>
                     </Form>
                 </Card.Body>
             </Card>

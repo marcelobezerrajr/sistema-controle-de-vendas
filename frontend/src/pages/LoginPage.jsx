@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Card, Alert, Spinner } from 'react-bootstrap';
+import { Form, Card, Alert, Spinner, Button } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import useLogin from '../hooks/useLogin';
@@ -56,20 +56,20 @@ const LoginPage = () => {
                                     className="login-form-control-custom"
                                     required
                                 />
-                                <button 
+                                <Button 
                                     type="button"
                                     className="login-password-toggle"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <FaEye /> : <FaEyeSlash />}
-                                </button>
+                                </Button>
                             </div>
                             <div className="login-forgot-password">
                                 <a href="/request-password">Esqueceu a senha?</a>
                             </div>
                         </Form.Group>
 
-                        <button type="submit" className="login-button-custom" disabled={loading}>
+                        <Button type="submit" className="login-button-custom" disabled={loading}>
                             {loading ? (
                                 <>
                                     <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
@@ -78,7 +78,7 @@ const LoginPage = () => {
                             ) : (
                                 "Entrar"
                             )}
-                        </button>
+                        </Button>
                     </Form>
                 </Card.Body>
             </Card>
