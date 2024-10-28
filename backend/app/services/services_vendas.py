@@ -69,6 +69,9 @@ def get_item_venda_by_id(db: Session, id_item_venda: int):
     return check_exists(db, models_vendas.ItemVenda, 'id_item_venda', id_item_venda, "Item Venda não encontrado")
 
 def create_item_venda(db: Session, item_venda: schemas_vendas.ItemVendaCreate):
+    check_exists(db, models_vendas.Venda, 'id_venda', item_venda.id_venda, "Venda não encontrada")
+    check_exists(db, models_vendas.Produto, 'id_produto', item_venda.id_produto, "Produto não encontrado")
+
     try:
         db_item_venda = models_vendas.ItemVenda(
             id_venda=item_venda.id_venda,
@@ -100,7 +103,9 @@ def get_all_parcelas(db: Session):
 def get_parcela_by_id(db: Session, id_parcela: int):
     return check_exists(db, models_vendas.Parcela, 'id_parcela', id_parcela, "Parcela não encontrada")
     
-def create_parcela(db: Session, parcela: schemas_vendas.ParcelaCreate, venda: schemas_vendas.Venda):
+def create_parcela(db: Session, parcela: schemas_vendas.ParcelaCreate):
+    check_exists(db, models_vendas.Venda, 'id_venda', parcela.id_venda, "Venda não encontrada")
+    
     try:
         data_prevista = datetime.strptime(parcela.data_prevista, '%Y/%m/%d').date()
         data_recebimento = None
@@ -130,7 +135,11 @@ def create_parcela(db: Session, parcela: schemas_vendas.ParcelaCreate, venda: sc
 
 def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.ParcelaUpdate, venda: schemas_vendas.Venda):
     db_parcela = get_parcela_by_id(db, id_parcela)
-    
+
+    if parcela.id_venda:
+        check_exists(db, models_vendas.Venda, 'id_venda', parcela.id_venda, "Venda não encontrada")
+        db_parcela.id_venda = parcela.id_venda
+
     if parcela.data_recebimento:
         db_parcela.data_recebimento = datetime.strptime(parcela.data_recebimento, '%Y/%m/%d').date()
     
@@ -155,8 +164,11 @@ def get_all_comissoes(db: Session):
 def get_comissao_by_id(db: Session, id_comissao: int):
     return check_exists(db, models_vendas.Comissao, 'id_comissao', id_comissao, "Comissão não encontrada")
 
-def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate, vendedores: schemas_vendas.Vendedor, parcela: schemas_vendas.Parcela):
+def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate):
     try:
+        check_exists(db, models_vendas.Vendedor, 'id_vendedor', comissao.id_vendedor, "Vendedor não encontrado")
+        check_exists(db, models_vendas.Parcela, 'id_parcela', comissao.id_parcela, "Parcela não encontrada")
+        
         venda = db.query(models_vendas.Venda).join(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == comissao.id_parcela).first()
         if not venda:
             raise HTTPException(status_code=404, detail="Venda associada não encontrada")
@@ -178,6 +190,7 @@ def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate, vended
         data_pagamento = None
         if comissao.data_pagamento:
             data_pagamento = datetime.strptime(comissao.data_pagamento, '%Y/%m/%d').date()
+
 
         db_comissao = models_vendas.Comissao(
             id_vendedor=comissao.id_vendedor,
@@ -204,7 +217,9 @@ def get_all_custos(db: Session):
 def get_custo_by_id(db: Session, id_custo: int):
     return check_exists(db, models_vendas.Custo, 'id_custo', id_custo, "Custo não encontrado")
 
-def create_custo(db: Session, custo: schemas_vendas.CustoCreate, venda: schemas_vendas.Venda):
+def create_custo(db: Session, custo: schemas_vendas.CustoCreate):
+    check_exists(db, models_vendas.Venda, 'id_venda', custo.id_venda, "Venda não encontrada")
+
     try:
         db_custo = models_vendas.Custo(
             descricao=custo.descricao,
@@ -401,6 +416,9 @@ def get_venda_by_id(db: Session, id_venda: int):
     return check_exists(db, models_vendas.Venda, 'id_venda', id_venda, "Venda não encontrada")
 
 def create_venda(db: Session, venda: schemas_vendas.VendaCreate):
+    check_exists(db, models_vendas.Cliente, 'id_cliente', venda.id_cliente, "Cliente não encontrado")
+    check_exists(db, models_vendas.Fornecedor, 'id_fornecedor', venda.id_fornecedor, "Fornecedor não encontrado")
+
     try:
         db_venda = models_vendas.Venda(
             tipo_venda=venda.tipo_venda,
@@ -420,10 +438,18 @@ def create_venda(db: Session, venda: schemas_vendas.VendaCreate):
         raise
     except Exception as e:
         logger.critical(f"Erro inesperado ao criar venda {venda}: {str(e)}")
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o venda.")
-    
-def update_venda(db: Session, id_venda: int, venda: schemas_vendas.VendaUpdate, cliente: schemas_vendas.Cliente, fornecedor: schemas_vendas.Fornecedor):
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar a venda.")
+
+def update_venda(db: Session, id_venda: int, venda: schemas_vendas.VendaUpdate):
     db_venda = get_venda_by_id(db, id_venda)
+
+    if venda.id_cliente:
+        check_exists(db, models_vendas.Cliente, 'id_cliente', venda.id_cliente, "Cliente não encontrado")
+        db_venda.id_cliente = venda.id_cliente
+
+    if venda.id_fornecedor:
+        check_exists(db, models_vendas.Fornecedor, 'id_fornecedor', venda.id_fornecedor, "Fornecedor não encontrado")
+        db_venda.id_fornecedor = venda.id_fornecedor
 
     if venda.tipo_venda:
         db_venda.tipo_venda = venda.tipo_venda
