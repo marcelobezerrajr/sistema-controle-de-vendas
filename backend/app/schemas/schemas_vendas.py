@@ -164,8 +164,25 @@ class ParcelaCreate(ParcelaBase):
     pass
 
 class ParcelaUpdate(BaseModel):
+    id_venda: Optional[int] = None
+    numero_parcela: Optional[int] = None
+    valor_parcela: Optional[float] = None
+    data_prevista: Optional[str] = None
     data_recebimento: Optional[str] = None
     status: Optional[models_vendas.StatusParcelaEnum] = None
+    forma_recebimento: Optional[models_vendas.FormaRecebimentoEnum] = None
+
+    @validator('data_prevista', pre=True, always=True)
+    def validate_data_prevista(cls, v):
+        if isinstance(v, date):
+            return v.strftime('%d/%m/%Y')
+        return v
+
+    @validator('data_recebimento', pre=True, always=True)
+    def validate_data_recebimento(cls, v):
+        if isinstance(v, date):
+            return v.strftime('%d/%m/%Y')
+        return v
 
 class Parcela(ParcelaBase):
     id_parcela: int

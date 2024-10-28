@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
-import useVendas from '../../hooks/useVenda';
+import useVenda from '../../hooks/useVenda';
+import useCliente from '../../hooks/useCliente';
+import useFornecedor from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Venda.css"
 
 const AddVenda = () => {
-  const { addVenda } = useVendas();
+  const { addVenda } = useVenda();
+  const { getCliente } = useCliente();
+  const { getFornecedor } = useFornecedor();
   const [vendaData, setVendaData] = useState({
     tipo_venda: '', 
     tipo_faturamento: '', 
@@ -51,6 +55,27 @@ const AddVenda = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
+
+    let validationErrorExists = false;
+
+    try {
+      await getCliente(vendaData.id_cliente);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_cliente: 'ID do Cliente inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    try {
+      await getFornecedor(vendaData.id_fornecedor);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_fornecedor: 'ID do Fornecedor inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    if (validationErrorExists) {
       setLoading(false);
       return;
     }
@@ -253,8 +278,8 @@ const AddVenda = () => {
 
                         <div className="button-container">
                             <Button className="venda-button-container" variant="primary" type="submit" disabled={loading}>
-                            <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : ' Salvar Venda'}
+                              <FaSave className="me-2" />
+                              {loading ? 'Salvando...' : ' Salvar Venda'}
                             </Button>
                         </div>
                         </Form>

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import useVendedores from '../../hooks/useVendedor';
+import useVendedor from '../../hooks/useVendedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Vendedor.css";
 
 const UpdateVendedor = () => {
   const { id_vendedor } = useParams();
-  const { getVendedor, updateVendedorData } = useVendedores();
+  const { getVendedor, updateVendedorData } = useVendedor();
   const [percentualComissao, setPercentualComissao] = useState('');
   const [vendedorData, setVendedorData] = useState({
     nome_vendedor: '', 

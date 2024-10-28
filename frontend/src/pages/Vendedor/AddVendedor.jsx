@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
-import useVendedores from '../../hooks/useVendedor';
+import useVendedor from '../../hooks/useVendedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Vendedor.css";
 
 const AddVendedor = () => {
-  const { addVendedor } = useVendedores();
+  const { addVendedor } = useVendedor();
   const [vendedorData, setVendedorData] = useState({ nome_vendedor: '', tipo: '', percentual_comissao: '' });
   const [percentualComissao, setPercentualComissao] = useState('');
   const [errors, setErrors] = useState({});

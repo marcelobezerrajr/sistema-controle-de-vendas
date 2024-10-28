@@ -30,9 +30,11 @@ export const VendedorProvider = ({ children }) => {
   const getVendedor = async (id_vendedor) => {
     try {
       const vendedor = await getVendedorById(id_vendedor);
+      if (!vendedor) throw new Error(`Vendedor com ID ${id_vendedor} não encontrado.`);
       return vendedor;
     } catch (error) {
-      console.error("Erro ao obter vendedor:", error);
+      console.error(`Erro ao carregar vendedor com ID ${id_vendedor}:`, error);
+      throw error;
     }
   };
 
@@ -40,8 +42,10 @@ export const VendedorProvider = ({ children }) => {
     try {
       const newVendedor = await createVendedor(vendedor);
       setVendedor((prev) => [...prev, newVendedor]);
+      return { success: true, message: 'Vendedor adicionado com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar vendedor:", error);
+      return { success: false, message: 'Erro ao adicionar o vendedor. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -51,8 +55,10 @@ export const VendedorProvider = ({ children }) => {
       setVendedor((prev) =>
         prev.map((vendedor) => (vendedor.id_vendedor === id_vendedor ? updatedVendedor : vendedor))
       );
+      return { success: true, message: 'Vendedor atualizado com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar vendedor:", error);
+      return { success: false, message: 'Erro ao atualizar o vendedor. Verifique os dados e tente novamente.' };
     }
   };
 

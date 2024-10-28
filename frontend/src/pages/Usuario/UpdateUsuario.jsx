@@ -186,9 +186,9 @@ const UpdateUsuario = () => {
 
                         </Row>
                         <div className="button-container">
-                            <Button variant="primary" type="submit" disabled={loading}>
-                            <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : ' Salvar Usuário'}
+                            <Button className="usuario-button-container" variant="primary" type="submit" disabled={loading}>
+                              <FaSave className="me-2" />
+                              {loading ? 'Salvando...' : ' Salvar Usuário'}
                             </Button>
                         </div>
                         </Form>

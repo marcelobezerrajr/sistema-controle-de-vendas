@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
 import SearchComponent from '../../components/SearchComponent';
-import useVendedores from '../../hooks/useVendedor';
+import useVendedor from '../../hooks/useVendedor';
 import MainLayout from '../../layouts/MainLayout';
 import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
 const VendedorPage = () => {
-  const { vendedor, loading, removeVendedor } = useVendedores();
+  const { vendedor, loading, removeVendedor } = useVendedor();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
   const [tipoVendedorFilter, setTipoVendedorFilter] = useState('');

@@ -30,6 +30,7 @@ export const ParcelaProvider = ({ children }) => {
   const getParcela = async (id_parcela) => {
     try {
       const parcela = await getParcelaById(id_parcela);
+      if (!parcela) throw new Error(`Parcela com ID ${id_parcela} não encontrada.`);
       return parcela;
     } catch (error) {
       console.error(`Erro ao carregar parcela com ID ${id_parcela}:`, error);
@@ -41,8 +42,10 @@ export const ParcelaProvider = ({ children }) => {
     try{
       const addedParcela = await createParcela(newParcela);
       setParcelas((prev) => [...prev, addedParcela]);
+      return { success: true, message: 'Parcela adicionada com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar parcela:", error)
+      return { success: false, message: 'Erro ao atualizar a parcela. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -50,8 +53,10 @@ export const ParcelaProvider = ({ children }) => {
     try {
       const updated = await updateParcela(id_parcela, updatedParcela);
       setParcelas(parcelas.map(parcela => parcela.id_parcela === id_parcela ? updated : parcela));
+      return { success: true, message: 'Parcela atualizada com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar parcela:", error)
+      return { success: false, message: 'Erro ao atualizar a parcela. Verifique os dados e tente novamente.' };
     }
   };
 

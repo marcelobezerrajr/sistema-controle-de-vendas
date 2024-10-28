@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import useCusto from '../../hooks/useCusto';
+import useVendas from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Custo.css"
 
 const AddCusto = () => {
   const { addCusto } = useCusto();
+  const { getVenda } = useVendas();
   const [custoData, setCustoData] = useState({ descricao: '', valor: '', id_venda: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -39,6 +41,20 @@ const AddCusto = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
+
+    let validationErrorExists = false;
+
+    try {
+      await getVenda(custoData.id_venda);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    if (validationErrorExists) {
       setLoading(false);
       return;
     }

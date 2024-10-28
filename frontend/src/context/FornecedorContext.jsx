@@ -30,9 +30,11 @@ export const FornecedorProvider = ({ children }) => {
   const getFornecedor = async (id_fornecedor) => {
     try {
       const fornecedor = await getFornecedorById(id_fornecedor);
+      if (!fornecedor) throw new Error(`Fornecedor com ID ${id_fornecedor} não encontrado.`);
       return fornecedor;
     } catch (error) {
-      console.error("Erro ao obter fornecedor:", error);
+      console.error(`Erro ao carregar fornecedor com ID ${id_fornecedor}:`, error);
+      throw error;
     }
   };
 
@@ -40,8 +42,10 @@ export const FornecedorProvider = ({ children }) => {
     try {
       const addedFornecedor = await createFornecedor(newFornecedor);
       setFornecedores([...fornecedores, addedFornecedor]);
+      return { success: true, message: 'Fornecedor adicionado com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar fornecedor:", error)
+      return { success: false, message: 'Erro ao adicionar o fornecedor. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -49,8 +53,10 @@ export const FornecedorProvider = ({ children }) => {
     try {
       const updated = await updateFornecedor(id_fornecedor, updatedFornecedor);
       setFornecedores(fornecedores.map(fornecedor => fornecedor.id_fornecedor_fornecedor === id_fornecedor ? updated : fornecedor));
+      return { success: true, message: 'Fornecedor atualizado com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar fornecedor:", error)
+      return { success: false, message: 'Erro ao atualizar o fornecedor. Verifique os dados e tente novamente.' };
     }
   };
 

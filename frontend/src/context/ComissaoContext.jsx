@@ -30,8 +30,11 @@ export const ComissaoProvider = ({ children }) => {
   const getComissao = async (id_comissao) => {
     try {
       const comissao = await getComissaoById(id_comissao);
+      if (!comissao) throw new Error(`Comissão com ID ${id_comissao} não encontrada.`);
       return comissao;
     } catch (error) {
+      console.error(`Erro ao carregar comissão com ID ${id_comissao}:`, error);
+      throw error;
     }
   };
 
@@ -39,8 +42,10 @@ export const ComissaoProvider = ({ children }) => {
     try {
       const newComissao = await createComissao(comissao);
       setComissoes((prev) => [...prev, newComissao]);
+      return { success: true, message: 'Comissão adicionada com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar comissao:", error);
+      return { success: false, message: 'Erro ao adicionar a comissão. Verifique os dados e tente novamente.' };
     }
   };
 

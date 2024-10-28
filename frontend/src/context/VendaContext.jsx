@@ -30,8 +30,11 @@ export const VendaProvider = ({ children }) => {
   const getVenda = async (id_venda) => {
     try {
       const venda = await getVendaById(id_venda);
+      if (!venda) throw new Error(`Venda com ID ${id_venda} não encontrada.`);
       return venda;
     } catch (error) {
+      console.error(`Erro ao carregar venda com ID ${id_venda}:`, error);
+      throw error;
     }
   };
 
@@ -39,8 +42,10 @@ export const VendaProvider = ({ children }) => {
     try {
       const addedVenda = await createVenda(newVenda);
       setVendas([...vendas, addedVenda]);
+      return { success: true, message: 'Venda adicionada com sucesso!' };
     } catch (error) {
-      console.error("Erro ao adicionar venda:", error)
+      console.error("Erro ao adicionar venda:", error);
+      return { success: false, message: 'Erro ao adicionar a venda. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -48,8 +53,10 @@ export const VendaProvider = ({ children }) => {
     try {
       const updated = await updateVenda(id_venda, updatedVenda);
       setVendas(vendas.map(venda => venda.id_venda === id_venda ? updated : venda));
+      return { success: true, message: 'Venda atualizada com sucesso!' };
     } catch (error) {
-      console.error("Erro ao atualizar venda:", error)
+      console.error("Erro ao atualizar venda:", error);
+      return { success: false, message: 'Erro ao atualizar a venda. Verifique os dados e tente novamente.' };
     }
   };
 

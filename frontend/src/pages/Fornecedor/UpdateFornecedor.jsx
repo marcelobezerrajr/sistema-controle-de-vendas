@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import useFornecedores from '../../hooks/useFornecedor';
+import useFornecedor from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Fornecedor.css";
 
 const UpdateFornecedor = () => {
   const { id_fornecedor } = useParams()
-  const { getFornecedor, updateFornecedorData } = useFornecedores();
+  const { getFornecedor, updateFornecedorData } = useFornecedor();
   const [fornecedorData, setFornecedorData] = useState({ nome_fornecedor: '', percentual_comissao: '', impostos: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

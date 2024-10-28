@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import useComissao from '../../hooks/useComissao';
+import useVendedor from '../../hooks/useVendedor';
+import useParcela from '../../hooks/useParcela';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Comissao.css"
 
@@ -16,6 +18,8 @@ const formatDate = (date) => {
 
 const AddComissao = () => {
   const { addComissao } = useComissao();
+  const { getVendedor } = useVendedor();
+  const { getParcela } = useParcela();
   const [comissaoData, setComissaoData] = useState({ id_vendedor: '', id_parcela: '', valor_comissao: '', data_pagamento: '', percentual_comissao: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -58,6 +62,27 @@ const AddComissao = () => {
         ...comissaoData,
         data_pagamento: formatDate(comissaoData.data_pagamento)
       };
+
+    let validationErrorExists = false;
+
+    try {
+      await getVendedor(comissaoData.id_vendedor);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_vendedor: 'ID do Vendedor inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    try {
+      await getParcela(comissaoData.id_parcela);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_parcela: 'ID da Parcela inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+  
+    if (validationErrorExists) {
+      setLoading(false);
+      return;
+    }
 
     try {
       await addComissao(formattedData);

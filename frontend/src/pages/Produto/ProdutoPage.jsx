@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
 import SearchComponent from '../../components/SearchComponent';
-import useProdutos from '../../hooks/useProduto'
+import useProduto from '../../hooks/useProduto'
 import MainLayout from '../../layouts/MainLayout';
 import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
 const ProdutoPage = () => {
-  const { produtos, loading, removeProduto } = useProdutos();
+  const { produtos, loading, removeProduto } = useProduto();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
   const [tipoProdutoFilter, setTipoProdutoFilter] = useState('');

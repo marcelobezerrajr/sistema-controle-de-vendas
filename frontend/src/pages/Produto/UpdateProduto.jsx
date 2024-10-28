@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import useProdutos from '../../hooks/useProduto';
+import useProduto from '../../hooks/useProduto';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Produto.css";
 
 const UpdateProduto = () => {
   const { id_produto } = useParams();
-  const { getProduto, updateProdutoData } = useProdutos();
+  const { getProduto, updateProdutoData } = useProduto();
   const [produtoData, setProdutoData] = useState({ nome_produto: '', descricao_produto: '', preco: '', tipo: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

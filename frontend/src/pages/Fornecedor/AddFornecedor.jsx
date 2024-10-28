@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
-import useFornecedores from '../../hooks/useFornecedor';
+import useFornecedor from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Fornecedor.css";
 
 const AddFornecedor = () => {
-  const { addFornecedor } = useFornecedores();
+  const { addFornecedor } = useFornecedor();
   const [fornecedorData, setFornecedorData] = useState({ nome_fornecedor: '', percentual_comissao: '', impostos: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);

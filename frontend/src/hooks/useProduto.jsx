@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ProdutoContext } from '../context/ProdutoContext';
 
-const useProdutos = () => {
+const useProduto = () => {
   const context = useContext(ProdutoContext);
 
   if (!context) {
@@ -11,4 +11,4 @@ const useProdutos = () => {
   return context;
 };
 
-export default useProdutos;
+export default useProduto;

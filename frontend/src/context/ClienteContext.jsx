@@ -30,6 +30,7 @@ export const ClienteProvider = ({ children }) => {
   const getCliente = async (id_cliente) => {
     try {
       const cliente = await getClienteById(id_cliente);
+      if (!cliente) throw new Error(`Cliente com ID ${id_cliente} não encontrado.`);
       return cliente;
     } catch (error) {
       console.error(`Erro ao carregar cliente com ID ${id_cliente}:`, error);
@@ -41,8 +42,10 @@ export const ClienteProvider = ({ children }) => {
     try {
       const addedCliente = await createCliente(newCliente);
       setClientes([...clientes, addedCliente]);
+      return { success: true, message: 'Cliente adicionado com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar cliente:", error)
+      return { success: false, message: 'Erro ao adicionar o cliente. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -50,8 +53,10 @@ export const ClienteProvider = ({ children }) => {
     try {
       const updated = await updateCliente(id_cliente, updatedCliente);
       setClientes(clientes.map(cliente => cliente.id_cliente === id_cliente ? updated : cliente));
+      return { success: true, message: 'Cliente atualizado com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar cliente:", error)
+      return { success: false, message: 'Erro ao atualizar o cliente. Verifique os dados e tente novamente.' };
     }
   };
 

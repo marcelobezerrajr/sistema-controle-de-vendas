@@ -30,8 +30,11 @@ export const VendaVendedorProvider = ({ children }) => {
   const getVendaVendedor = async (id_vendedor) => {
     try {
       const vendaByVendedor = await getVendasByVendedor(id_vendedor);
+      if (!vendaByVendedor) throw new Error(`Venda Vendedor com ID ${id_vendedor} não encontrada.`);
       return vendaByVendedor;
     } catch (error) {
+      console.error(`Erro ao carregar venda vendedor com ID ${id_vendedor}:`, error);
+      throw error;
     }
   };
 

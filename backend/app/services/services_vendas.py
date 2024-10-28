@@ -133,18 +133,24 @@ def create_parcela(db: Session, parcela: schemas_vendas.ParcelaCreate):
         logger.critical(f"Erro inesperado ao criar parcela {parcela}: {str(e)}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar a parcela.")
 
-def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.ParcelaUpdate, venda: schemas_vendas.Venda):
+def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.ParcelaUpdate):
     db_parcela = get_parcela_by_id(db, id_parcela)
 
     if parcela.id_venda:
         check_exists(db, models_vendas.Venda, 'id_venda', parcela.id_venda, "Venda não encontrada")
         db_parcela.id_venda = parcela.id_venda
-
+    if parcela.numero_parcela:
+        db_parcela.numero_parcela = parcela.numero_parcela
+    if parcela.valor_parcela:
+        db_parcela.valor_parcela = parcela.valor_parcela
+    if parcela.data_prevista:
+        db_parcela.data_prevista = datetime.strptime(parcela.data_prevista, '%Y/%m/%d').date()
     if parcela.data_recebimento:
         db_parcela.data_recebimento = datetime.strptime(parcela.data_recebimento, '%Y/%m/%d').date()
-    
     if parcela.status:
         db_parcela.status = parcela.status
+    if parcela.forma_recebimento:
+        db_parcela.forma_recebimento = parcela.forma_recebimento
 
     try:
         db.commit()
@@ -157,6 +163,12 @@ def update_parcela(db: Session, id_parcela: int, parcela: schemas_vendas.Parcela
         ) from e
     
     return db_parcela
+
+def delete_parcela(db: Session, id_parcela: int):
+    parcelas = get_parcela_by_id(db, id_parcela)
+    db.delete(parcelas)
+    db.commit()
+    return parcelas
 
 def get_all_comissoes(db: Session):
     return db.query(models_vendas.Comissao).all()

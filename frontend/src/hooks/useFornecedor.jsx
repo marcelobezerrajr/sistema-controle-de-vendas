@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { FornecedorContext } from '../context/FornecedorContext';
 
-const useFornecedores = () => {
+const useFornecedor = () => {
   const context = useContext(FornecedorContext);
 
   if (!context) {
@@ -11,4 +11,4 @@ const useFornecedores = () => {
   return context;
 };
 
-export default useFornecedores;
+export default useFornecedor;

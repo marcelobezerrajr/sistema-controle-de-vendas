@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ParcelaContext } from '../context/ParcelaContext';
 
-const useParcelas = () => {
+const useParcela = () => {
   const context = useContext(ParcelaContext);
 
   if (!context) {
@@ -11,4 +11,4 @@ const useParcelas = () => {
   return context;
 };
 
-export default useParcelas;
+export default useParcela;

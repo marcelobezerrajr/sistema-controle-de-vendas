@@ -31,8 +31,11 @@ export const CustoProvider = ({ children }) => {
   const getCusto = async (id_custo) => {
     try {
       const custo = await getCustoById(id_custo);
+      if (!custo) throw new Error(`Custo com ID ${id_custo} não encontrada.`);
       return custo;
     } catch (error) {
+      console.error(`Erro ao carregar custo com ID ${id_custo}:`, error);
+      throw error;
     }
   };
 
@@ -40,8 +43,10 @@ export const CustoProvider = ({ children }) => {
     try {
       const newCusto = await createCusto(custo);
       setCustos((prev) => [...prev, newCusto]);
+      return { success: true, message: 'Custo adicionado com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar custo:", error);
+      return { success: false, message: 'Erro ao adicionar o custo. Verifique os dados e tente novamente.' };
     }
   };
 

@@ -3,12 +3,16 @@ import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-b
 import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import useVenda from '../../hooks/useVenda';
+import useCliente from '../../hooks/useCliente';
+import useFornecedor from '../../hooks/useFornecedor';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Venda.css";
 
 const UpdateVenda = () => {
   const { id_venda } = useParams();
   const { getVenda, updateVendaData } = useVenda();
+  const { getCliente } = useCliente();
+  const { getFornecedor } = useFornecedor();
   const [vendaData, setVendaData] = useState({
     tipo_venda: '', 
     tipo_faturamento: '', 
@@ -72,6 +76,27 @@ const UpdateVenda = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
+
+    let validationErrorExists = false;
+
+    try {
+      await getCliente(vendaData.id_cliente);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_cliente: 'ID do Cliente inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    try {
+      await getFornecedor(vendaData.id_fornecedor);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_fornecedor: 'ID do Fornecedor inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    if (validationErrorExists) {
       setLoading(false);
       return;
     }

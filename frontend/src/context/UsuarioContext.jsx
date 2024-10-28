@@ -31,6 +31,7 @@ export const UsuarioProvider = ({ children }) => {
   const getUsuario = async (id_user) => {
     try {
       const usuario = await getUsuarioById(id_user);
+      if (!usuario) throw new Error(`Usuário com ID ${id_user} não encontrado.`);
       return usuario;
     } catch (error) {
       console.error(`Erro ao carregar usuário com ID ${id_user}:`, error);
@@ -42,8 +43,10 @@ export const UsuarioProvider = ({ children }) => {
     try {
       const addedUsuario = await createUsuario(newUsuario);
       setUsuarios([...usuarios, addedUsuario]);
+      return { success: true, message: 'Usuário adicionado com sucesso!' };
     } catch (error) {
       console.error("Erro ao adicionar usuário:", error)
+      return { success: false, message: 'Erro ao adicionar o usuário. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -51,8 +54,10 @@ export const UsuarioProvider = ({ children }) => {
     try {
       const updated = await updateUsuario(id_user, updatedUsuario);
       setUsuarios(usuarios.map(user => user.id_user === id_user ? updated : user));
+      return { success: true, message: 'Usuário atualizado com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error)
+      return { success: false, message: 'Erro ao atualizar o usuário. Verifique os dados e tente novamente.' };
     }
   };
 

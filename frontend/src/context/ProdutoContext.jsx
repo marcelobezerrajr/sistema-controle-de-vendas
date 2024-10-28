@@ -30,9 +30,11 @@ export const ProdutoProvider = ({ children }) => {
   const getProduto = async (id_produto) => {
     try {
       const produto = await getProdutoById(id_produto);
+      if (!produto) throw new Error(`Produto com ID ${id_produto} não encontrado.`);
       return produto;
     } catch (error) {
-      console.error("Erro ao obter produto:", error);
+      console.error(`Erro ao carregar produto com ID ${id_produto}:`, error);
+      throw error;
     }
   };
 
@@ -40,8 +42,10 @@ export const ProdutoProvider = ({ children }) => {
     try {
       const newProduto = await createProduto(produto);
       setProdutos((prev) => [...prev, newProduto]);
+      return { success: true, message: 'Produto adicionado com sucesso!' };
     } catch (error) {
-      console.error("Erro ao adicionar produto:", error);
+      console.error("Erro ao adicionar produto:", error)
+      return { success: false, message: 'Erro ao adicionar o produto. Verifique os dados e tente novamente.' };
     }
   };
 
@@ -51,8 +55,10 @@ export const ProdutoProvider = ({ children }) => {
       setProdutos((prev) =>
         prev.map((produto) => (produto.id_produto === id_produto ? updatedProduto : produto))
       );
+      return { success: true, message: 'Produto atualizado com sucesso!' };
     } catch (error) {
       console.error("Erro ao atualizar produto:", error);
+      return { success: false, message: 'Erro ao atualizar o produto. Verifique os dados e tente novamente.' };
     }
   };
 

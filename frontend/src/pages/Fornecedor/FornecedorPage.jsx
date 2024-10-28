@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
 import SearchComponent from '../../components/SearchComponent';
-import useFornecedores from '../../hooks/useFornecedor'
+import useFornecedor from '../../hooks/useFornecedor'
 import MainLayout from '../../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
 const FornecedorPage = () => {
-  const { fornecedores, loading, removeFornecedor } = useFornecedores();
+  const { fornecedores, loading, removeFornecedor } = useFornecedor();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
   const [filteredFornecedores, setFilteredFornecedores] = useState([]);

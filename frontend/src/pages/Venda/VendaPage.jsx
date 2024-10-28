@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
-import useVendas from '../../hooks/useVenda';
+import useVenda from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
 import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
 const VendaPage = () => {
-  const { vendas, loading, removeVenda } = useVendas();
+  const { vendas, loading, removeVenda } = useVenda();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
   const [tipoVendaFilter, setTipoVendaFilter] = useState('');
@@ -101,7 +101,7 @@ const VendaPage = () => {
         </div>
 
         {alertMessage && (
-          <Alert variant={alertVariant} onClose={() => setAlertMessage('')} dismissible>
+          <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
             {alertMessage}
           </Alert>
         )}

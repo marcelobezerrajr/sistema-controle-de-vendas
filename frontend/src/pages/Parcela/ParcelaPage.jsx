@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Table, Alert } from 'react-bootstrap';
 import TableRow from '../../components/TableRow';
-import useParcelas from '../../hooks/useParcela'
+import useParcela from '../../hooks/useParcela'
 import MainLayout from '../../layouts/MainLayout';
 import FilterComponent from '../../components/FilterComponent';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Gerenciamento.css';
 
 const ParcelaPage = () => {
-  const { parcelas, loading } = useParcelas();
+  const { parcelas, loading } = useParcela();
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('success');
   const [tipoStatusFilter, setTipoStatusFilter] = useState('');

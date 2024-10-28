@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import useItemVenda from '../../hooks/useItemVenda';
+import useVendas from '../../hooks/useVenda';
+import useProduto from '../../hooks/useProduto';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/ItemVenda.css"
 
 const AddItemVenda = () => {
   const { addItemVenda } = useItemVenda();
+  const { getVenda } = useVendas();
+  const { getProduto } = useProduto();
   const [itemvendaData, setItemVendaData] = useState({ id_venda: '', id_produto: '', quantidade: '', preco_unitario: '', subtotal: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -45,12 +49,33 @@ const AddItemVenda = () => {
       return;
     }
 
+    let validationErrorExists = false;
+
+    try {
+      await getVenda(itemvendaData.id_venda);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID de Venda inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    try {
+      await getProduto(itemvendaData.id_produto);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_produto: 'ID do Produto inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    if (validationErrorExists) {
+      setLoading(false);
+      return;
+    }
+
     try {
       await addItemVenda({
         ...itemvendaData,
       });
       setSuccess('Item Venda adicionado com sucesso!');
-      setItemVendaData({ descricao: '', valor: '', id_venda: '' });
+      setItemVendaData({ id_venda: '', id_produto: '', quantidade: '', preco_unitario: '', subtotal: '' });
     } catch (error) {
       setErrors({ form: error.message || 'Erro ao adicionar o Item Venda. Tente novamente.' });
     } finally {

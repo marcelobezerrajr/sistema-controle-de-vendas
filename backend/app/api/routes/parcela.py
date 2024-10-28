@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas, get_parcela_by_id
-from app.api.depends import get_db, get_read_user_admin, get_user_admin
+from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas, get_parcela_by_id, delete_parcela
+from app.api.depends import get_db, get_read_user_admin, get_user_admin, get_admin
 from app.database.models.models_vendas import User
 from app.schemas.schemas_vendas import Parcela, ParcelaCreate, ParcelaUpdate
 
@@ -47,3 +47,12 @@ def update_parcela_route(id_parcela: int, parcela: ParcelaUpdate, db: Session = 
     except Exception as e:
         logger.error(f"Erro ao atualizar parcela: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao atualizar parcela.")
+
+# @parcela_router.delete("/delete/{id_parcela}", response_model=Parcela)
+# def delete_parcela_route(id_parcela: int, db: Session = Depends(get_db), current_user: User = Depends(get_admin)):
+#     try:
+#         logger.info(f"Parcela deletado com sucesso pelo usuário: {current_user.username}")
+#         return delete_parcela(db, id_parcela)
+#     except Exception as e:
+#         logger.error(f"Erro ao deletar o Parcela: {str(e)}")
+#         raise HTTPException(status_code=500, detail="Erro ao deletar o Parcela")

@@ -44,6 +44,7 @@
 }
 
 .usuario-form-label {
+    font-size: 16px;
     color: #004F98;
     font-weight: bold;
     padding-left: 7px;
@@ -54,13 +55,14 @@
 }
 
 .usuario-form-control-custom {
+    margin-top: 5px;
     width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ced4da;
     transition: border-color 0.3s;
     color: #1684BF;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .usuario-form-control-custom::placeholder{
@@ -82,7 +84,7 @@
 
 .usuario-password-toggle {
     position: absolute;
-    top: 65%;
+    top: 60%;
     right: 0px;
     transform: translateY(-50%);
     background: transparent;
@@ -101,7 +103,7 @@
     transition: border-color 0.3s;
     color: #1684BF;
     margin-left: 10px;
-    font-size: 13px !important;
+    font-size: 14px !important;
 }
 
 .usuario-invalid-feedback {
@@ -149,6 +151,20 @@
     color: #155724;
     margin-bottom: 15px;
   }
+
+  .usuario-button-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #1684BF;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s;
+    }
+
+    .usuario-button-container:hover {
+        background-color: #0056b3;
+    }
 
 @media (max-width: 768px) {
     .usuario-card {

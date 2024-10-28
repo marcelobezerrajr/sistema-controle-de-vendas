@@ -2,124 +2,140 @@ import React, { useState, useEffect } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import useParcelas from '../../hooks/useParcela';
+import useParcela from '../../hooks/useParcela';
+import useVendas from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/Parcela.css"
 
 const formatDate = (date) => {
-    if (!date) return null;
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = (`0${d.getMonth() + 1}`).slice(-2);
-    const day = (`0${d.getDate()}`).slice(-2);
-    return `${year}/${month}/${day}`;
-  };
+  if (!date) return null;
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = (`0${d.getMonth() + 1}`).slice(-2);
+  const day = (`0${d.getDate()}`).slice(-2);
+  return `${year}/${month}/${day}`;
+};
 
-  const UpdateParcela = () => {
-    const { id_parcela } = useParams();
-    const { getParcela, updateParcelaData } = useParcelas();
-    const [parcelaData, setParcelaData] = useState({
-      id_venda: '', 
-      numero_parcela: '', 
-      valor_parcela: '', 
-      data_prevista: '', 
-      data_recebimento: '', 
-      status: '', 
-      forma_recebimento: ''
-    });
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(null);
+const UpdateParcela = () => {
+  const { id_parcela } = useParams();
+  const { getParcela, updateParcelaData } = useParcela();
+  const { getVenda } = useVendas();
+  const [parcelaData, setParcelaData] = useState({
+    id_venda: '', 
+    numero_parcela: '', 
+    valor_parcela: '', 
+    data_prevista: '', 
+    data_recebimento: '', 
+    status: '', 
+    forma_recebimento: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
 
-    useEffect(() => {
-        if (!id_parcela) {
-          setErrors({ form: 'ID de Parcela não definido.' });
-          return;
-        }
-        const fetchParcela = async () => {
-          setLoading(true);
-          try {
-            const data = await getParcela(id_parcela);
-            setParcelaData({
-              ...data,
-              data_prevista: data.data_prevista ? new Date(data.data_prevista).toISOString().split('T')[0] : '',
-              data_recebimento: data.data_recebimento ? new Date(data.data_recebimento).toISOString().split('T')[0] : ''
-            });
-          } catch (error) {
-            setErrors({ form: 'Erro ao carregar os dados da parcela.' });
-          } finally {
-            setLoading(false);
-          }
-        };
-        fetchParcela();
-      }, [id_parcela, getParcela]);
-      
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setParcelaData({
-        ...parcelaData,
-        [name]: value,
-      });
-      setErrors({ ...errors, [name]: null });
-    };
-  
-    const validateForm = () => {
-      const newErrors = {};
-      if (!parcelaData.id_venda) newErrors.id_venda = "ID de Venda é obrigatório";
-      if (!parcelaData.numero_parcela) newErrors.numero_parcela = "Número da quantidade de Parcelas é obrigatório";
-      if (!parcelaData.valor_parcela || parcelaData.valor_parcela <= 0) newErrors.valor_parcela = "Valor da Parcela inválido";
-      if (!parcelaData.data_prevista) newErrors.data_prevista = "Data Prevista é obrigatória";
-      if (!parcelaData.status) newErrors.status = "Status da Parcela é obrigatório";
-      if (!parcelaData.forma_recebimento) newErrors.forma_recebimento = "Forma de Recebimento da Parcela é obrigatório";
-      
-      return newErrors;
-    };
-  
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  useEffect(() => {
+      if (!id_parcela) {
+        setErrors({ form: 'ID de Parcela não definido.' });
+        return;
+      }
+      const fetchParcela = async () => {
         setLoading(true);
-        setErrors({});
-        setSuccess(null);
-      
-        const validationErrors = validateForm();
-        if (Object.keys(validationErrors).length > 0) {
-          setErrors(validationErrors);
-          setLoading(false);
-          return;
-        }
-      
-        const formattedData = {
-          ...parcelaData,
-          data_prevista: formatDate(parcelaData.data_prevista),
-          data_recebimento: parcelaData.data_recebimento ? formatDate(parcelaData.data_recebimento) : null
-        };
-      
         try {
-          await updateParcelaData(id_parcela, formattedData);
-          setSuccess('Parcela atualizada com sucesso!');
+          const data = await getParcela(id_parcela);
+          setParcelaData({
+            ...data,
+            data_prevista: data.data_prevista ? new Date(data.data_prevista).toISOString().split('T')[0] : '',
+            data_recebimento: data.data_recebimento ? new Date(data.data_recebimento).toISOString().split('T')[0] : ''
+          });
         } catch (error) {
-          setErrors({ form: 'Erro ao atualizar a parcela. Tente novamente.' });
+          setErrors({ form: 'Erro ao carregar os dados da parcela.' });
         } finally {
           setLoading(false);
         }
       };
-      
+      fetchParcela();
+    }, [id_parcela, getParcela]);
+    
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setParcelaData({
+      ...parcelaData,
+      [name]: value,
+    });
+    setErrors({ ...errors, [name]: null });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!parcelaData.id_venda) newErrors.id_venda = "ID de Venda é obrigatório";
+    if (!parcelaData.numero_parcela) newErrors.numero_parcela = "Número da quantidade de Parcelas é obrigatório";
+    if (!parcelaData.valor_parcela || parcelaData.valor_parcela <= 0) newErrors.valor_parcela = "Valor da Parcela inválido";
+    if (!parcelaData.data_prevista) newErrors.data_prevista = "Data Prevista é obrigatória";
+    if (!parcelaData.status) newErrors.status = "Status da Parcela é obrigatório";
+    if (!parcelaData.forma_recebimento) newErrors.forma_recebimento = "Forma de Recebimento da Parcela é obrigatório";
+    
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    setSuccess(null);
   
-    const getStatusParcelaOptions = () => (
-      <>
-        <option value="Pendente">Pendente</option>
-        <option value="Pago">Pago</option>
-        <option value="Atrasado">Atrasado</option>
-      </>
-    );
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
   
-    const getFormaRecebimentoOptions = () => (
-      <>
-        <option value="Primeira">Primeira</option>
-        <option value="Subsequente">Subsequente</option>
-      </>
-    );
+    const formattedData = {
+      ...parcelaData,
+      data_prevista: formatDate(parcelaData.data_prevista),
+      data_recebimento: parcelaData.data_recebimento ? formatDate(parcelaData.data_recebimento) : null
+    };
+
+    let validationErrorExists = false;
+
+    try {
+      await getVenda(parcelaData.id_venda);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+
+    if (validationErrorExists) {
+      setLoading(false);
+      return;
+    }
+    
+    try {
+        await updateParcelaData(id_parcela, formattedData);
+        setSuccess('Parcela atualizada com sucesso!');
+      } catch (error) {
+        setErrors({ form: 'Erro ao atualizar a parcela. Tente novamente.' });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+
+  const getStatusParcelaOptions = () => (
+    <>
+      <option value="Pendente">Pendente</option>
+      <option value="Pago">Pago</option>
+      <option value="Atrasado">Atrasado</option>
+    </>
+  );
+
+  const getFormaRecebimentoOptions = () => (
+    <>
+      <option value="Primeira">Primeira</option>
+      <option value="Subsequente">Subsequente</option>
+    </>
+  );
 
   return (
     <MainLayout>
