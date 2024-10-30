@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status, logger
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from datetime import datetime
 import logging
 
@@ -197,12 +197,14 @@ def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate):
             raise HTTPException(status_code=400, detail="Tipo de vendedor inválido")
 
         valor_recebido = venda.valor_total - custo_total
+        if valor_recebido < 0:
+            raise HTTPException(status_code=400, detail="Custo total excede o valor da venda")
+        
         valor_comissao = valor_recebido * (percentual_comissao / 100)
 
         data_pagamento = None
         if comissao.data_pagamento:
             data_pagamento = datetime.strptime(comissao.data_pagamento, '%Y/%m/%d').date()
-
 
         db_comissao = models_vendas.Comissao(
             id_vendedor=comissao.id_vendedor,
@@ -498,29 +500,50 @@ def get_all_vendas_vendedor(db: Session):
 def get_vendas_by_vendedor(db: Session, id_vendedor: int):
     return db.query(models_vendas.VendaVendedor).filter(models_vendas.VendaVendedor.id_vendedor == id_vendedor).all()
 
-def create_venda_vendedor(db: Session, venda_vendedor: schemas_vendas.VendaVendedorCreate, venda: schemas_vendas.Venda, vendedor: schemas_vendas.Vendedor):
+def get_venda_vendedor(db: Session, id_venda: int, id_vendedor: int):
+    return db.query(models_vendas.VendaVendedor).filter(
+        models_vendas.VendaVendedor.id_venda == id_venda,
+        models_vendas.VendaVendedor.id_vendedor == id_vendedor
+    ).first()
+
+def create_venda_vendedor(db: Session, venda_vendedor: schemas_vendas.VendaVendedorCreate):
     try:
+        check_exists(db, models_vendas.Venda, 'id_venda', venda_vendedor.id_venda, "Venda não encontrada")
+        check_exists(db, models_vendas.Vendedor, 'id_vendedor', venda_vendedor.id_vendedor, "Vendedor não encontrado")
+
+        existing_entry = db.query(models_vendas.VendaVendedor).filter(
+            models_vendas.VendaVendedor.id_venda == venda_vendedor.id_venda,
+            models_vendas.VendaVendedor.id_vendedor == venda_vendedor.id_vendedor
+        ).first()
+
+        if existing_entry:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Venda Vendedor já existe")
+
         if venda_vendedor.tipo_participacao == models_vendas.TipoParticipacaoEnum.inside_sales:
             percentual_comissao = 7.5
         elif venda_vendedor.tipo_participacao == models_vendas.TipoParticipacaoEnum.account_executive:
             percentual_comissao = 5.0
         else:
             raise ValueError(f"Tipo de vendedor inválido: {venda_vendedor.tipo_participacao}")
-        
+
         db_venda_vendedor = models_vendas.VendaVendedor(
             tipo_participacao=venda_vendedor.tipo_participacao,
             percentual_comissao=percentual_comissao,
             id_venda=venda_vendedor.id_venda,
             id_vendedor=venda_vendedor.id_vendedor
         )
-        
+
         db.add(db_venda_vendedor)
         db.commit()
         db.refresh(db_venda_vendedor)
         return db_venda_vendedor
+
     except HTTPException as e:
         logger.error(f"Erro ao criar venda vendedor (HTTP): {str(e)} - Venda Vendedor: {venda_vendedor}")
         raise
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Venda Vendedor já existe")
     except Exception as e:
         logger.critical(f"Erro inesperado ao criar venda_vendedor {venda_vendedor}: {str(e)}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o venda vendedor.")

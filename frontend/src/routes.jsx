@@ -54,7 +54,11 @@ const EntityViewWrapper = () => {
     if (entityConfig.entityName.toLowerCase() !== entity) {
       changeEntity(entity);
     }
-  }, [entity, id, changeEntity, navigate]);
+  }, [entity, id, entityConfig.entityName, changeEntity, navigate]);
+
+  if (!entityConfig.entityName) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <ViewPage
@@ -64,6 +68,7 @@ const EntityViewWrapper = () => {
     />
   );
 };
+
 
 const AppRoutes = () => {
   return (

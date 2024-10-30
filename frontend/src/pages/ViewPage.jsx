@@ -7,7 +7,7 @@ import FieldDisplay from '../components/FieldDisplay';
 import '../styles/ViewPage.css';
 
 const ViewPage = () => {
-    const { id } = useParams();
+    const { id, id_venda, id_vendedor } = useParams();
     const { entityConfig } = useEntityContext();
     const { entityName, fetchUrl, fields } = entityConfig;
     const [entity, setEntity] = useState(null);
@@ -16,48 +16,48 @@ const ViewPage = () => {
 
     useEffect(() => {
         const fetchEntityData = async () => {
-            const url = `${fetchUrl}/${id}`;
+            const url = id_venda && id_vendedor
+                ? `${fetchUrl}/${id_venda}/${id_vendedor}`
+                : `${fetchUrl}/${id}`;
+                
             const token = localStorage.getItem('access_token');
-          
+
             try {
-              const response = await fetch(url, {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`,
-                },
-              });
-          
-              console.log('Response Status:', response.status);
-              const text = await response.text();
-              console.log('Response Body:', text);
-          
-              if (!response.ok) {
-                if (response.status === 404) {
-                  throw new Error(`${entityName} not found`);
-                } else if (response.status === 403) {
-                  throw new Error('Unauthorized access');
-                } else {
-                  throw new Error('Network response was not ok');
+                const response = await fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+
+                console.log('Response Status:', response.status);
+                const text = await response.text();
+                console.log('Response Body:', text);
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(`${entityName} not found`);
+                    } else if (response.status === 403) {
+                        throw new Error('Unauthorized access');
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
                 }
-              }
-          
-              try {
+
                 const result = JSON.parse(text);
-                setEntity(result.data || result);
-              } catch (jsonError) {
-                throw new Error('Failed to parse JSON');
-              }
+                const userData = Array.isArray(result.data) ? result.data[0] : result.data;
+                setEntity(userData || result);
+
             } catch (error) {
-            //   setError(error.message);
-            //   console.error('Fetch error:', error);
+                setError(error.message);
+                console.error('Fetch error:', error);
             } finally {
-              setLoading(false);
+                setLoading(false);
             }
-          };
-          
+        };
 
         fetchEntityData();
-    }, [id, fetchUrl, entityName]);
+    }, [id, id_venda, id_vendedor, fetchUrl, entityName]);
 
     return (
         <MainLayout>
@@ -81,9 +81,9 @@ const ViewPage = () => {
                             <>
                                 {fields.map((field) => (
                                     <FieldDisplay
-                                    key={field.key}
-                                    label={field.label}
-                                    value={entity[field.key]}
+                                        key={field.key}
+                                        label={field.label}
+                                        value={entity[field.key] || 'N/A'}
                                     />
                                 ))}
                             </>

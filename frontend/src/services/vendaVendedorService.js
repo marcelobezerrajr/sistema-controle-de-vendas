@@ -11,7 +11,16 @@ export const getAllVendaVendedor = async () => {
 
 export const getVendasByVendedor = async (id_vendedor) => {
   try {
-    const response = await api.get(`/venda-vendedor/vendedor/${id_vendedor}`);
+    const response = await api.get(`/venda-vendedor/view/${id_vendedor}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao obter vendas do vendedor.');
+  }
+};
+
+export const getVendaVendedor = async (id_venda, id_vendedor) => {
+  try {
+    const response = await api.get(`/venda-vendedor/view/${id_venda}/${id_vendedor}`);
     return response.data;
   } catch (error) {
     throw new Error('Erro ao obter venda-vendedor.');

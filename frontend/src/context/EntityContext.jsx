@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 
 const EntityContext = createContext();
 
@@ -9,7 +9,7 @@ export const EntityProvider = ({ children }) => {
     fields: [],
   });
 
-  const changeEntity = (entity) => {
+  const changeEntity = useCallback((entity) => {
     let config;
 
     switch (entity) {
@@ -155,6 +155,19 @@ export const EntityProvider = ({ children }) => {
         };
       break;
 
+      case 'venda-vendedor':
+        config = {
+          entityName: 'Venda Vendedor',
+          fetchUrl: 'http://127.0.0.1:8000/venda-vendedor/view',
+          fields: [
+            { label: 'ID Venda', key: 'id_venda' },
+            { label: 'ID Vendedor', key: 'id_vendedor' },
+            { label: 'Tipo de Participação', key: 'tipo_participacao' },
+            { label: 'Percentual de Comissão', key: 'percentual_comissao' },
+          ],
+        };
+      break;
+
       default:
         config = {
           entityName: '',
@@ -164,7 +177,7 @@ export const EntityProvider = ({ children }) => {
     }
 
     setEntityConfig(config);
-  };
+  }, []);
 
   return (
     <EntityContext.Provider value={{ entityConfig, changeEntity }}>

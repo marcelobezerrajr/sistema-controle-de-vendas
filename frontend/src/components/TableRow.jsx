@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/TableRow.css"
 
-const TableRow = ({ rowData, columns, actions, idField }) => {
+const TableRow = ({ rowData, columns, actions, idField, secondaryIdField }) => {
   const userPermission = localStorage.getItem('user_permission');
 
   return (
@@ -12,7 +12,18 @@ const TableRow = ({ rowData, columns, actions, idField }) => {
       
       <td>
         {actions.view && (
-          <button onClick={() => actions.view(rowData[idField])} className="custom-button-view">Ver</button>
+          <button 
+            onClick={() => {
+              if (secondaryIdField) {
+                actions.view(rowData[idField], rowData[secondaryIdField]);
+              } else {
+                actions.view(rowData[idField]);
+              }
+            }}
+            className="custom-button-view"
+          >
+            Ver
+          </button>
         )}
         
         {actions.update && (userPermission === 'Admin' || (userPermission === 'User' && rowData.permission !== 'Admin')) && (

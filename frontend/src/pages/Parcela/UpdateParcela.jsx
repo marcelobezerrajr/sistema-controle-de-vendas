@@ -5,15 +5,17 @@ import { useParams } from 'react-router-dom';
 import useParcela from '../../hooks/useParcela';
 import useVendas from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Parcela.css"
+import "../../styles/Parcela.css";
 
-const formatDate = (date) => {
-  if (!date) return null;
+const formatDate = (date, format = "yyyy-MM-dd") => {
+  if (!date) return "";
   const d = new Date(date);
+  if (isNaN(d.getTime())) return ""; 
   const year = d.getFullYear();
   const month = (`0${d.getMonth() + 1}`).slice(-2);
-  const day = (`0${d.getDate()}`).slice(-2);
-  return `${year}/${month}/${day}`;
+  const day = (`0${d.getDate() + 1}`).slice(-2);
+
+  return format === "yyyy-MM-dd" ? `${year}-${month}-${day}` : `${year}/${month}/${day}`;
 };
 
 const UpdateParcela = () => {
@@ -34,28 +36,28 @@ const UpdateParcela = () => {
   const [success, setSuccess] = useState(null);
 
   useEffect(() => {
-      if (!id_parcela) {
-        setErrors({ form: 'ID de Parcela não definido.' });
-        return;
+    if (!id_parcela) {
+      setErrors({ form: 'ID de Parcela não definido.' });
+      return;
+    }
+    const fetchParcela = async () => {
+      setLoading(true);
+      try {
+        const data = await getParcela(id_parcela);
+        setParcelaData({
+          ...data,
+          data_prevista: formatDate(data.data_prevista, "yyyy-MM-dd"),
+          data_recebimento: formatDate(data.data_recebimento, "yyyy-MM-dd")
+        });
+      } catch (error) {
+        setErrors({ form: 'Erro ao carregar os dados da parcela.' });
+      } finally {
+        setLoading(false);
       }
-      const fetchParcela = async () => {
-        setLoading(true);
-        try {
-          const data = await getParcela(id_parcela);
-          setParcelaData({
-            ...data,
-            data_prevista: data.data_prevista ? new Date(data.data_prevista).toISOString().split('T')[0] : '',
-            data_recebimento: data.data_recebimento ? new Date(data.data_recebimento).toISOString().split('T')[0] : ''
-          });
-        } catch (error) {
-          setErrors({ form: 'Erro ao carregar os dados da parcela.' });
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchParcela();
-    }, [id_parcela, getParcela]);
-    
+    };
+    fetchParcela();
+  }, [id_parcela, getParcela]);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,19 +95,19 @@ const UpdateParcela = () => {
   
     const formattedData = {
       ...parcelaData,
-      data_prevista: formatDate(parcelaData.data_prevista),
-      data_recebimento: parcelaData.data_recebimento ? formatDate(parcelaData.data_recebimento) : null
+      data_prevista: formatDate(parcelaData.data_prevista, "yyyy/MM/dd"),
+      data_recebimento: parcelaData.data_recebimento ? formatDate(parcelaData.data_recebimento, "yyyy/MM/dd") : null
     };
-
+  
     let validationErrorExists = false;
-
+  
     try {
       await getVenda(parcelaData.id_venda);
     } catch (error) {
       setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
       validationErrorExists = true;
     }
-
+  
     if (validationErrorExists) {
       setLoading(false);
       return;
@@ -119,9 +121,9 @@ const UpdateParcela = () => {
       } finally {
         setLoading(false);
       }
-    };
+  };
+  
     
-
   const getStatusParcelaOptions = () => (
     <>
       <option value="Pendente">Pendente</option>

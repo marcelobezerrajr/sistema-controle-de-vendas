@@ -2,25 +2,42 @@ import React, { useState } from 'react';
 import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
 import { FaSave } from 'react-icons/fa';
 import useVendaVendedor from '../../hooks/useVendaVendedor';
+import useVendedor from '../../hooks/useVendedor'
+import useVenda from '../../hooks/useVenda'
 import MainLayout from '../../layouts/MainLayout';
 import "../../styles/VendaVendedor.css"
 
 const AddVendaVendedor = () => {
   const { addVendaVendedor } = useVendaVendedor();
+  const { getVendedor } = useVendedor();
+  const { getVenda } = useVenda();
   const [vendavendedorData, setVendaVendedorData] = useState({ id_venda: '', id_vendedor: '', tipo_participacao: '', percentual_comissao: '' });
-  const [percentualComissao, setPercentualComissao] = useState('');
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
 
-  const calcularComissao = (tipo) => {
-    if (tipo === 'Inside Sales') {
-      return 7.5;
-    } else if (tipo === 'Account Executive') {
-      return 5.0;
-    } else {
-      return '';
+  const handleVendedorChange = async (e) => {
+    const idVendedor = e.target.value;
+    setVendaVendedorData({
+      ...vendavendedorData,
+      id_vendedor: idVendedor,
+    });
+    setErrors({ ...errors, id_vendedor: null });
+
+    if (idVendedor) {
+      try {
+        const vendedor = await getVendedor(idVendedor);
+        setVendaVendedorData((prev) => ({
+          ...prev,
+          tipo_participacao: vendedor.tipo,
+          percentual_comissao: vendedor.percentual_comissao
+        }));
+      } catch (error) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          id_vendedor: 'ID do Vendedor inválido ou não encontrado.'
+        }));
+      }
     }
   };
 
@@ -30,12 +47,6 @@ const AddVendaVendedor = () => {
       ...vendavendedorData,
       [name]: value,
     });
-
-    if (name === 'tipo_participacao') {
-        const comissao = calcularComissao(value);
-        setPercentualComissao(comissao);
-      }
-
     setErrors({ ...errors, [name]: null });
   };
 
@@ -43,9 +54,6 @@ const AddVendaVendedor = () => {
     const newErrors = {};
     if (!vendavendedorData.id_venda) newErrors.id_venda = "ID da Venda é obrigatório";
     if (!vendavendedorData.id_vendedor) newErrors.id_vendedor = "ID do Vendedor é obrigatório";
-    if (!vendavendedorData.tipo_participacao) newErrors.tipo_participacao = "Tipo de Participação é obrigatório";
-    if (!vendavendedorData.percentual_comissao) newErrors.percentual_comissao = "Percentual de Comissão é obrigatório";
-    
     return newErrors;
   };
 
@@ -54,19 +62,30 @@ const AddVendaVendedor = () => {
     setLoading(true);
     setErrors({});
     setSuccess(null);
-
+  
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setLoading(false);
       return;
     }
-
+  
+    let validationErrorExists = false;
+  
     try {
-      await addVendaVendedor({
-        ...vendavendedorData,
-        percentual_comissao: percentualComissao
-      });
+      await getVenda(vendavendedorData.id_venda);
+    } catch (error) {
+      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
+      validationErrorExists = true;
+    }
+  
+    if (validationErrorExists) {
+      setLoading(false);
+      return;
+    }
+  
+    try {
+      await addVendaVendedor(vendavendedorData);
       setSuccess('Venda Vendedor adicionada com sucesso!');
       setVendaVendedorData({
         id_venda: '', 
@@ -74,20 +93,17 @@ const AddVendaVendedor = () => {
         tipo_participacao: '', 
         percentual_comissao: ''
       });
-      setPercentualComissao('');
     } catch (error) {
-      setErrors({ form: 'Erro ao adicionar a venda vendedor. Tente novamente.' });
+      const errorMessage = error.response?.data?.detail;
+      if (errorMessage && errorMessage.includes("Venda Vendedor já existe")) {
+        setErrors({ form: 'Venda Vendedor já existe.' });
+      } else {
+        setErrors({ form: 'Erro ao adicionar a venda vendedor. Tente novamente.' });
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  const getTipoParticipacaoVendaVendedorOptions = () => (
-    <>
-      <option value="Inside Sales">Inside Sales</option>
-      <option value="Account Executive">Account Executive</option>
-    </>
-  );
 
   return (
     <MainLayout>
@@ -119,7 +135,7 @@ const AddVendaVendedor = () => {
                         <Row>
                             <Col md={6}>
                             <Form.Group className="venda-vendedor-form-group" controlId="id_venda">
-                                <Form.Label className='venda-vendedor-form-label'>ID Venda</Form.Label>
+                                <Form.Label className='venda-vendedor-form-label'>ID da Venda</Form.Label>
                                 <Form.Control
                                 className="venda-vendedor-form-control-custom"
                                 type="number"
@@ -137,13 +153,13 @@ const AddVendaVendedor = () => {
 
                             <Col md={6}>
                             <Form.Group className="venda-vendedor-form-group" controlId="id_vendedor">
-                                <Form.Label className='venda-vendedor-form-label'>ID Vendedor</Form.Label>
+                                <Form.Label className='venda-vendedor-form-label'>ID do Vendedor</Form.Label>
                                 <Form.Control
                                 className="venda-vendedor-form-control-custom"
                                 type="number"
                                 name="id_vendedor"
                                 value={vendavendedorData.id_vendedor}
-                                onChange={handleChange}
+                                onChange={handleVendedorChange}
                                 isInvalid={!!errors.id_vendedor}
                                 placeholder="Digite o ID do Vendedor"
                                 step="1"
@@ -154,32 +170,38 @@ const AddVendaVendedor = () => {
                             </Col>
                             
                             <Col md={6}>
-                            <Form.Group className="venda-vendedor-form-group" controlId="tipo_participacao">
+                              <Form.Group className="venda-vendedor-form-group" controlId="tipo_participacao">
                                 <Form.Label className='venda-vendedor-form-label'>Tipo Participação do Vendedor</Form.Label>
-                                <Form.Select
-                                className="venda-vendedor-form-select-custom"
-                                name="tipo_participacao"
-                                value={vendavendedorData.tipo_participacao}
-                                onChange={handleChange}
-                                isInvalid={!!errors.tipo_participacao}
-                                required
-                                >
-                                <option value="">Selecionar Tipo de Participação</option>
-                                {getTipoParticipacaoVendaVendedorOptions()}
-                                </Form.Select>
+                                <Form.Control
+                                  className="venda-vendedor-form-control-custom"
+                                  type="text"
+                                  name="tipo_participacao"
+                                  value={vendavendedorData.tipo_participacao}
+                                  onChange={handleChange}
+                                  isInvalid={!!errors.tipo_participacao}
+                                  placeholder="Tipo Participação"
+                                  required
+                                  readOnly
+                                />
                                 <Form.Control.Feedback type="invalid">{errors.tipo_participacao}</Form.Control.Feedback>
-                            </Form.Group>
+                              </Form.Group>
                             </Col>
 
                             <Col md={6}>
                               <Form.Group className="venda-vendedor-form-group" controlId="percentual_comissao">
-                                  <Form.Label className='venda-vendedor-form-label'>Percentual Comissão</Form.Label>
-                                  <Form.Control
-                                    className="venda-vendedor-form-control-custom"
-                                    type="text"
-                                    value={percentualComissao || '—'}
-                                    readOnly
-                                  />
+                                <Form.Label className='venda-vendedor-form-label'>Percentual Comissão</Form.Label>
+                                <Form.Control
+                                  className="venda-vendedor-form-control-custom"
+                                  type="number"
+                                  name="percentual_comissao"
+                                  value={vendavendedorData.percentual_comissao}
+                                  onChange={handleChange}
+                                  isInvalid={!!errors.percentual_comissao}
+                                  placeholder="Percentual Comissão"
+                                  required
+                                  readOnly
+                                />
+                                <Form.Control.Feedback type="invalid">{errors.percentual_comissao}</Form.Control.Feedback>
                               </Form.Group>
                             </Col>
                         </Row>

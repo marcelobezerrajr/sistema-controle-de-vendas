@@ -4,14 +4,14 @@ import { FaSave } from 'react-icons/fa';
 import useParcela from '../../hooks/useParcela';
 import useVendas from '../../hooks/useVenda';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Parcela.css"
+import "../../styles/Parcela.css";
 
 const formatDate = (date) => {
   if (!date) return null;
   const d = new Date(date);
   const year = d.getFullYear();
   const month = (`0${d.getMonth() + 1}`).slice(-2);
-  const day = (`0${d.getDate()}`).slice(-2);
+  const day = (`0${d.getDate() + 1}`).slice(-2);
   return `${year}/${month}/${day}`;
 };
 

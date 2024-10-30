@@ -153,7 +153,7 @@ class Comissao(Base):
     parcela = relationship("Parcela", back_populates="comissoes")
 
 class TipoParticipacaoEnum(PyEnum):
-    inside_sales = "Insade Sales"
+    inside_sales = "Inside Sales"
     account_executive = "Account Executive"
 
 class VendaVendedor(Base):
