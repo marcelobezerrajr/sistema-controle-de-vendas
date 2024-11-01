@@ -5,22 +5,28 @@ import useComissao from '../../hooks/useComissao';
 import useVendedor from '../../hooks/useVendedor';
 import useParcela from '../../hooks/useParcela';
 import MainLayout from '../../layouts/MainLayout';
-import "../../styles/Comissao.css"
+import "../../styles/Comissao.css";
 
 const formatDate = (date) => {
     if (!date) return null;
-    const d = new Date(date);
+    const d = new Date(date + "T00:00:00");
     const year = d.getFullYear();
     const month = (`0${d.getMonth() + 1}`).slice(-2);
     const day = (`0${d.getDate()}`).slice(-2);
     return `${year}/${month}/${day}`;
-  };
+};
 
 const AddComissao = () => {
-  const { addComissao } = useComissao();
+  const { addComissao, calcularComissao } = useComissao();
+  const [comissaoData, setComissaoData] = useState({
+    id_vendedor: '', 
+    id_parcela: '', 
+    data_pagamento: '', 
+    valor_comissao: '',
+    percentual_comissao: ''
+  });
   const { getVendedor } = useVendedor();
   const { getParcela } = useParcela();
-  const [comissaoData, setComissaoData] = useState({ id_vendedor: '', id_parcela: '', valor_comissao: '', data_pagamento: '', percentual_comissao: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -34,45 +40,34 @@ const AddComissao = () => {
     setErrors({ ...errors, [name]: null });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!comissaoData.id_vendedor) newErrors.id_vendedor = "Id de Vendedor é obrigatório";
-    if (!comissaoData.id_parcela) newErrors.id_parcela = "Id de Parcela é obrigatório";
-    if (!comissaoData.data_pagamento) newErrors.data_pagamento = "Data de Pagamento é obrigatório";
-    if (!comissaoData.percentual_comissao) newErrors.percentual_comissao = "Percentual de Comissão é obrigatório";
-    
-    return newErrors;
-  };
-
-  const calculateComissao = async () => {
+  const fetchComissaoCalculada = async () => {
     try {
-      const vendedor = await getVendedor(comissaoData.id_vendedor);
-      const parcela = await getParcela(comissaoData.id_parcela);
-      const venda = parcela.id_venda;
+      let validationErrorExists = false;
 
-      const custoTotal = parcela.valor_parcela.reduce((total, custo) => total + custo.valor, 0);
-      const valorRecebido = venda.valor_total - custoTotal;
+      try {
+        await getVendedor(comissaoData.id_vendedor);
+      } catch (error) {
+        setErrors((prevErrors) => ({ ...prevErrors, id_vendedor: 'ID do Vendedor inválido ou não encontrado.' }));
+        validationErrorExists = true;
+      }
 
-      if (valorRecebido < 0) {
-        setErrors((prevErrors) => ({ ...prevErrors, form: "Custo total excede o valor da venda." }));
+      try {
+        await getParcela(comissaoData.id_parcela);
+      } catch (error) {
+        setErrors((prevErrors) => ({ ...prevErrors, id_parcela: 'ID da Parcela inválido ou não encontrado.' }));
+        validationErrorExists = true;
+      }
+    
+      if (validationErrorExists) {
+        setLoading(false);
         return;
       }
-
-      let percentualComissao = 0;
-      if (vendedor.tipo === 'inside_sales') {
-        percentualComissao = 7.5;
-      } else if (vendedor.tipo === 'account_executive') {
-        percentualComissao = 5.0;
-      }
-
-      const valorComissao = valorRecebido * (percentualComissao / 100);
-
+      const data = await calcularComissao(comissaoData.id_vendedor, comissaoData.id_parcela);
       setComissaoData((prevData) => ({
         ...prevData,
-        valor_comissao: valorComissao,
-        percentual_comissao: percentualComissao
+        valor_comissao: data.valor_comissao,
+        percentual_comissao: data.percentual_comissao,
       }));
-
     } catch (error) {
       console.error("Erro ao calcular comissão:", error);
       setErrors((prevErrors) => ({ ...prevErrors, form: 'Erro ao calcular a comissão.' }));
@@ -81,9 +76,17 @@ const AddComissao = () => {
 
   useEffect(() => {
     if (comissaoData.id_vendedor && comissaoData.id_parcela) {
-      calculateComissao();
+      fetchComissaoCalculada();
     }
   }, [comissaoData.id_vendedor, comissaoData.id_parcela]);
+
+  const validateForm = () => {
+    const validationErrors = {};
+    if (!comissaoData.id_vendedor) validationErrors.id_vendedor = 'ID do Vendedor é obrigatório';
+    if (!comissaoData.id_parcela) validationErrors.id_parcela = 'ID da Parcela é obrigatório';
+    if (!comissaoData.data_pagamento) validationErrors.data_pagamento = 'Data de pagamento é obrigatória';
+    return validationErrors;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,27 +105,6 @@ const AddComissao = () => {
       ...comissaoData,
       data_pagamento: formatDate(comissaoData.data_pagamento)
     };
-
-    let validationErrorExists = false;
-
-    try {
-      await getVendedor(comissaoData.id_vendedor);
-    } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, id_vendedor: 'ID do Vendedor inválido ou não encontrado.' }));
-      validationErrorExists = true;
-    }
-
-    try {
-      await getParcela(comissaoData.id_parcela);
-    } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, id_parcela: 'ID da Parcela inválido ou não encontrado.' }));
-      validationErrorExists = true;
-    }
-  
-    if (validationErrorExists) {
-      setLoading(false);
-      return;
-    }
 
     try {
       await addComissao(formattedData);
@@ -207,6 +189,7 @@ const AddComissao = () => {
                             type="number"
                             name="valor_comissao"
                             value={comissaoData.valor_comissao}
+                            placeholder="Valor da Comissão"
                             readOnly
                           />
                         </Form.Group>
@@ -220,6 +203,7 @@ const AddComissao = () => {
                             type="number"
                             name="percentual_comissao"
                             value={comissaoData.percentual_comissao}
+                            placeholder="Percentual de Comissão"
                             readOnly
                           />
                         </Form.Group>

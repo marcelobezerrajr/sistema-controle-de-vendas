@@ -224,33 +224,39 @@ def create_comissao(db: Session, comissao: schemas_vendas.ComissaoCreate):
     except Exception as e:
         logger.critical(f"Erro inesperado ao criar comissão {comissao}: {str(e)}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o comissão.")
+
+def calcular_comissao(db: Session, id_vendedor: int, id_parcela: int):
+    check_exists(db, models_vendas.Vendedor, 'id_vendedor', id_vendedor, "Vendedor não encontrado")
+    check_exists(db, models_vendas.Parcela, 'id_parcela', id_parcela, "Parcela não encontrada")
+
+    venda = db.query(models_vendas.Venda).join(models_vendas.Parcela).filter(models_vendas.Parcela.id_parcela == id_parcela).first()
+    if not venda:
+        raise HTTPException(status_code=404, detail="Venda associada não encontrada")
+
+    custos_venda = db.query(models_vendas.Custo).filter(models_vendas.Custo.id_venda == venda.id_venda).all()
+    custo_total = sum(custo.valor for custo in custos_venda)
+
+    vendedor = db.query(models_vendas.Vendedor).filter(models_vendas.Vendedor.id_vendedor == id_vendedor).first()
+    if vendedor.tipo == models_vendas.VendedorEnum.inside_sales:
+        percentual_comissao = 7.5
+    elif vendedor.tipo == models_vendas.VendedorEnum.account_executive:
+        percentual_comissao = 5.0
+    else:
+        raise HTTPException(status_code=400, detail="Tipo de vendedor inválido")
+
+    valor_recebido = venda.valor_total - custo_total
+    if valor_recebido < 0:
+        raise HTTPException(status_code=400, detail="Custo total excede o valor da venda")
     
-def get_all_custos(db: Session):
-    return db.query(models_vendas.Custo).all()
+    valor_comissao = valor_recebido * (percentual_comissao / 100)
 
-def get_custo_by_id(db: Session, id_custo: int):
-    return check_exists(db, models_vendas.Custo, 'id_custo', id_custo, "Custo não encontrado")
+    return schemas_vendas.CalculateComissao(
+        id_vendedor=id_vendedor,
+        id_parcela=id_parcela,
+        valor_comissao=valor_comissao,
+        percentual_comissao=percentual_comissao
+    )
 
-def create_custo(db: Session, custo: schemas_vendas.CustoCreate):
-    check_exists(db, models_vendas.Venda, 'id_venda', custo.id_venda, "Venda não encontrada")
-
-    try:
-        db_custo = models_vendas.Custo(
-            descricao=custo.descricao,
-            valor=custo.valor,
-            id_venda=custo.id_venda
-        )
-        db.add(db_custo)
-        db.commit()
-        db.refresh(db_custo)
-        return db_custo
-    except HTTPException as e:
-        logger.error(f"Erro ao criar custo (HTTP): {str(e)} - Custo: {custo}")
-        raise
-    except Exception as e:
-        logger.critical(f"Erro inesperado ao criar custo {custo}: {str(e)}")
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o custo.")
-    
 def get_all_fornecedores(db: Session):
     return db.query(models_vendas.Fornecedor).all()
 
@@ -557,3 +563,30 @@ def delete_venda_vendedor(db: Session, id_venda: int, id_vendedor: int):
         db.delete(venda_vendedor)
         db.commit()
     return venda_vendedor
+
+def get_all_custos(db: Session):
+    return db.query(models_vendas.Custo).all()
+
+def get_custo_by_id(db: Session, id_custo: int):
+    return check_exists(db, models_vendas.Custo, 'id_custo', id_custo, "Custo não encontrado")
+
+def create_custo(db: Session, custo: schemas_vendas.CustoCreate):
+    try:
+        check_exists(db, models_vendas.Venda, 'id_venda', custo.id_venda, "Venda não encontrada")
+
+        db_custo = models_vendas.Custo(
+            descricao=custo.descricao,
+            valor=custo.valor,
+            id_venda=custo.id_venda
+        )
+
+        db.add(db_custo)
+        db.commit()
+        db.refresh(db_custo)
+        return db_custo
+    except HTTPException as e:
+        logger.error(f"Erro ao criar custo (HTTP): {str(e)} - Custo: {custo}")
+        raise
+    except Exception as e:
+        logger.critical(f"Erro inesperado ao criar Custo {custo}: {str(e)}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Erro ao criar o Custo.")

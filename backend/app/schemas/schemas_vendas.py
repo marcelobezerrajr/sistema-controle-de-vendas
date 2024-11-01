@@ -209,6 +209,12 @@ class ComissaoBase(BaseModel):
 class ComissaoCreate(ComissaoBase):
     pass
 
+class CalculateComissao(BaseModel):
+    id_vendedor: int
+    id_parcela: int
+    valor_comissao: float
+    percentual_comissao: float
+
 class Comissao(ComissaoBase):
     id_comissao: int
 

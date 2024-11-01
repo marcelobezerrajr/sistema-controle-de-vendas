@@ -18,7 +18,7 @@ export const ChangePasswordProvider = ({ children }) => {
 
   const handleChangePassword = async () => {
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('As senhas não coincidem');
       return;
     }
     

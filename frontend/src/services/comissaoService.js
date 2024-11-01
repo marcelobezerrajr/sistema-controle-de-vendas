@@ -18,6 +18,18 @@ export const createComissao = async (comissaoData) => {
   }
 };
 
+export const calculateComissao = async (id_Vendedor, id_Parcela) => {
+  try {
+    const response = await api.get(`/comissao/calculate/${id_Vendedor}/${id_Parcela}`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.detail || 'Erro ao calcular a comissão.');
+    }
+    throw new Error('Erro ao calcular a comissão. Tente novamente.');
+  }
+};
+
 export const getComissaoById = async (id_comissao) => {
   try {
     const response = await api.get(`/comissao/view/${id_comissao}`);

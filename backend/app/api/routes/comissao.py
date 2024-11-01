@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import create_comissao, get_all_comissoes, get_comissao_by_id
+from app.services.services_vendas import create_comissao, get_all_comissoes, get_comissao_by_id, calcular_comissao
 from app.api.depends import get_db, get_read_user_admin, get_user_admin
 from app.database.models.models_vendas import User
-from app.schemas.schemas_vendas import Comissao, ComissaoCreate
+from app.schemas.schemas_vendas import Comissao, ComissaoCreate, CalculateComissao
 
 logger = logging.getLogger(__name__)
 
@@ -38,3 +38,13 @@ def add_comissao_route(comissao: ComissaoCreate, db: Session = Depends(get_db), 
     except Exception as e:
         logger.error(f"Erro ao criar comissão: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao criar comissão.")
+    
+@comissao_router.get("/calculate/{id_vendedor}/{id_parcela}", response_model=CalculateComissao)
+def calculate_comissao(id_vendedor: int, id_parcela: int, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
+    try:
+        logger.info(f"Comissão calculada com sucesso pelo usuário: {current_user.username}")
+        comissao = calcular_comissao(db, id_vendedor, id_parcela)
+        return comissao
+    except Exception as e:
+        logger.error(f"Erro ao calcular a comissão: {str(e)}")
+        raise HTTPException(status_code=500, detail="Erro ao calcular a comissão.")

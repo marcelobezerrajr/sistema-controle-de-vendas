@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { createComissao, getAllComissoes, getComissaoById } from '../services/comissaoService';
+import { createComissao, getAllComissoes, getComissaoById, calculateComissao } from '../services/comissaoService';
 import { LoginContext } from './LoginContext';
 
 export const ComissaoContext = createContext();
@@ -44,13 +44,23 @@ export const ComissaoProvider = ({ children }) => {
       setComissoes((prev) => [...prev, newComissao]);
       return { success: true, message: 'Comissão adicionada com sucesso!' };
     } catch (error) {
-      console.error("Erro ao adicionar comissao:", error);
+      console.error("Erro ao adicionar comissão:", error);
       return { success: false, message: 'Erro ao adicionar a comissão. Verifique os dados e tente novamente.' };
     }
   };
 
+  const calcularComissao = async (id_vendedor, id_parcela) => {
+    try {
+      const data = await calculateComissao(id_vendedor, id_parcela);
+      return data;
+    } catch (error) {
+      console.error("Erro ao calcular comissão:", error);
+      throw error;
+    }
+  };
+
   return (
-    <ComissaoContext.Provider value={{ comissoes, loading, addComissao, getComissao }}>
+    <ComissaoContext.Provider value={{ comissoes, loading, addComissao, getComissao, calcularComissao }}>
       {children}
     </ComissaoContext.Provider>
   );
