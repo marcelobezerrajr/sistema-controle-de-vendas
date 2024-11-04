@@ -16,7 +16,6 @@ export const UsuarioProvider = ({ children }) => {
       setLoading(true);
       try {
         const data = await getAllUsuarios();
-        console.log("Dados retornados:", data);
         setUsuarios(data);
       } catch (error) {
         console.error('Erro ao carregar Usuários:', error);

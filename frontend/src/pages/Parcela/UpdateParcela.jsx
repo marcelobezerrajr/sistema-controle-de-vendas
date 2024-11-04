@@ -9,12 +9,11 @@ import "../../styles/Parcela.css";
 
 const formatDate = (date, format = "yyyy-MM-dd") => {
   if (!date) return "";
-  const d = new Date(date);
+  const d = new Date(date + "T00:00:00");
   if (isNaN(d.getTime())) return ""; 
   const year = d.getFullYear();
   const month = (`0${d.getMonth() + 1}`).slice(-2);
-  const day = (`0${d.getDate() + 1}`).slice(-2);
-
+  const day = (`0${d.getDate()}`).slice(-2);
   return format === "yyyy-MM-dd" ? `${year}-${month}-${day}` : `${year}/${month}/${day}`;
 };
 
@@ -26,9 +25,9 @@ const UpdateParcela = () => {
     id_venda: '', 
     numero_parcela: '', 
     valor_parcela: '', 
+    status: '', 
     data_prevista: '', 
     data_recebimento: '', 
-    status: '', 
     forma_recebimento: ''
   });
   const [errors, setErrors] = useState({});
@@ -112,7 +111,7 @@ const UpdateParcela = () => {
       setLoading(false);
       return;
     }
-    
+
     try {
         await updateParcelaData(id_parcela, formattedData);
         setSuccess('Parcela atualizada com sucesso!');
@@ -122,8 +121,7 @@ const UpdateParcela = () => {
         setLoading(false);
       }
   };
-  
-    
+
   const getStatusParcelaOptions = () => (
     <>
       <option value="Pendente">Pendente</option>

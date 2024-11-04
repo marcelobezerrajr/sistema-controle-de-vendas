@@ -101,7 +101,7 @@ const VendaPage = () => {
         </div>
 
         {alertMessage && (
-          <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
+          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
             {alertMessage}
           </Alert>
         )}
@@ -109,7 +109,7 @@ const VendaPage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : filteredVendas.length === 0 ? (
-          <Alert variant="warning">Nenhuma venda encontrada.</Alert>
+          <Alert className="alert-error" variant="warning">Nenhuma venda encontrada.</Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>

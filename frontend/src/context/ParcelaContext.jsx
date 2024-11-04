@@ -30,6 +30,7 @@ export const ParcelaProvider = ({ children }) => {
   const getParcela = async (id_parcela) => {
     try {
       const parcela = await getParcelaById(id_parcela);
+      console.log("Dados retornados:", parcela);
       if (!parcela) throw new Error(`Parcela com ID ${id_parcela} não encontrada.`);
       return parcela;
     } catch (error) {
