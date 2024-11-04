@@ -7,7 +7,7 @@ import FieldDisplay from '../components/FieldDisplay';
 import '../styles/ViewPage.css';
 
 const ViewPage = () => {
-    const { id, id_venda, id_vendedor } = useParams();
+    const { id } = useParams();
     const { entityConfig } = useEntityContext();
     const { entityName, fetchUrl, fields } = entityConfig;
     const [entity, setEntity] = useState(null);
@@ -16,10 +16,8 @@ const ViewPage = () => {
 
     useEffect(() => {
         const fetchEntityData = async () => {
-            const url = id_venda && id_vendedor
-                ? `${fetchUrl}/${id_venda}/${id_vendedor}`
-                : `${fetchUrl}/${id}`;
-                
+            setLoading(true);
+            const url = `${fetchUrl}/${id}`;
             const token = localStorage.getItem('access_token');
 
             try {
@@ -30,34 +28,32 @@ const ViewPage = () => {
                     },
                 });
 
-                console.log('Response Status:', response.status);
-                const text = await response.text();
-                console.log('Response Body:', text);
-
                 if (!response.ok) {
                     if (response.status === 404) {
-                        throw new Error(`${entityName} not found`);
+                        throw new Error(`${entityName} não encontrado`);
                     } else if (response.status === 403) {
-                        throw new Error('Unauthorized access');
+                        throw new Error('Acesso não autorizado');
                     } else {
-                        throw new Error('Network response was not ok');
+                        throw new Error('Erro na resposta da rede');
                     }
                 }
 
-                const result = JSON.parse(text);
-                const userData = Array.isArray(result.data) ? result.data[0] : result.data;
+                const result = await response.json();
+                const userData = Array.isArray(result.data) ? result.data[0] : result.data; 
                 setEntity(userData || result);
 
             } catch (error) {
                 setError(error.message);
-                console.error('Fetch error:', error);
+                console.error('Erro na busca:', error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchEntityData();
-    }, [id, id_venda, id_vendedor, fetchUrl, entityName]);
+    }, [id, fetchUrl, entityName]);
+
+    const isEntityLoaded = entity && fields.every(field => entity[field.key] !== undefined);
 
     return (
         <MainLayout>
@@ -67,17 +63,16 @@ const ViewPage = () => {
                         <h4>Detalhes {entityName}</h4>
                     </div>
                     <Card.Body className="view-entity-card-body">
-                        {loading && (
+                        {loading ? (
                             <div className="view-entity-spinner">
                                 <Spinner animation="border" />
+                                <span>Carregando dados...</span>
                             </div>
-                        )}
-                        {error && (
+                        ) : error ? (
                             <Alert variant="danger" className="view-entity-alert">
                                 {error}
                             </Alert>
-                        )}
-                        {entity ? (
+                        ) : isEntityLoaded ? (
                             <>
                                 {fields.map((field) => (
                                     <FieldDisplay
@@ -88,11 +83,9 @@ const ViewPage = () => {
                                 ))}
                             </>
                         ) : (
-                            !loading && (
-                                <Alert variant="warning" className="view-entity-alert">
-                                    {entityName} - Não tem dados disponíveis
-                                </Alert>
-                            )
+                            <Alert variant="warning" className="view-entity-alert">
+                                {entityName} - Dados ainda não disponíveis.
+                            </Alert>
                         )}
                     </Card.Body>
                 </Card>
