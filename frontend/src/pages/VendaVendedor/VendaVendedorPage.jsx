@@ -5,6 +5,7 @@ import SearchComponent from '../../components/SearchComponent';
 import useVendaVendedor from '../../hooks/useVendaVendedor';
 import MainLayout from '../../layouts/MainLayout';
 import FilterComponent from '../../components/FilterComponent';
+import { useNavigate } from 'react-router-dom';
 import "../../styles/Gerenciamento.css";
 
 const VendaVendedorPage = () => {
@@ -15,6 +16,7 @@ const VendaVendedorPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredVendaVendedores, setFilteredVendaVendedores] = useState([]);
   
+  const navigate = useNavigate();
   const userPermission = localStorage.getItem('user_permission');
 
   useEffect(() => {
@@ -42,8 +44,11 @@ const VendaVendedorPage = () => {
   };
 
   const handleViewVendaVendedor = (id_venda, id_vendedor) => {
-    navigate(`/venda-vendedor/view/${id_venda}/${id_vendedor}`);
+    const url = `/venda-vendedor/view/${id_venda}/${id_vendedor}`;
+    console.log("Navigating to:", url);  // Adicione este log para verificar
+    navigate(url);
   };
+  
 
   const columns = ['id_venda', 'id_vendedor', 'tipo_participacao', 'percentual_comissao'];
 

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getAllVendaVendedor, getVendasByVendedor, getVendaVendedor, createVendaVendedor } from '../services/vendaVendedorService';
+import { getAllVendaVendedor, getVendasByVendedor, getVendaVendedor as fetchVendaVendedor, createVendaVendedor } from '../services/vendaVendedorService';
 import { LoginContext } from './LoginContext';
 
 export const VendaVendedorContext = createContext();
@@ -40,7 +40,7 @@ export const VendaVendedorProvider = ({ children }) => {
 
   const getVendaVendedor = async (id_venda, id_vendedor) => {
     try {
-      const vendaByVendedor = await getVendaVendedor(id_venda, id_vendedor);
+      const vendaByVendedor = await fetchVendaVendedor(id_venda, id_vendedor);
       if (!vendaByVendedor) throw new Error(`Venda Vendedor com ID de venda ${id_venda} e com ID de Vendedor ${id_vendedor} não encontrada.`);
       return vendaByVendedor;
     } catch (error) {
@@ -54,12 +54,13 @@ export const VendaVendedorProvider = ({ children }) => {
       const addedVendaVendedor = await createVendaVendedor(newVendaVendedor);
       setVendaVendedor([...vendaVendedor, addedVendaVendedor]);
     } catch (error) {
-      console.error("Erro ao adicionar venda-vendedor:", error)
+      console.error("Erro ao adicionar venda-vendedor:", error);
+      throw error;
     }
   };
 
   return (
-    <VendaVendedorContext.Provider value={{ vendaVendedor, loading, getVendaByVendedor, addVendaVendedor }}>
+    <VendaVendedorContext.Provider value={{ vendaVendedor, loading, getVendaByVendedor, getVendaVendedor, addVendaVendedor }}>
       {children}
     </VendaVendedorContext.Provider>
   );

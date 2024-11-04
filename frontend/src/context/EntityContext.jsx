@@ -155,19 +155,6 @@ export const EntityProvider = ({ children }) => {
         };
       break;
 
-      case 'venda-vendedor':
-        config = {
-          entityName: 'Venda Vendedor',
-          fetchUrl: 'http://127.0.0.1:8000/venda-vendedor/view',
-          fields: [
-            { label: 'ID Venda', key: 'id_venda' },
-            { label: 'ID Vendedor', key: 'id_vendedor' },
-            { label: 'Tipo de Participação', key: 'tipo_participacao' },
-            { label: 'Percentual de Comissão', key: 'percentual_comissao' },
-          ],
-        };
-      break;
-
       default:
         config = {
           entityName: '',

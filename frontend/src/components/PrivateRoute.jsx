@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { LoginContext } from '../context/LoginContext';
 
-const PrivateRoute = ({ element: Component, ...rest }) => {
-  const { user } = useContext(LoginContext);
+const PrivateRoute = () => {
+  const { user, loading } = useContext(LoginContext);
 
-  return user ? (
-    <Route {...rest} element={<Component />} />
-  ) : (
-    <Navigate to="/login" />
-  );
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

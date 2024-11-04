@@ -45,7 +45,6 @@ def view_venda_vendedor_route(id_venda: int, id_vendedor: int, db: Session = Dep
         logger.error(f"Erro ao visualizar Venda Vendedor: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao visualizar Venda Vendedor.")
 
-
 @venda_vendedor_router.post("/create", response_model=VendaVendedor)
 def add_venda_vendedor_route(venda_vendedor: VendaVendedorCreate, db: Session = Depends(get_db), current_user: User = Depends(get_user_admin)):
     try:
