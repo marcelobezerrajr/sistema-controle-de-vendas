@@ -30,7 +30,7 @@ def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2Passw
         logger.warning(f"Falha no login para {form_data.username}: Usuário não encontrado")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
+            detail="E-mail ou senha incorretos",
         )
     
     if not verify_password(form_data.password, user.hashed_password):

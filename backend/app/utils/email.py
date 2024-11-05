@@ -16,7 +16,7 @@ EMAIL_FROM = os.getenv('EMAIL_FROM')
 RESET_PASSWORD_URL = os.getenv('RESET_PASSWORD_URL')
 
 if not all([SMTP_SERVER, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, EMAIL_FROM, RESET_PASSWORD_URL]):
-    raise ValueError("Some necessary environment variables are not set")
+    raise ValueError("Algumas variáveis de ambiente necessárias não estão definidas")
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +35,10 @@ def send_email(to_address: str, subject: str, body: str):
         server.sendmail(EMAIL_FROM, to_address, msg.as_string())
         server.quit()
 
-        logger.info(f"Email sent successfully to {to_address}")
+        logger.info(f"E-mail enviado com sucesso para: {to_address}")
     except smtplib.SMTPException as e:
-        logger.error(f"Failed to send email: {e}")
-        raise HTTPException(status_code=500, detail="Failed to send email. Please try again later.")
+        logger.error(f"Falha ao enviar e-mail: {e}")
+        raise HTTPException(status_code=500, detail="Falha ao enviar e-mail. Por favor, tente novamente mais tarde.")
 
 def send_reset_password_email(email: str, token: str):
     reset_link = f"{RESET_PASSWORD_URL}?access_token={token}"

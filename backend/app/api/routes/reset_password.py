@@ -21,7 +21,7 @@ ALGORITHM = os.getenv('ALGORITHM')
 RESET_TOKEN_EXPIRY_HOURS = int(os.getenv('RESET_TOKEN_EXPIRY_HOURS'))
 
 if not SECRET_KEY or not ALGORITHM:
-    raise ValueError("SECRET_KEY and ALGORITHM must be set in environment variables")
+    raise ValueError("SECRET_KEY e ALGORITHM devem ser definidos nas variáveis de ambiente")
 
 reset_password_router = APIRouter(prefix="/reset-password")
 
