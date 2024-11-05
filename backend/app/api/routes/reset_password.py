@@ -60,7 +60,7 @@ def forgot_password(request: EmailRequest, db: Session = Depends(get_db)):
         logger.error(f"Não foi possível enviar e-mail de redefinição de senha para {email}: {e}")
         raise HTTPException(status_code=500, detail=f"Falha ao enviar e-mail de redefinição para {email}. Por favor, tente novamente mais tarde.")
     
-    return {"message": "E-mail de redefinição de senha enviado com sucesso"}
+    return {"message": "E-mail de redefinição de senha enviado com sucesso."}
 
 @reset_password_router.post("/verify")
 def verify_reset_token(request: TokenRequest, db: Session = Depends(get_db)):
@@ -105,7 +105,7 @@ def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db))
                 detail="Estrutura de token inválida",
             )
     except JWTError as e:
-        logger.error(f"Token verification failed during reset: {e}")
+        logger.error(f"A verificação do token falhou durante a redefinição: {e}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Token inválido ou expirado",
@@ -121,7 +121,7 @@ def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db))
     if not validate_password(request.new_password):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="A senha não atende aos requisitos de complexidade",
+            detail="A Senha não atende aos requisitos de complexidade",
         )
 
     user.hashed_password = get_password_hash(request.new_password)
@@ -135,4 +135,4 @@ def reset_password(request: ResetPasswordRequest, db: Session = Depends(get_db))
     except Exception as e:
         logger.error(f"Falha ao enviar e-mail de confirmação: {e}")
     
-    return {"message": "Redefinição de senha com sucesso"}
+    return {"message": "Redefinição de Senha com sucesso!"}

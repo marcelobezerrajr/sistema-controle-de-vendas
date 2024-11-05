@@ -73,7 +73,7 @@ const LoginPage = () => {
                             {loading ? (
                                 <>
                                     <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
-                                    <span className="sr-only">Carregando...</span>
+                                    <span className="visually-hidden">Carregando...</span>
                                 </>
                             ) : (
                                 "Entrar"

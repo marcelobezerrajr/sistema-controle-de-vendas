@@ -25,18 +25,18 @@ const ResetPasswordPage = () => {
     }, [token]);
 
     const validatePassword = (password) => {
-        if (password.length < 6) return "A senha deve ter pelo menos 6 caracteres.";
-        if (!/[A-Z]/.test(password)) return "A senha deve conter uma letra maiúscula.";
-        if (!/[a-z]/.test(password)) return "A senha deve conter uma letra minúscula.";
-        if (!/[0-9]/.test(password)) return "A senha deve conter um número.";
-        if (!/[!@#$%^&*]/.test(password)) return "A senha deve conter um caractere especial.";
+        if (password.length < 6) return "A Senha deve ter pelo menos 6 caracteres.";
+        if (!/[A-Z]/.test(password)) return "A Senha deve conter uma letra maiúscula.";
+        if (!/[a-z]/.test(password)) return "A Senha deve conter uma letra minúscula.";
+        if (!/[0-9]/.test(password)) return "A Senha deve conter um número.";
+        if (!/[!@#$%^&*]/.test(password)) return "A Senha deve conter um caractere especial.";
         return null;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setValidationError(null);
-
+        
         const validationError = validatePassword(newPassword);
         if (validationError) {
             setValidationError(validationError);
@@ -44,7 +44,7 @@ const ResetPasswordPage = () => {
         }
 
         if (newPassword !== confirmPassword) {
-            setValidationError("As senhas não coincidem.");
+            setValidationError("As Senhas não coincidem.");
             return;
         }
 
@@ -68,7 +68,7 @@ const ResetPasswordPage = () => {
                 </Card.Header>
                 <Card.Body className="reset-card-body">
                     {feedback.message && (
-                        <Alert className="reset-alert-custom-success" variant={feedback.error ? "danger" : "success"}>
+                        <Alert className="reset-alert-custom-error" variant={feedback.error ? "danger" : "success"}>
                             {feedback.message}
                         </Alert>
                     )}
@@ -85,7 +85,10 @@ const ResetPasswordPage = () => {
                                     type={showPasswords.newPassword ? "text" : "password"}
                                     placeholder='Nova Senha'
                                     value={newPassword}
-                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    onChange={(e) => {
+                                        setNewPassword(e.target.value);
+                                        setPasswordError(validatePassword(e.target.value));
+                                    }}
                                     className="reset-form-control-custom"
                                 />
                                 <Button 
@@ -120,7 +123,14 @@ const ResetPasswordPage = () => {
                             </div>
                         </Form.Group>
                         <Button variant="primary" type="submit" className="reset-button-custom" disabled={loading || !newPassword || !confirmPassword}>
-                            {loading ? <Spinner animation="border" size="sm" /> : "Redefinir Senha"}
+                            {loading ? (
+                                <>
+                                    <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                                    <span className="visually-hidden">Enviando...</span>
+                                </>
+                            ) : (
+                                "Redefinir Senha"
+                            )}
                         </Button>
                     </Form>
                 </Card.Body>

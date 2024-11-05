@@ -46,7 +46,14 @@ const RequestPasswordPage = () => {
             </div>
             </Form.Group>
             <Button variant="primary" type="submit" className="request-button-custom" disabled={loading}>
-              {loading ? <Spinner animation="border" size="sm" /> : "Enviar"}
+              {loading ? (
+                <>
+                  <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                  <span className="visually-hidden">Enviando...</span>
+                </>
+              ) : (
+                "Enviar"
+              )}
             </Button>
           </Form>
         </Card.Body>
