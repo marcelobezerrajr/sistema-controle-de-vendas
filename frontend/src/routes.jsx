@@ -1,5 +1,5 @@
-import React, { useEffect, Suspense } from 'react';
-import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ChangePassword from './pages/ChangePasswordPage';
@@ -21,7 +21,6 @@ import UpdateVenda from './pages/Venda/UpdateVenda';
 import ProdutoPage from './pages/Produto/ProdutoPage';
 import AddProduto from './pages/Produto/AddProduto';
 import UpdateProduto from './pages/Produto/UpdateProduto';
-import ViewPage from './pages/ViewPage';
 import ComissaoPage from './pages/Comissao/ComissaoPage';
 import AddComissao from './pages/Comissao/AddComissao';
 import CustoPage from './pages/Custo/CustoPage';
@@ -40,37 +39,7 @@ import ViewVendaVendedorPage from './pages/VendaVendedor/ViewVendaVendedor';
 import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import PrivateRoute from './components/PrivateRoute'
-import { useEntityContext } from './context/EntityContext';
-
-const EntityViewWrapper = () => {
-  const { entity, id } = useParams();
-  const { changeEntity, entityConfig } = useEntityContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!entity || !id) {
-      navigate('/404');
-      return;
-    }
-
-    if (entityConfig.entityName.toLowerCase() !== entity) {
-      changeEntity(entity);
-    }
-  }, [entity, id, entityConfig.entityName, changeEntity, navigate]);
-
-  if (!entityConfig.entityName) {
-    return <div>Carregando...</div>;
-  }
-
-  return (
-    <ViewPage
-      entityName={entityConfig.entityName}
-      fetchUrl={`${entityConfig.fetchUrl}/${id}`}
-      fields={entityConfig.fields}
-    />
-  );
-};
-
+import EntityViewWrapper from './components/EntityViewWrapper';
 
 const AppRoutes = () => {
   return (
