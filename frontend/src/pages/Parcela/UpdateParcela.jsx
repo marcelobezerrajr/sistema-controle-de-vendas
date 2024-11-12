@@ -9,8 +9,7 @@ import "../../styles/Parcela.css";
 
 const formatDate = (date, format = "yyyy-MM-dd") => {
   if (!date) return "";
-  const d = new Date(date + "T00:00:00");
-  if (isNaN(d.getTime())) return ""; 
+  const d = new Date(date);
   const year = d.getFullYear();
   const month = (`0${d.getMonth() + 1}`).slice(-2);
   const day = (`0${d.getDate()}`).slice(-2);
@@ -56,7 +55,6 @@ const UpdateParcela = () => {
     };
     fetchParcela();
   }, [id_parcela, getParcela]);
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,7 +89,7 @@ const UpdateParcela = () => {
       setLoading(false);
       return;
     }
-  
+    
     const formattedData = {
       ...parcelaData,
       data_prevista: formatDate(parcelaData.data_prevista, "yyyy/MM/dd"),
@@ -111,15 +109,15 @@ const UpdateParcela = () => {
       setLoading(false);
       return;
     }
-
+  
     try {
-        await updateParcelaData(id_parcela, formattedData);
-        setSuccess('Parcela atualizada com sucesso!');
-      } catch (error) {
-        setErrors({ form: 'Erro ao atualizar a parcela. Tente novamente.' });
-      } finally {
-        setLoading(false);
-      }
+      await updateParcelaData(id_parcela, formattedData);
+      setSuccess('Parcela atualizada com sucesso!');
+    } catch (error) {
+      setErrors({ form: 'Erro ao atualizar a parcela. Tente novamente.' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getStatusParcelaOptions = () => (
@@ -262,7 +260,7 @@ const UpdateParcela = () => {
                                   className="parcela-form-control-custom"
                                   type="date"
                                   name="data_prevista"
-                                  value={parcelaData.data_prevista}
+                                  value={parcelaData.data_prevista || ""}
                                   onChange={handleChange}
                                   isInvalid={!!errors.data_prevista}
                                   required
@@ -278,7 +276,7 @@ const UpdateParcela = () => {
                                   className="parcela-form-control-custom"
                                   type="date"
                                   name="data_recebimento"
-                                  value={parcelaData.data_recebimento}
+                                  value={parcelaData.data_recebimento || ""}
                                   onChange={handleChange}
                                   isInvalid={!!errors.data_recebimento}
                                 />
