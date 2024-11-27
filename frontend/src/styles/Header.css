@@ -1,6 +1,6 @@
 .header {
   background-color: #ffffff;
-  padding: 5px 20px;
+  padding: 25px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,7 +13,8 @@
 }
 
 .header-logo {
-  width: 150px;
+  margin: 0px 10px 0px 10px;
+  width: 130px;
   transition: transform 0.3s ease;
 }
 
@@ -62,17 +63,10 @@
   margin-left: auto;
 }
 
-.avatar-link {
-  display: flex;
-  align-items: center;
-  color: #004F97;
-  cursor: pointer;
-}
-
 .user-initials-icon {
   width: 40px;
   height: 40px;
-  background-color: #004F97;
+  background-color: #081a89;
   color: #ffffff;
   border-radius: 50%;
   display: flex;
@@ -81,6 +75,7 @@
   font-size: 1.25rem;
   margin-right: 10px;
   transition: transform 0.3s, filter 0.3s;
+  cursor: pointer;
 }
 
 .user-initials-icon:hover {

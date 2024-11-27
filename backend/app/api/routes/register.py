@@ -20,7 +20,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES'))
 
 logger = logging.getLogger(__name__)
 
-@register_router.post("/", response_model=UsersListResponse)
+@register_router.post("", response_model=UsersListResponse)
 def register_user(user_form: UserForm, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == user_form.email).first()
     if user:

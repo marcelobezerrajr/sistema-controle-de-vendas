@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Card, Alert, Spinner, Button } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo_marcelo_desenvolvedor.png';
 import useLogin from '../hooks/useLogin';
 import '../styles/Login.css';
 
@@ -21,7 +21,7 @@ const LoginPage = () => {
         <div className="login-container">
             <div className="login-logo-container">
                 <a href="/" target="_blank" rel="noopener noreferrer">
-                    <img src={logo} alt="Viper IT logo" className="login-viper-logo" />
+                    <img src={logo} alt="Logo Marcelo Desenvolvedor" className="logo-dev" />
                 </a>
             </div>
             <Card className="login-card-custom">

@@ -2,7 +2,7 @@ import api from './api';
 
 export const changePasswordService = async (currentPassword, newPassword) => {
   try {
-    const response = await api.post('/change-password/', {
+    const response = await api.post('/change-password', {
       current_password: currentPassword,
       new_password: newPassword,
     });

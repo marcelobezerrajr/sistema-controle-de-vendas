@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Form, Spinner } from 'react-bootstrap';
+import { Card, Form, Spinner, Button } from 'react-bootstrap';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import MainLayout from '../layouts/MainLayout';
 import useChangePassword from '../hooks/useChangePassword';
@@ -149,13 +149,16 @@ const ChangePassword = () => {
                 </div>
               </Form.Group>
 
-              <button
-                type="submit"
-                className="change-password-button-custom"
-                disabled={loading}
-              >
-                {loading ? <Spinner animation="border" size="sm" /> : 'Alterar Senha'}
-              </button>
+              <Button type="submit" className="change-password-button-custom" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                    <span className="visually-hidden">Alterando...</span>
+                  </>
+                ) : (
+                  "Alterar Senha"
+                )}
+              </Button>
             </Form>
           </Card.Body>
         </Card>

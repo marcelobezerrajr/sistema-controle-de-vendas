@@ -11,13 +11,14 @@
     margin-bottom: 10px;
 }
 
-.login-viper-logo {
+.logo-dev {
+    margin: 10px;
     width: 150px;
     height: auto;
     transition: transform 0.3s, filter 0.3s;
 }
 
-.login-viper-logo:hover {
+.logo-dev:hover {
     transform: scale(1.1);
     filter: brightness(0.9);
 }
@@ -32,7 +33,7 @@
 
 .login-card-header-custom {
     color: #fff;
-    background-color: #004F98;
+    background-color: #081a89;
     border-radius: 15px 15px 0 0;
     text-align: center;
     padding: 20px;
@@ -105,7 +106,7 @@
     width: 100%;
     padding: 10px 10px;
     border-radius: 8px;
-    background-color: #1684BF;
+    background-color: #0056b3;
     color: #fff;
     border: none;
     transition: background-color 0.3s;
@@ -113,7 +114,7 @@
 }
 
 .login-button-custom:hover {
-    background-color: #0056b3;
+    background-color: #081a89;
 }
 
 .login-forgot-password {

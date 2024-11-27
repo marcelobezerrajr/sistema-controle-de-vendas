@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt, FaUsers, FaKey, FaShoppingCart, FaBoxOpen, FaUserTie, FaCaretDown } from 'react-icons/fa';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo_marcelo_desenvolvedor.png';
 import '../styles/Header.css';
 
 function Header() {
@@ -68,7 +68,7 @@ function Header() {
   return (
     <Navbar expand="lg" className="header">
       <div className="header-left">
-        <img src={logo} alt="ViperIT Logo" className="header-logo" />
+        <img src={logo} alt="Logo Marcelo Desenvolvedor" className="header-logo" />
       </div>
       <nav className="header-nav">
         <Link to="/clientes">Clientes</Link>

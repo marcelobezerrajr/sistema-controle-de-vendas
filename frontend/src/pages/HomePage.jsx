@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer'; 
-import logo from '../assets/logo.png';
+import logo from '../assets/logo_marcelo_desenvolvedor.png';
 import '../styles/Home.css';
 
 const HomePage = () => {
@@ -12,18 +12,18 @@ const HomePage = () => {
     <div className="home-container">
       <Navbar expand="lg" className="home-navbar">
         <Navbar.Brand href="/">
-          <img src={logo} alt="Logo ViperIT" className="viper-logo" />
+          <img src={logo} alt="Logo Marcelo Desenvolvedor" className="logo-dev" />
         </Navbar.Brand>
         <div className="home-buttons">
           <button variant="primary" onClick={() => navigate('/login')}>Login</button>
-          <button variant="outline-primary" onClick={() => alert('Entrando em Contato!')}>
+          <button variant="outline-primary" onClick={() => alert('(Entrando em Contato)!')}>
             Entre em Contato
           </button>
         </div>
       </Navbar>
 
       <header className="home-header">
-        <h1>Bem-vindo ao Sistema de Controle de Vendas ViperIT!</h1>
+        <h1>Bem-vindo ao Sistema de Controle de Vendas!</h1>
         <h4>Empoderando negócios com soluções tecnológicas inovadoras</h4>
       </header>
 

@@ -13,17 +13,17 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
-  padding: 5px 25px;
+  padding: 20px 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   animation: fadeIn 1s ease;
 }
 
-.viper-logo {
+.logo-dev {
   width: 150px;
   transition: transform 0.3s, filter 0.3s;
 }
 
-.viper-logo:hover {
+.logo-dev:hover {
   transform: scale(1.1);
   filter: brightness(0.9);
 }
@@ -37,7 +37,7 @@
   & button {
     font-size: 1.1rem;
     padding: 10px 20px;
-    background-color: #004F98;
+    background-color: #081a89;
     color: #ffffff;
     border: none;
     border-radius: 10px;
@@ -55,7 +55,7 @@
   
   & h1 {
     font-size: 2rem;
-    color: #004F98;
+    color: #081a89;
     animation: slideIn 1s ease;
     margin-bottom: 15px;
   }

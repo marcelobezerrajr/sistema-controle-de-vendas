@@ -17,7 +17,7 @@ ALGORITHM = os.getenv('ALGORITHM')
 
 change_password_router = APIRouter(prefix="/change-password")
 
-@change_password_router.post("/")
+@change_password_router.post("")
 def change_password(
     request: ChangePasswordRequest,
     token: str = Depends(oauth2_scheme),
