@@ -20,6 +20,8 @@ Este sistema oferece um completo gerenciamento de operações comerciais, permit
 
 **Autenticação e Autorização:** JWT e OAuth2PasswordBearer
 
+**Envio de E-mails:** MIMEMultipart
+
 ## Documentação da API - CRUD
 
 As chamadas para a API seguem um padrão consistente para todas as entidades do sistema (Fornecedores, Usuários, Vendedores, Produtos, etc.). Para utilizar outros recursos, substitua o caminho e o identificador da entidade conforme necessário. Abaixo estão exemplos utilizando a entidade **Fornecedor**.
