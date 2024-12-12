@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import get_all_fornecedores, get_fornecedor_by_id, create_fornecedor, update_fornecedor, delete_fornecedor
+from app.services.services_fornecedor import get_all_fornecedores, get_fornecedor_by_id, create_fornecedor, update_fornecedor, delete_fornecedor
 from app.api.depends import get_db, get_read_user_admin, get_user_admin, get_admin
 from app.database.models.models_vendas import User
-from app.schemas.schemas_vendas import Fornecedor, FornecedorCreate, FornecedorUpdate
+from app.schemas.schemas_fornecedor import Fornecedor, FornecedorCreate, FornecedorUpdate
 
 logger = logging.getLogger(__name__)
 

@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import get_vendedor_by_id, get_all_vendedores, create_vendedor, update_vendedor, delete_vendedor
+from app.services.services_vendedor import get_vendedor_by_id, get_all_vendedores, create_vendedor, update_vendedor, delete_vendedor
 from app.api.depends import get_db, get_read_user_admin, get_user_admin, get_admin
 from app.database.models.models_vendas import User
-from app.schemas.schemas_vendas import Vendedor, VendedorCreate, VendedorUpdate
+from app.schemas.schemas_vendedor import Vendedor, VendedorCreate, VendedorUpdate
 
 logger = logging.getLogger(__name__)
 

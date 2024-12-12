@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import create_parcela, update_parcela, get_all_parcelas, get_parcela_by_id, delete_parcela
+from app.services.services_parcela import create_parcela, update_parcela, get_all_parcelas, get_parcela_by_id, delete_parcela
 from app.api.depends import get_db, get_read_user_admin, get_user_admin, get_admin
 from app.database.models.models_vendas import User
-from app.schemas.schemas_vendas import Parcela, ParcelaCreate, ParcelaUpdate
+from app.schemas.schemas_parcela import Parcela, ParcelaCreate, ParcelaUpdate
 
 logger = logging.getLogger(__name__)
 

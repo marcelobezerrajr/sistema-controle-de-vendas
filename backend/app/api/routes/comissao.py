@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import logging
 
-from app.services.services_vendas import create_comissao, get_all_comissoes, get_comissao_by_id, calcular_comissao
+from app.services.services_comissao import create_comissao, get_all_comissoes, get_comissao_by_id, calcular_comissao
 from app.api.depends import get_db, get_read_user_admin, get_user_admin
 from app.database.models.models_vendas import User
-from app.schemas.schemas_vendas import Comissao, ComissaoCreate, CalculateComissao
+from app.schemas.schemas_comissao import Comissao, ComissaoCreate, CalculateComissao
 
 logger = logging.getLogger(__name__)
 
