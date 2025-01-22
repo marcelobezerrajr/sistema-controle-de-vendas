@@ -12,16 +12,17 @@ from app.schemas.schemas_response import ChangePasswordRequest
 
 load_dotenv()
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-ALGORITHM = os.getenv('ALGORITHM')
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 change_password_router = APIRouter(prefix="/change-password")
+
 
 @change_password_router.post("")
 def change_password(
     request: ChangePasswordRequest,
     token: str = Depends(oauth2_scheme),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
