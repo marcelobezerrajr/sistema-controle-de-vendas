@@ -24,6 +24,8 @@ Este sistema oferece um completo gerenciamento de operações comerciais, permit
 
 **Envio de E-mails:** MIMEMultipart
 
+<img src="https://skillicons.dev/icons?i=vite,react,fastapi,python,git,sqlite&theme=dark" />
+
 ## Documentação da API - CRUD
 
 As chamadas para a API seguem um padrão consistente para todas as entidades do sistema (Fornecedores, Usuários, Vendedores, Produtos, etc.). Para utilizar outros recursos, substitua o caminho e o identificador da entidade conforme necessário. Abaixo estão exemplos utilizando a entidade **Fornecedor**.
