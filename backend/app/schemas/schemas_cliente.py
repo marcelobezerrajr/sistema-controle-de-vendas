@@ -1,6 +1,7 @@
 from pydantic import BaseModel, validator
 from typing import Optional
 
+
 class ClienteBase(BaseModel):
     nome_cliente: str
     cpf_cnpj: str
@@ -11,8 +12,10 @@ class ClienteBase(BaseModel):
             raise ValueError("CPF/CNPJ inválido.")
         return v
 
+
 class ClienteCreate(ClienteBase):
     pass
+
 
 class ClienteUpdate(BaseModel):
     nome_cliente: Optional[str] = None
@@ -23,6 +26,7 @@ class ClienteUpdate(BaseModel):
         if v and len(v) < 11:
             raise ValueError("CPF/CNPJ inválido.")
         return v
+
 
 class Cliente(ClienteBase):
     id_cliente: int

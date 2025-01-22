@@ -4,6 +4,7 @@ from datetime import date
 
 from app.database.models import models_vendas
 
+
 class ParcelaBase(BaseModel):
     id_venda: int
     numero_parcela: int
@@ -13,23 +14,25 @@ class ParcelaBase(BaseModel):
     status: models_vendas.StatusParcelaEnum
     forma_recebimento: Optional[models_vendas.FormaRecebimentoEnum] = None
 
-    @validator('data_prevista', pre=True, always=True)
+    @validator("data_prevista", pre=True, always=True)
     def validate_data_prevista(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime("%d/%m/%Y")
         return v
 
-    @validator('data_recebimento', pre=True, always=True)
+    @validator("data_recebimento", pre=True, always=True)
     def validate_data_recebimento(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime("%d/%m/%Y")
         return v
 
     class Config:
         from_attributes = True
 
+
 class ParcelaCreate(ParcelaBase):
     pass
+
 
 class ParcelaUpdate(BaseModel):
     id_venda: Optional[int] = None
@@ -40,17 +43,18 @@ class ParcelaUpdate(BaseModel):
     status: Optional[models_vendas.StatusParcelaEnum] = None
     forma_recebimento: Optional[models_vendas.FormaRecebimentoEnum] = None
 
-    @validator('data_prevista', pre=True, always=True)
+    @validator("data_prevista", pre=True, always=True)
     def validate_data_prevista(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime("%d/%m/%Y")
         return v
 
-    @validator('data_recebimento', pre=True, always=True)
+    @validator("data_recebimento", pre=True, always=True)
     def validate_data_recebimento(cls, v):
         if isinstance(v, date):
-            return v.strftime('%d/%m/%Y')
+            return v.strftime("%d/%m/%Y")
         return v
+
 
 class Parcela(ParcelaBase):
     id_parcela: int

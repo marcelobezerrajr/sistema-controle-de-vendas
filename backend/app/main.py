@@ -4,7 +4,23 @@ from fastapi.responses import JSONResponse
 import logging
 
 from app.database.database import Base, engine
-from app.api.routes import cliente, comissao, custo, fornecedor, item_venda, parcela, produto, venda, vendedor, vendavendedor, login, register, change_password, reset_password, user
+from app.api.routes import (
+    cliente,
+    comissao,
+    custo,
+    fornecedor,
+    item_venda,
+    parcela,
+    produto,
+    venda,
+    vendedor,
+    vendavendedor,
+    login,
+    register,
+    change_password,
+    reset_password,
+    user,
+)
 
 app = FastAPI(docs_url="/docs", redoc_url="/redoc")
 
@@ -16,9 +32,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def configure_all(app: FastAPI):
     configure_routes(app)
     configure_db()
+
 
 def configure_routes(app: FastAPI):
     app.include_router(login.login_router, tags=["Login"])
@@ -37,18 +55,26 @@ def configure_routes(app: FastAPI):
     app.include_router(vendedor.vendedor_router, tags=["Vendedor"])
     app.include_router(vendavendedor.venda_vendedor_router, tags=["Venda Vendedor"])
 
+
 def configure_db():
     Base.metadata.create_all(bind=engine)
+
 
 @app.exception_handler(Exception)
 def global_exception_handler(request: Request, exc: Exception):
     logging.error(f"Unexpected error: {exc}")
     return JSONResponse(
         status_code=500,
-        content={"message": "Internal server error", "details": str(exc), "request": request.url},
+        content={
+            "message": "Internal server error",
+            "details": str(exc),
+            "request": request.url,
+        },
     )
 
+
 configure_all(app)
+
 
 @app.get("/")
 def root():

@@ -6,6 +6,7 @@ from app.database.models.models_vendas import PermissionType
 from app.utils.hashing import get_password_hash
 from app.utils.validate_password import validate_password
 
+
 class UserForm(BaseModel):
     username: str
     email: EmailStr
@@ -15,16 +16,17 @@ class UserForm(BaseModel):
     class Config:
         from_attributes = True
 
-    @validator('username')
+    @validator("username")
     def validate_user(cls, value):
-        if not re.match(r'^[a-zA-Z0-9]+$', value):
-            raise ValueError('Username format invalid')
+        if not re.match(r"^[a-zA-Z0-9]+$", value):
+            raise ValueError("Username format invalid")
         return value
 
-    @validator('hashed_password', pre=True)
+    @validator("hashed_password", pre=True)
     def validate_and_hash_password(cls, value):
         validate_password(value)
         return get_password_hash(value)
+
 
 class UserUpdateForm(BaseModel):
     username: Optional[str] = None
@@ -34,12 +36,13 @@ class UserUpdateForm(BaseModel):
     class Config:
         from_attributes = True
 
-    @validator('username')
+    @validator("username")
     def validate_user(cls, value):
-        if value and not re.match(r'^[a-zA-Z0-9]+$', value):
-            raise ValueError('User format invalid')
+        if value and not re.match(r"^[a-zA-Z0-9]+$", value):
+            raise ValueError("User format invalid")
         return value
-    
+
+
 class UserOut(BaseModel):
     id_user: int
     username: Optional[str] = None
