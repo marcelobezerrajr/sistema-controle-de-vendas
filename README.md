@@ -1,5 +1,7 @@
-
-# Sistema Controle de Vendas 📈📊
+<div align="center">
+    <img src="./frontend/src//assets/logo_marcelo_developer_branco.png" height="70" style="margin-bottom: 20px; margin-top: 20px;">
+    <h1 align="center">Sistema Controle de Vendas 📈📊</h1>
+</div>
 
 Este sistema oferece um completo gerenciamento de operações comerciais, permitindo o controle eficiente de vendas e seus diversos elementos por meio de funcionalidades de CRUD (Create, Read, Update, Delete). Inclui o cadastro e a gestão de Usuários, Clientes, Comissões, Custos, Fornecedores, Parcelas, Itens de Venda, Produtos, Vendas, Vendedores e o relacionamento entre Venda e Vendedor. Ideal para empresas que buscam uma solução integrada para otimizar processos e acompanhar todas as etapas do ciclo de vendas.
 
@@ -458,3 +460,7 @@ Execute o comando para servir a pasta `dist`:
 ```bash
   serve -s dist
 ```
+
+## Licença
+
+[MIT](https://github.com/marcelobezerrajr/sistema-controle-de-vendas/blob/main/LICENSE)
