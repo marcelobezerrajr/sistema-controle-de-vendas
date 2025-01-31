@@ -66,7 +66,7 @@ def send_email(to_address: str, subject: str, body: str, image_path: str = None)
 
 def send_reset_password_email(email: str, token: str):
     reset_link = f"{RESET_PASSWORD_URL}?access_token={token}"
-    subject = "Marcelo Desenvolvimento: Redefina sua Senha"
+    subject = "Marcelo Developer: Redefina sua Senha"
     body = f"""
     <html>
     <body style="font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0;">
@@ -94,7 +94,7 @@ def send_reset_password_email(email: str, token: str):
 
                         <!-- Footer Section -->
                         <p style="font-size: 16px; line-height: 1.5;">Se você não solicitou uma redefinição de senha, ignore este e-mail ou<a href="mailto:marcelojuniorbzerra12@gmail.com" style="color: #0056b3; text-decoration: underline;"> entre em contato com o suporte</a> se você tiver dúvidas.</p>
-                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe Marcelo Desenvolvimento</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe Marcelo Developer</p>
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
                         <p style="font-size: 12px; color: #777;">Se você estiver com problemas para clicar no botão "Redefinir senha", clique ou copie e cole a URL abaixo em seu navegador:<br><a href="{reset_link}" style="color: #0056b3; text-decoration: underline;">{reset_link}</a></p>
                     </div>
@@ -113,7 +113,7 @@ def send_reset_password_email(email: str, token: str):
 
 
 def send_password_reset_confirmation_email(email: str):
-    subject = "Marcelo Desenvolvimento: Sua senha foi redefinida"
+    subject = "Marcelo Developer: Sua senha foi redefinida"
     body = """
     <html>
     <body style="font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0;">
@@ -140,7 +140,7 @@ def send_password_reset_confirmation_email(email: str):
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
 
                         <!-- Footer Section -->
-                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe Marcelo Desenvolvimento</p>
+                        <p style="font-size: 16px; line-height: 1.5;">Obrigado,<br>Equipe Marcelo Developer</p>
                         <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
                         <p style="font-size: 12px; color: #777;">Se você não iniciou esta solicitação, proteja sua conta imediatamente.</p>
                     </div>
@@ -152,7 +152,7 @@ def send_password_reset_confirmation_email(email: str):
     """
 
     logo = os.path.join(
-        os.path.dirname(__file__), "../static/assets/logo_marcelo_desenvolvedor.png"
+        os.path.dirname(__file__), "../static/assets/logo_marcelo_developer.png"
     )
     image_path = os.path.abspath(logo)
     send_email(email, subject, body, image_path)
