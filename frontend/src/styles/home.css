@@ -44,7 +44,7 @@
     transition: transform 0.3s ease, background-color 0.3s ease;
   }
 
-  & button:hover{
+  & button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
   }
@@ -52,7 +52,7 @@
 
 .home-header {
   margin-bottom: 30px;
-  
+
   & h1 {
     font-size: 2rem;
     color: #081a89;
@@ -63,7 +63,6 @@
   & h4 {
     animation: slideIn 1s ease;
   }
-
 }
 
 .features {
@@ -78,7 +77,7 @@
   width: 30%;
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #1684BF;
+  border: 1px solid #1684bf;
   border-radius: 10px;
   margin: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -91,11 +90,19 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-20px); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

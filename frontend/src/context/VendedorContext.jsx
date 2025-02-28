@@ -1,6 +1,12 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getAllVendedores, getVendedorById, createVendedor, updateVendedor, deleteVendedor } from '../services/vendedorService';
-import { LoginContext } from './LoginContext';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import {
+  getAllVendedores,
+  getVendedorById,
+  createVendedor,
+  updateVendedor,
+  deleteVendedor,
+} from "../services/vendedorService";
+import { LoginContext } from "./LoginContext";
 
 export const VendedorContext = createContext();
 
@@ -18,7 +24,7 @@ export const VendedorProvider = ({ children }) => {
         const data = await getAllVendedores();
         setVendedor(data);
       } catch (error) {
-        console.error('Erro ao carregar Vendedores:', error);
+        console.error("Erro ao carregar Vendedores:", error);
       } finally {
         setLoading(false);
       }
@@ -30,7 +36,8 @@ export const VendedorProvider = ({ children }) => {
   const getVendedor = async (id_vendedor) => {
     try {
       const vendedor = await getVendedorById(id_vendedor);
-      if (!vendedor) throw new Error(`Vendedor com ID ${id_vendedor} não encontrado.`);
+      if (!vendedor)
+        throw new Error(`Vendedor com ID ${id_vendedor} não encontrado.`);
       return vendedor;
     } catch (error) {
       console.error(`Erro ao carregar vendedor com ID ${id_vendedor}:`, error);
@@ -42,10 +49,14 @@ export const VendedorProvider = ({ children }) => {
     try {
       const newVendedor = await createVendedor(vendedor);
       setVendedor((prev) => [...prev, newVendedor]);
-      return { success: true, message: 'Vendedor adicionado com sucesso!' };
+      return { success: true, message: "Vendedor adicionado com sucesso!" };
     } catch (error) {
       console.error("Erro ao adicionar vendedor:", error);
-      return { success: false, message: 'Erro ao adicionar o vendedor. Verifique os dados e tente novamente.' };
+      return {
+        success: false,
+        message:
+          "Erro ao adicionar o vendedor. Verifique os dados e tente novamente.",
+      };
     }
   };
 
@@ -53,26 +64,43 @@ export const VendedorProvider = ({ children }) => {
     try {
       const updatedVendedor = await updateVendedor(id_vendedor, vendedorData);
       setVendedor((prev) =>
-        prev.map((vendedor) => (vendedor.id_vendedor === id_vendedor ? updatedVendedor : vendedor))
+        prev.map((vendedor) =>
+          vendedor.id_vendedor === id_vendedor ? updatedVendedor : vendedor
+        )
       );
-      return { success: true, message: 'Vendedor atualizado com sucesso!' };
+      return { success: true, message: "Vendedor atualizado com sucesso!" };
     } catch (error) {
       console.error("Erro ao atualizar vendedor:", error);
-      return { success: false, message: 'Erro ao atualizar o vendedor. Verifique os dados e tente novamente.' };
+      return {
+        success: false,
+        message:
+          "Erro ao atualizar o vendedor. Verifique os dados e tente novamente.",
+      };
     }
   };
 
   const removeVendedor = async (id_vendedor) => {
     try {
       await deleteVendedor(id_vendedor);
-      setVendedor((prev) => prev.filter((vendedor) => vendedor.id_vendedor !== id_vendedor));
+      setVendedor((prev) =>
+        prev.filter((vendedor) => vendedor.id_vendedor !== id_vendedor)
+      );
     } catch (error) {
       console.error("Erro ao deletar vendedor:", error);
     }
   };
 
   return (
-    <VendedorContext.Provider value={{ vendedor, loading, addVendedor, updateVendedorData, getVendedor, removeVendedor }}>
+    <VendedorContext.Provider
+      value={{
+        vendedor,
+        loading,
+        addVendedor,
+        updateVendedorData,
+        getVendedor,
+        removeVendedor,
+      }}
+    >
       {children}
     </VendedorContext.Provider>
   );

@@ -1,11 +1,11 @@
-import { useContext } from 'react';
-import { ComissaoContext } from '../context/ComissaoContext';
+import { useContext } from "react";
+import { ComissaoContext } from "../context/ComissaoContext";
 
 const useComissao = () => {
   const context = useContext(ComissaoContext);
 
   if (!context) {
-    throw new Error('useComissao must be used within a ComissaoProvider');
+    throw new Error("useComissao must be used within a ComissaoProvider");
   }
 
   return context;

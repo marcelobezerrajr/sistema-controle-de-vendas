@@ -1,29 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import SearchComponent from '../../components/SearchComponent';
-import useVendedor from '../../hooks/useVendedor';
-import MainLayout from '../../layouts/MainLayout';
-import FilterComponent from '../../components/FilterComponent';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/Gerenciamento.css';
+import React, { useState, useEffect } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import SearchComponent from "../../components/SearchComponent";
+import useVendedor from "../../hooks/useVendedor";
+import MainLayout from "../../layouts/MainLayout";
+import FilterComponent from "../../components/FilterComponent";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Gerenciamento.css";
 
 const VendedorPage = () => {
   const { vendedor, loading, removeVendedor } = useVendedor();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
-  const [tipoVendedorFilter, setTipoVendedorFilter] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
+  const [tipoVendedorFilter, setTipoVendedorFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredVendedores, setFilteredVendedores] = useState([]);
-  
+
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   useEffect(() => {
     const filtered = vendedor.filter((vendedores) => {
-      const matchesTipoVendedor = tipoVendedorFilter ? vendedores.tipo === tipoVendedorFilter : true;
-      const matchesSearchTerm = searchTerm ?
-        vendedores.nome_vendedor.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      const matchesTipoVendedor = tipoVendedorFilter
+        ? vendedores.tipo === tipoVendedorFilter
+        : true;
+      const matchesSearchTerm = searchTerm
+        ? vendedores.nome_vendedor
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        : true;
 
       return matchesTipoVendedor && matchesSearchTerm;
     });
@@ -53,11 +58,16 @@ const VendedorPage = () => {
 
   const handleDeleteVendedor = async (id_vendedor) => {
     await removeVendedor(id_vendedor);
-    setAlertMessage('Vendedor deletado com sucesso!');
-    setAlertVariant('success');
+    setAlertMessage("Vendedor deletado com sucesso!");
+    setAlertVariant("success");
   };
 
-  const columns = ['id_vendedor', 'nome_vendedor', 'tipo', 'percentual_comissao'];
+  const columns = [
+    "id_vendedor",
+    "nome_vendedor",
+    "tipo",
+    "percentual_comissao",
+  ];
 
   const actions = {
     view: handleViewVendedor,
@@ -66,8 +76,8 @@ const VendedorPage = () => {
   };
 
   const tipoVendedorOptions = [
-    { value: 'Inside Sales', label: 'Inside Sales' },
-    { value: 'Account Executive', label: 'Account Executive' },
+    { value: "Inside Sales", label: "Inside Sales" },
+    { value: "Account Executive", label: "Account Executive" },
   ];
 
   return (
@@ -86,10 +96,17 @@ const VendedorPage = () => {
           </div>
 
           <div className="actions-section d-flex align-items-center">
-            <SearchComponent placeholder="Buscar vendedores..." onSearch={handleSearch} />
+            <SearchComponent
+              placeholder="Buscar vendedores..."
+              onSearch={handleSearch}
+            />
 
-            {(userPermission === 'Admin' || userPermission === 'User') && (
-              <button variant="primary" className="custom-button" onClick={handleAddVendedor}>
+            {(userPermission === "Admin" || userPermission === "User") && (
+              <button
+                variant="primary"
+                className="custom-button"
+                onClick={handleAddVendedor}
+              >
                 Adicionar Vendedor
               </button>
             )}
@@ -97,7 +114,11 @@ const VendedorPage = () => {
         </div>
 
         {alertMessage && (
-          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage('')}>
+          <Alert
+            className="alert-success"
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}

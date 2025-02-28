@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 const EntityContext = createContext();
 
 export const EntityProvider = ({ children }) => {
   const [entityConfig, setEntityConfig] = useState({
-    entityName: '',
-    fetchUrl: '',
+    entityName: "",
+    fetchUrl: "",
     fields: [],
   });
 
@@ -13,152 +13,152 @@ export const EntityProvider = ({ children }) => {
     let config;
 
     switch (entity) {
-      case 'cliente':
+      case "cliente":
         config = {
-          entityName: 'Cliente',
-          fetchUrl: 'http://127.0.0.1:8000/cliente/view',
+          entityName: "Cliente",
+          fetchUrl: "http://127.0.0.1:8000/cliente/view",
           fields: [
-            { label: 'ID Cliente', key: 'id_cliente' },
-            { label: 'Nome', key: 'nome_cliente' },
-            { label: 'CPF/CNPJ', key: 'cpf_cnpj' },
+            { label: "ID Cliente", key: "id_cliente" },
+            { label: "Nome", key: "nome_cliente" },
+            { label: "CPF/CNPJ", key: "cpf_cnpj" },
           ],
         };
-      break;
+        break;
 
-      case 'fornecedor':
+      case "fornecedor":
         config = {
-          entityName: 'Fornecedor',
-          fetchUrl: 'http://127.0.0.1:8000/fornecedor/view',
+          entityName: "Fornecedor",
+          fetchUrl: "http://127.0.0.1:8000/fornecedor/view",
           fields: [
-            { label: 'ID Fornecedor', key: 'id_fornecedor' },
-            { label: 'Nome', key: 'nome_fornecedor' },
-            { label: 'Percentual de Comissão', key: 'percentual_comissao' },
-            { label: 'Impostos', key: 'impostos' },
+            { label: "ID Fornecedor", key: "id_fornecedor" },
+            { label: "Nome", key: "nome_fornecedor" },
+            { label: "Percentual de Comissão", key: "percentual_comissao" },
+            { label: "Impostos", key: "impostos" },
           ],
         };
-      break;
+        break;
 
-      case 'vendedor':
+      case "vendedor":
         config = {
-          entityName: 'Vendedor',
-          fetchUrl: 'http://127.0.0.1:8000/vendedor/view',
+          entityName: "Vendedor",
+          fetchUrl: "http://127.0.0.1:8000/vendedor/view",
           fields: [
-            { label: 'ID Vendedor', key: 'id_vendedor' },
-            { label: 'Nome', key: 'nome_vendedor' },
-            { label: 'Tipo', key: 'tipo' },
-            { label: 'Percentual de Comissão', key: 'percentual_comissao' },
+            { label: "ID Vendedor", key: "id_vendedor" },
+            { label: "Nome", key: "nome_vendedor" },
+            { label: "Tipo", key: "tipo" },
+            { label: "Percentual de Comissão", key: "percentual_comissao" },
           ],
         };
-      break;
+        break;
 
-      case 'produto':
+      case "produto":
         config = {
-          entityName: 'Produto',
-          fetchUrl: 'http://127.0.0.1:8000/produto/view',
+          entityName: "Produto",
+          fetchUrl: "http://127.0.0.1:8000/produto/view",
           fields: [
-            { label: 'ID Produto', key: 'id_produto' },
-            { label: 'Nome', key: 'nome_produto' },
-            { label: 'Descrição', key: 'descricao_produto' },
-            { label: 'Preço', key: 'preco' },
-            { label: 'Tipo', key: 'tipo' },
+            { label: "ID Produto", key: "id_produto" },
+            { label: "Nome", key: "nome_produto" },
+            { label: "Descrição", key: "descricao_produto" },
+            { label: "Preço", key: "preco" },
+            { label: "Tipo", key: "tipo" },
           ],
         };
-      break;
+        break;
 
-      case 'venda':
+      case "venda":
         config = {
-          entityName: 'Venda',
-          fetchUrl: 'http://127.0.0.1:8000/venda/view',
+          entityName: "Venda",
+          fetchUrl: "http://127.0.0.1:8000/venda/view",
           fields: [
-            { label: 'ID Venda', key: 'id_venda' },
-            { label: 'Tipo Venda', key: 'tipo_venda' },
-            { label: 'Tipo Faturamento', key: 'tipo_faturamento' },
-            { label: 'Valor Total', key: 'valor_total' },
-            { label: 'Moeda', key: 'moeda' },
-            { label: 'Valor Convertido', key: 'valor_convertido' },
-            { label: 'ID Cliente', key: 'id_cliente' },
-            { label: 'ID Fornecedor', key: 'id_fornecedor' },
+            { label: "ID Venda", key: "id_venda" },
+            { label: "Tipo Venda", key: "tipo_venda" },
+            { label: "Tipo Faturamento", key: "tipo_faturamento" },
+            { label: "Valor Total", key: "valor_total" },
+            { label: "Moeda", key: "moeda" },
+            { label: "Valor Convertido", key: "valor_convertido" },
+            { label: "ID Cliente", key: "id_cliente" },
+            { label: "ID Fornecedor", key: "id_fornecedor" },
           ],
         };
-      break;
+        break;
 
-      case 'comissao':
+      case "comissao":
         config = {
-          entityName: 'Comissao',
-          fetchUrl: 'http://127.0.0.1:8000/comissao/view',
+          entityName: "Comissao",
+          fetchUrl: "http://127.0.0.1:8000/comissao/view",
           fields: [
-            { label: 'ID Comissão', key: 'id_comissao' },
-            { label: 'Valor Comissão', key: 'valor_comissao' },
-            { label: 'Data Pagamento', key: 'data_pagamento' },
-            { label: 'Percentual Comissão', key: 'percentual_comissao' },
-            { label: 'ID Vendedor', key: 'id_vendedor' },
-            { label: 'ID Parcela', key: 'id_parcela' },
+            { label: "ID Comissão", key: "id_comissao" },
+            { label: "Valor Comissão", key: "valor_comissao" },
+            { label: "Data Pagamento", key: "data_pagamento" },
+            { label: "Percentual Comissão", key: "percentual_comissao" },
+            { label: "ID Vendedor", key: "id_vendedor" },
+            { label: "ID Parcela", key: "id_parcela" },
           ],
         };
-      break;
+        break;
 
-      case 'custo':
+      case "custo":
         config = {
-          entityName: 'Custo',
-          fetchUrl: 'http://127.0.0.1:8000/custo/view',
+          entityName: "Custo",
+          fetchUrl: "http://127.0.0.1:8000/custo/view",
           fields: [
-            { label: 'ID Custo', key: 'id_custo' },
-            { label: 'Descrição', key: 'descricao' },
-            { label: 'Valor', key: 'valor' },
-            { label: 'ID Venda', key: 'id_venda' },
+            { label: "ID Custo", key: "id_custo" },
+            { label: "Descrição", key: "descricao" },
+            { label: "Valor", key: "valor" },
+            { label: "ID Venda", key: "id_venda" },
           ],
         };
-      break;
+        break;
 
-      case 'parcela':
+      case "parcela":
         config = {
-          entityName: 'Parcela',
-          fetchUrl: 'http://127.0.0.1:8000/parcela/view',
+          entityName: "Parcela",
+          fetchUrl: "http://127.0.0.1:8000/parcela/view",
           fields: [
-            { label: 'ID Parcela', key: 'id_parcela' },
-            { label: 'ID Venda', key: 'id_venda' },
-            { label: 'Número da Parcela', key: 'numero_parcela' },
-            { label: 'Valor da Parcela', key: 'valor_parcela' },
-            { label: 'Data Prevista', key: 'data_prevista' },
-            { label: 'Data Recebimento', key: 'data_recebimento' },
-            { label: 'Status', key: 'status' },
-            { label: 'Forma Recebimento', key: 'forma_recebimento' },
+            { label: "ID Parcela", key: "id_parcela" },
+            { label: "ID Venda", key: "id_venda" },
+            { label: "Número da Parcela", key: "numero_parcela" },
+            { label: "Valor da Parcela", key: "valor_parcela" },
+            { label: "Data Prevista", key: "data_prevista" },
+            { label: "Data Recebimento", key: "data_recebimento" },
+            { label: "Status", key: "status" },
+            { label: "Forma Recebimento", key: "forma_recebimento" },
           ],
         };
-      break;
+        break;
 
-      case 'user':
+      case "user":
         config = {
-          entityName: 'Usuário',
-          fetchUrl: 'http://127.0.0.1:8000/user/view',
+          entityName: "Usuário",
+          fetchUrl: "http://127.0.0.1:8000/user/view",
           fields: [
-            { label: 'ID Usuário', key: 'id_user' },
-            { label: 'Nome de Usuário', key: 'username' },
-            { label: 'Email', key: 'email' },
-            { label: 'Permissão', key: 'permission' },
+            { label: "ID Usuário", key: "id_user" },
+            { label: "Nome de Usuário", key: "username" },
+            { label: "Email", key: "email" },
+            { label: "Permissão", key: "permission" },
           ],
         };
-      break;
+        break;
 
-      case 'item-venda':
+      case "item-venda":
         config = {
-          entityName: 'Item Venda',
-          fetchUrl: 'http://127.0.0.1:8000/item-venda/view',
+          entityName: "Item Venda",
+          fetchUrl: "http://127.0.0.1:8000/item-venda/view",
           fields: [
-            { label: 'ID Item Venda', key: 'id_item_venda' },
-            { label: 'ID Venda', key: 'id_venda' },
-            { label: 'ID Produto', key: 'id_produto' },
-            { label: 'Quantidade', key: 'quantidade' },
-            { label: 'Preço Unitário', key: 'preco_unitario' },
-            { label: 'Subtotal', key: 'subtotal' },
+            { label: "ID Item Venda", key: "id_item_venda" },
+            { label: "ID Venda", key: "id_venda" },
+            { label: "ID Produto", key: "id_produto" },
+            { label: "Quantidade", key: "quantidade" },
+            { label: "Preço Unitário", key: "preco_unitario" },
+            { label: "Subtotal", key: "subtotal" },
           ],
         };
-      break;
+        break;
 
       default:
         config = {
-          entityName: '',
-          fetchUrl: '',
+          entityName: "",
+          fetchUrl: "",
           fields: [],
         };
     }

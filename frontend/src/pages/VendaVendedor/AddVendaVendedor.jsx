@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
-import { FaSave } from 'react-icons/fa';
-import useVendaVendedor from '../../hooks/useVendaVendedor';
-import useVendedor from '../../hooks/useVendedor';
-import useVenda from '../../hooks/useVenda';
-import MainLayout from '../../layouts/MainLayout';
+import React, { useState } from "react";
+import {
+  Card,
+  Spinner,
+  Alert,
+  Form,
+  Button,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
+import { FaSave } from "react-icons/fa";
+import useVendaVendedor from "../../hooks/useVendaVendedor";
+import useVendedor from "../../hooks/useVendedor";
+import useVenda from "../../hooks/useVenda";
+import MainLayout from "../../layouts/MainLayout";
 import "../../styles/VendaVendedor.css";
 
 const AddVendaVendedor = () => {
@@ -12,10 +21,10 @@ const AddVendaVendedor = () => {
   const { getVendedor } = useVendedor();
   const { getVenda } = useVenda();
   const [vendavendedorData, setVendaVendedorData] = useState({
-    id_venda: '', 
-    id_vendedor: '', 
-    tipo_participacao: '', 
-    percentual_comissao: '' 
+    id_venda: "",
+    id_vendedor: "",
+    tipo_participacao: "",
+    percentual_comissao: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -35,12 +44,12 @@ const AddVendaVendedor = () => {
         setVendaVendedorData((prev) => ({
           ...prev,
           tipo_participacao: vendedor.tipo,
-          percentual_comissao: vendedor.percentual_comissao
+          percentual_comissao: vendedor.percentual_comissao,
         }));
       } catch (error) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          id_vendedor: 'ID do Vendedor inválido ou não encontrado.'
+          id_vendedor: "ID do Vendedor inválido ou não encontrado.",
         }));
       }
     }
@@ -57,8 +66,10 @@ const AddVendaVendedor = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!vendavendedorData.id_venda) newErrors.id_venda = "ID da Venda é obrigatório";
-    if (!vendavendedorData.id_vendedor) newErrors.id_vendedor = "ID do Vendedor é obrigatório";
+    if (!vendavendedorData.id_venda)
+      newErrors.id_venda = "ID da Venda é obrigatório";
+    if (!vendavendedorData.id_vendedor)
+      newErrors.id_vendedor = "ID do Vendedor é obrigatório";
     return newErrors;
   };
 
@@ -80,7 +91,10 @@ const AddVendaVendedor = () => {
     try {
       await getVenda(vendavendedorData.id_venda);
     } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        id_venda: "ID da Venda inválido ou não encontrado.",
+      }));
       validationErrorExists = true;
     }
 
@@ -91,19 +105,21 @@ const AddVendaVendedor = () => {
 
     try {
       await addVendaVendedor(vendavendedorData);
-      setSuccess('Venda Vendedor adicionada com sucesso!');
+      setSuccess("Venda Vendedor adicionada com sucesso!");
       setVendaVendedorData({
-        id_venda: '', 
-        id_vendedor: '', 
-        tipo_participacao: '', 
-        percentual_comissao: ''
+        id_venda: "",
+        id_vendedor: "",
+        tipo_participacao: "",
+        percentual_comissao: "",
       });
     } catch (error) {
       const errorMessage = error.response?.data?.detail;
       if (errorMessage && errorMessage === "Venda Vendedor já existe") {
-        setErrors({ form: 'Venda Vendedor já existe.' });
+        setErrors({ form: "Venda Vendedor já existe." });
       } else {
-        setErrors({ form: 'Erro ao adicionar a venda vendedor. Tente novamente.' });
+        setErrors({
+          form: "Erro ao adicionar a venda vendedor. Tente novamente.",
+        });
       }
     } finally {
       setLoading(false);
@@ -113,8 +129,8 @@ const AddVendaVendedor = () => {
   return (
     <MainLayout>
       <div className="venda-vendedor-div">
-        <Container className='venda-vendedor-container'>
-          <Row className='justify-content-md-center'>
+        <Container className="venda-vendedor-container">
+          <Row className="justify-content-md-center">
             <Col md={12} lg={10}>
               <Card className="venda-vendedor-card">
                 <Card.Header className="venda-vendedor-card-header">
@@ -127,20 +143,31 @@ const AddVendaVendedor = () => {
                     </div>
                   )}
                   {errors.form && (
-                    <Alert variant="danger" className="venda-vendedor-alert-error">
+                    <Alert
+                      variant="danger"
+                      className="venda-vendedor-alert-error"
+                    >
                       {errors.form}
                     </Alert>
                   )}
                   {success && (
-                    <Alert variant="success" className="venda-vendedor-alert-success">
+                    <Alert
+                      variant="success"
+                      className="venda-vendedor-alert-success"
+                    >
                       {success}
                     </Alert>
                   )}
                   <Form onSubmit={handleSubmit}>
                     <Row>
                       <Col md={6}>
-                        <Form.Group className="venda-vendedor-form-group" controlId="id_venda">
-                          <Form.Label className='venda-vendedor-form-label'>ID da Venda</Form.Label>
+                        <Form.Group
+                          className="venda-vendedor-form-group"
+                          controlId="id_venda"
+                        >
+                          <Form.Label className="venda-vendedor-form-label">
+                            ID da Venda
+                          </Form.Label>
                           <Form.Control
                             className="venda-vendedor-form-control-custom"
                             type="number"
@@ -152,13 +179,20 @@ const AddVendaVendedor = () => {
                             step="1"
                             required
                           />
-                          <Form.Control.Feedback type="invalid">{errors.id_venda}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.id_venda}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="venda-vendedor-form-group" controlId="id_vendedor">
-                          <Form.Label className='venda-vendedor-form-label'>ID do Vendedor</Form.Label>
+                        <Form.Group
+                          className="venda-vendedor-form-group"
+                          controlId="id_vendedor"
+                        >
+                          <Form.Label className="venda-vendedor-form-label">
+                            ID do Vendedor
+                          </Form.Label>
                           <Form.Control
                             className="venda-vendedor-form-control-custom"
                             type="number"
@@ -170,13 +204,20 @@ const AddVendaVendedor = () => {
                             step="1"
                             required
                           />
-                          <Form.Control.Feedback type="invalid">{errors.id_vendedor}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.id_vendedor}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="venda-vendedor-form-group" controlId="tipo_participacao">
-                          <Form.Label className='venda-vendedor-form-label'>Tipo Participação do Vendedor</Form.Label>
+                        <Form.Group
+                          className="venda-vendedor-form-group"
+                          controlId="tipo_participacao"
+                        >
+                          <Form.Label className="venda-vendedor-form-label">
+                            Tipo Participação do Vendedor
+                          </Form.Label>
                           <Form.Control
                             className="venda-vendedor-form-control-custom"
                             type="text"
@@ -188,13 +229,20 @@ const AddVendaVendedor = () => {
                             required
                             readOnly
                           />
-                          <Form.Control.Feedback type="invalid">{errors.tipo_participacao}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.tipo_participacao}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="venda-vendedor-form-group" controlId="percentual_comissao">
-                          <Form.Label className='venda-vendedor-form-label'>Percentual Comissão</Form.Label>
+                        <Form.Group
+                          className="venda-vendedor-form-group"
+                          controlId="percentual_comissao"
+                        >
+                          <Form.Label className="venda-vendedor-form-label">
+                            Percentual Comissão
+                          </Form.Label>
                           <Form.Control
                             className="venda-vendedor-form-control-custom"
                             type="number"
@@ -206,15 +254,22 @@ const AddVendaVendedor = () => {
                             required
                             readOnly
                           />
-                          <Form.Control.Feedback type="invalid">{errors.percentual_comissao}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.percentual_comissao}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
                     </Row>
 
                     <div className="button-container">
-                      <Button className="venda-vendedor-button-container" variant="primary" type="submit" disabled={loading}>
+                      <Button
+                        className="venda-vendedor-button-container"
+                        variant="primary"
+                        type="submit"
+                        disabled={loading}
+                      >
                         <FaSave className="me-2" />
-                        {loading ? 'Salvando...' : ' Salvar Venda Vendedor'}
+                        {loading ? "Salvando..." : " Salvar Venda Vendedor"}
                       </Button>
                     </div>
                   </Form>

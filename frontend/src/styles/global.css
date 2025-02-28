@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -12,17 +12,22 @@ body {
 }
 
 a {
-  color: #004F98;
+  color: #004f98;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #004F98;
+  color: #004f98;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
 }
 
 button {

@@ -1,29 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
-import { FaSave } from 'react-icons/fa';
-import useComissao from '../../hooks/useComissao';
-import useVendedor from '../../hooks/useVendedor';
-import useParcela from '../../hooks/useParcela';
-import MainLayout from '../../layouts/MainLayout';
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  Spinner,
+  Alert,
+  Form,
+  Button,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
+import { FaSave } from "react-icons/fa";
+import useComissao from "../../hooks/useComissao";
+import useVendedor from "../../hooks/useVendedor";
+import useParcela from "../../hooks/useParcela";
+import MainLayout from "../../layouts/MainLayout";
 import "../../styles/Comissao.css";
 
 const formatDate = (date) => {
-    if (!date) return null;
-    const d = new Date(date + "T00:00:00");
-    const year = d.getFullYear();
-    const month = (`0${d.getMonth() + 1}`).slice(-2);
-    const day = (`0${d.getDate()}`).slice(-2);
-    return `${year}/${month}/${day}`;
+  if (!date) return null;
+  const d = new Date(date + "T00:00:00");
+  const year = d.getFullYear();
+  const month = `0${d.getMonth() + 1}`.slice(-2);
+  const day = `0${d.getDate()}`.slice(-2);
+  return `${year}/${month}/${day}`;
 };
 
 const AddComissao = () => {
   const { addComissao, calcularComissao } = useComissao();
   const [comissaoData, setComissaoData] = useState({
-    id_vendedor: '', 
-    id_parcela: '', 
-    data_pagamento: '', 
-    valor_comissao: '',
-    percentual_comissao: ''
+    id_vendedor: "",
+    id_parcela: "",
+    data_pagamento: "",
+    valor_comissao: "",
+    percentual_comissao: "",
   });
   const { getVendedor } = useVendedor();
   const { getParcela } = useParcela();
@@ -47,22 +56,31 @@ const AddComissao = () => {
       try {
         await getVendedor(comissaoData.id_vendedor);
       } catch (error) {
-        setErrors((prevErrors) => ({ ...prevErrors, id_vendedor: 'ID do Vendedor inválido ou não encontrado.' }));
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          id_vendedor: "ID do Vendedor inválido ou não encontrado.",
+        }));
         validationErrorExists = true;
       }
 
       try {
         await getParcela(comissaoData.id_parcela);
       } catch (error) {
-        setErrors((prevErrors) => ({ ...prevErrors, id_parcela: 'ID da Parcela inválido ou não encontrado.' }));
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          id_parcela: "ID da Parcela inválido ou não encontrado.",
+        }));
         validationErrorExists = true;
       }
-    
+
       if (validationErrorExists) {
         setLoading(false);
         return;
       }
-      const data = await calcularComissao(comissaoData.id_vendedor, comissaoData.id_parcela);
+      const data = await calcularComissao(
+        comissaoData.id_vendedor,
+        comissaoData.id_parcela
+      );
       setComissaoData((prevData) => ({
         ...prevData,
         valor_comissao: data.valor_comissao,
@@ -70,7 +88,10 @@ const AddComissao = () => {
       }));
     } catch (error) {
       console.error("Erro ao calcular comissão:", error);
-      setErrors((prevErrors) => ({ ...prevErrors, form: 'Erro ao calcular a comissão.' }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        form: "Erro ao calcular a comissão.",
+      }));
     }
   };
 
@@ -82,9 +103,12 @@ const AddComissao = () => {
 
   const validateForm = () => {
     const validationErrors = {};
-    if (!comissaoData.id_vendedor) validationErrors.id_vendedor = 'ID do Vendedor é obrigatório';
-    if (!comissaoData.id_parcela) validationErrors.id_parcela = 'ID da Parcela é obrigatório';
-    if (!comissaoData.data_pagamento) validationErrors.data_pagamento = 'Data de pagamento é obrigatória';
+    if (!comissaoData.id_vendedor)
+      validationErrors.id_vendedor = "ID do Vendedor é obrigatório";
+    if (!comissaoData.id_parcela)
+      validationErrors.id_parcela = "ID da Parcela é obrigatório";
+    if (!comissaoData.data_pagamento)
+      validationErrors.data_pagamento = "Data de pagamento é obrigatória";
     return validationErrors;
   };
 
@@ -103,15 +127,23 @@ const AddComissao = () => {
 
     const formattedData = {
       ...comissaoData,
-      data_pagamento: formatDate(comissaoData.data_pagamento)
+      data_pagamento: formatDate(comissaoData.data_pagamento),
     };
 
     try {
       await addComissao(formattedData);
-      setSuccess('Comissão adicionada com sucesso!');
-      setComissaoData({ id_vendedor: '', id_parcela: '', data_pagamento: '', valor_comissao: '', percentual_comissao: '' });
+      setSuccess("Comissão adicionada com sucesso!");
+      setComissaoData({
+        id_vendedor: "",
+        id_parcela: "",
+        data_pagamento: "",
+        valor_comissao: "",
+        percentual_comissao: "",
+      });
     } catch (error) {
-      setErrors({ form: error.message || 'Erro ao adicionar a comissão. Tente novamente.' });
+      setErrors({
+        form: error.message || "Erro ao adicionar a comissão. Tente novamente.",
+      });
     } finally {
       setLoading(false);
     }
@@ -120,8 +152,8 @@ const AddComissao = () => {
   return (
     <MainLayout>
       <div className="comissao-div">
-        <Container className='comissao-container'>
-          <Row className='justify-content-md-center'>
+        <Container className="comissao-container">
+          <Row className="justify-content-md-center">
             <Col md={12} lg={10}>
               <Card className="comissao-card">
                 <Card.Header className="comissao-card-header">
@@ -146,8 +178,13 @@ const AddComissao = () => {
                   <Form onSubmit={handleSubmit}>
                     <Row>
                       <Col md={6}>
-                        <Form.Group className="comissao-form-group" controlId="id_vendedor">
-                          <Form.Label className='comissao-form-label'>ID do Vendedor</Form.Label>
+                        <Form.Group
+                          className="comissao-form-group"
+                          controlId="id_vendedor"
+                        >
+                          <Form.Label className="comissao-form-label">
+                            ID do Vendedor
+                          </Form.Label>
                           <Form.Control
                             className="comissao-form-control-custom"
                             type="number"
@@ -159,13 +196,20 @@ const AddComissao = () => {
                             step="1"
                             required
                           />
-                          <Form.Control.Feedback type="invalid">{errors.id_vendedor}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.id_vendedor}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="comissao-form-group" controlId="id_parcela">
-                          <Form.Label className='comissao-form-label'>ID da Parcela</Form.Label>
+                        <Form.Group
+                          className="comissao-form-group"
+                          controlId="id_parcela"
+                        >
+                          <Form.Label className="comissao-form-label">
+                            ID da Parcela
+                          </Form.Label>
                           <Form.Control
                             className="comissao-form-control-custom"
                             type="number"
@@ -177,13 +221,20 @@ const AddComissao = () => {
                             step="1"
                             required
                           />
-                          <Form.Control.Feedback type="invalid">{errors.id_parcela}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.id_parcela}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="comissao-form-group" controlId="valor_comissao">
-                          <Form.Label className='comissao-form-label'>Valor da Comissão</Form.Label>
+                        <Form.Group
+                          className="comissao-form-group"
+                          controlId="valor_comissao"
+                        >
+                          <Form.Label className="comissao-form-label">
+                            Valor da Comissão
+                          </Form.Label>
                           <Form.Control
                             className="comissao-form-control-custom"
                             type="number"
@@ -196,8 +247,13 @@ const AddComissao = () => {
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="comissao-form-group" controlId="percentual_comissao">
-                          <Form.Label className='comissao-form-label'>Percentual de Comissão</Form.Label>
+                        <Form.Group
+                          className="comissao-form-group"
+                          controlId="percentual_comissao"
+                        >
+                          <Form.Label className="comissao-form-label">
+                            Percentual de Comissão
+                          </Form.Label>
                           <Form.Control
                             className="comissao-form-control-custom"
                             type="number"
@@ -210,8 +266,13 @@ const AddComissao = () => {
                       </Col>
 
                       <Col md={6}>
-                        <Form.Group className="comissao-form-group" controlId="data_pagamento">
-                          <Form.Label className='comissao-form-label'>Data de Pagamento</Form.Label>
+                        <Form.Group
+                          className="comissao-form-group"
+                          controlId="data_pagamento"
+                        >
+                          <Form.Label className="comissao-form-label">
+                            Data de Pagamento
+                          </Form.Label>
                           <Form.Control
                             className="comissao-form-control-custom"
                             type="date"
@@ -221,14 +282,21 @@ const AddComissao = () => {
                             isInvalid={!!errors.data_pagamento}
                             required
                           />
-                          <Form.Control.Feedback type="invalid">{errors.data_pagamento}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.data_pagamento}
+                          </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
                     </Row>
                     <div className="button-container">
-                      <Button className="comissao-button-container" variant="primary" type="submit" disabled={loading}>
+                      <Button
+                        className="comissao-button-container"
+                        variant="primary"
+                        type="submit"
+                        disabled={loading}
+                      >
                         <FaSave className="me-2" />
-                        {loading ? 'Salvando...' : ' Salvar Comissão'}
+                        {loading ? "Salvando..." : " Salvar Comissão"}
                       </Button>
                     </div>
                   </Form>

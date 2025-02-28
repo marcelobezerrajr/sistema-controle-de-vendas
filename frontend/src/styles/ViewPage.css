@@ -1,50 +1,50 @@
 .view-entity-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    animation: slideIn 1s ease;
-    align-items: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  animation: slideIn 1s ease;
+  align-items: center;
 }
 
 .view-entity-card {
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    background-color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .view-entity-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .view-entity-card-header {
-    color: #004F98;
-    background-color: #004F98;
-    border-radius: 15px 15px 0 0;
-    text-align: center;
-    padding: 15px;
+  color: #004f98;
+  background-color: #004f98;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+  padding: 15px;
 }
 
 .view-entity-card-header h4 {
-    margin: 0;
-    color: #fff;
-    font-size: 1.75rem;
+  margin: 0;
+  color: #fff;
+  font-size: 1.75rem;
 }
 
 .view-entity-card-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .view-entity-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .view-entity-alert {
-    margin-top: 10px;
-    color: #004F98;
+  margin-top: 10px;
+  color: #004f98;
 }

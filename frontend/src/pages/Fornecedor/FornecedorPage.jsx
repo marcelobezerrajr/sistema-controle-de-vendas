@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import SearchComponent from '../../components/SearchComponent';
-import useFornecedor from '../../hooks/useFornecedor'
-import MainLayout from '../../layouts/MainLayout';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/Gerenciamento.css';
+import React, { useState, useEffect } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import SearchComponent from "../../components/SearchComponent";
+import useFornecedor from "../../hooks/useFornecedor";
+import MainLayout from "../../layouts/MainLayout";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Gerenciamento.css";
 
 const FornecedorPage = () => {
   const { fornecedores, loading, removeFornecedor } = useFornecedor();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
   const [filteredFornecedores, setFilteredFornecedores] = useState([]);
- 
+
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   useEffect(() => {
     setFilteredFornecedores(fornecedores);
@@ -24,8 +24,10 @@ const FornecedorPage = () => {
     if (!searchTerm) {
       setFilteredFornecedores(fornecedores);
     } else {
-      const filtered = fornecedores.filter(fornecedor =>
-        fornecedor.nome_fornecedor.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = fornecedores.filter((fornecedor) =>
+        fornecedor.nome_fornecedor
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
       );
       setFilteredFornecedores(filtered);
     }
@@ -37,7 +39,6 @@ const FornecedorPage = () => {
 
   const handleEditFornecedor = async (id_fornecedor) => {
     navigate(`/fornecedor/update/${id_fornecedor}`);
-
   };
 
   const handleViewFornecedor = async (id_fornecedor) => {
@@ -50,12 +51,17 @@ const FornecedorPage = () => {
     setAlertVariant("success");
   };
 
-  const columns = ['id_fornecedor','nome_fornecedor', 'percentual_comissao', 'impostos'];
+  const columns = [
+    "id_fornecedor",
+    "nome_fornecedor",
+    "percentual_comissao",
+    "impostos",
+  ];
 
   const actions = {
     view: handleViewFornecedor,
     update: handleEditFornecedor,
-    delete: handleDeleteFornecedor
+    delete: handleDeleteFornecedor,
   };
 
   return (
@@ -65,19 +71,29 @@ const FornecedorPage = () => {
           <h2>Gerenciamento de Fornecedores</h2>
 
           <div className="actions-section d-flex align-items-center">
-            <SearchComponent placeholder="Buscar fornecedores..." onSearch={handleSearch} />
+            <SearchComponent
+              placeholder="Buscar fornecedores..."
+              onSearch={handleSearch}
+            />
 
-            {(userPermission === 'Admin' || userPermission === 'User') && (
-              <button variant="primary" className="custom-button" onClick={handleAddFornecedor}>
-                  Adicionar Fornecedor
+            {(userPermission === "Admin" || userPermission === "User") && (
+              <button
+                variant="primary"
+                className="custom-button"
+                onClick={handleAddFornecedor}
+              >
+                Adicionar Fornecedor
               </button>
             )}
-
           </div>
         </div>
 
         {alertMessage && (
-          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage("")}>
+          <Alert
+            className="alert-success"
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}
@@ -85,7 +101,9 @@ const FornecedorPage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : filteredFornecedores.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum fornecedor encontrado.</Alert>
+          <Alert className="alert-error" variant="warning">
+            Nenhum fornecedor encontrado.
+          </Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
@@ -100,12 +118,12 @@ const FornecedorPage = () => {
             <tbody>
               {filteredFornecedores.map((fornecedor) => (
                 <TableRow
-                 key={fornecedor.id_fornecedor}
-                 rowData={fornecedor}
-                 columns={columns}
-                 actions={actions}
-                 idField="id_fornecedor"
-               />
+                  key={fornecedor.id_fornecedor}
+                  rowData={fornecedor}
+                  columns={columns}
+                  actions={actions}
+                  idField="id_fornecedor"
+                />
               ))}
             </tbody>
           </Table>

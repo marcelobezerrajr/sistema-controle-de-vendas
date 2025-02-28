@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Spinner, Alert, Form, Button, Row, Col, Container } from 'react-bootstrap';
-import { FaSave } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
-import useParcela from '../../hooks/useParcela';
-import useVendas from '../../hooks/useVenda';
-import MainLayout from '../../layouts/MainLayout';
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  Spinner,
+  Alert,
+  Form,
+  Button,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
+import { FaSave } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import useParcela from "../../hooks/useParcela";
+import useVendas from "../../hooks/useVenda";
+import MainLayout from "../../layouts/MainLayout";
 import "../../styles/Parcela.css";
 
 const formatDate = (date, format = "yyyy-MM-dd") => {
   if (!date) return "";
   const d = new Date(date);
   const year = d.getFullYear();
-  const month = (`0${d.getMonth() + 1}`).slice(-2);
-  const day = (`0${d.getDate()}`).slice(-2);
-  return format === "yyyy-MM-dd" ? `${year}-${month}-${day}` : `${year}/${month}/${day}`;
+  const month = `0${d.getMonth() + 1}`.slice(-2);
+  const day = `0${d.getDate()}`.slice(-2);
+  return format === "yyyy-MM-dd"
+    ? `${year}-${month}-${day}`
+    : `${year}/${month}/${day}`;
 };
 
 const UpdateParcela = () => {
@@ -21,13 +32,13 @@ const UpdateParcela = () => {
   const { getParcela, updateParcelaData } = useParcela();
   const { getVenda } = useVendas();
   const [parcelaData, setParcelaData] = useState({
-    id_venda: '', 
-    numero_parcela: '', 
-    valor_parcela: '', 
-    status: '', 
-    data_prevista: '', 
-    data_recebimento: '', 
-    forma_recebimento: ''
+    id_venda: "",
+    numero_parcela: "",
+    valor_parcela: "",
+    status: "",
+    data_prevista: "",
+    data_recebimento: "",
+    forma_recebimento: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -35,7 +46,7 @@ const UpdateParcela = () => {
 
   useEffect(() => {
     if (!id_parcela) {
-      setErrors({ form: 'ID de Parcela não definido.' });
+      setErrors({ form: "ID de Parcela não definido." });
       return;
     }
     const fetchParcela = async () => {
@@ -45,10 +56,10 @@ const UpdateParcela = () => {
         setParcelaData({
           ...data,
           data_prevista: formatDate(data.data_prevista, "yyyy-MM-dd"),
-          data_recebimento: formatDate(data.data_recebimento, "yyyy-MM-dd")
+          data_recebimento: formatDate(data.data_recebimento, "yyyy-MM-dd"),
         });
       } catch (error) {
-        setErrors({ form: 'Erro ao carregar os dados da parcela.' });
+        setErrors({ form: "Erro ao carregar os dados da parcela." });
       } finally {
         setLoading(false);
       }
@@ -68,12 +79,19 @@ const UpdateParcela = () => {
   const validateForm = () => {
     const newErrors = {};
     if (!parcelaData.id_venda) newErrors.id_venda = "ID de Venda é obrigatório";
-    if (!parcelaData.numero_parcela) newErrors.numero_parcela = "Número da quantidade de Parcelas é obrigatório";
-    if (!parcelaData.valor_parcela || parcelaData.valor_parcela <= 0) newErrors.valor_parcela = "Valor da Parcela inválido";
-    if (!parcelaData.data_prevista) newErrors.data_prevista = "Data Prevista é obrigatória";
-    if (!parcelaData.status) newErrors.status = "Status da Parcela é obrigatório";
-    if (!parcelaData.forma_recebimento) newErrors.forma_recebimento = "Forma de Recebimento da Parcela é obrigatório";
-    
+    if (!parcelaData.numero_parcela)
+      newErrors.numero_parcela =
+        "Número da quantidade de Parcelas é obrigatório";
+    if (!parcelaData.valor_parcela || parcelaData.valor_parcela <= 0)
+      newErrors.valor_parcela = "Valor da Parcela inválido";
+    if (!parcelaData.data_prevista)
+      newErrors.data_prevista = "Data Prevista é obrigatória";
+    if (!parcelaData.status)
+      newErrors.status = "Status da Parcela é obrigatório";
+    if (!parcelaData.forma_recebimento)
+      newErrors.forma_recebimento =
+        "Forma de Recebimento da Parcela é obrigatório";
+
     return newErrors;
   };
 
@@ -82,39 +100,44 @@ const UpdateParcela = () => {
     setLoading(true);
     setErrors({});
     setSuccess(null);
-  
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setLoading(false);
       return;
     }
-    
+
     const formattedData = {
       ...parcelaData,
       data_prevista: formatDate(parcelaData.data_prevista, "yyyy/MM/dd"),
-      data_recebimento: parcelaData.data_recebimento ? formatDate(parcelaData.data_recebimento, "yyyy/MM/dd") : null
+      data_recebimento: parcelaData.data_recebimento
+        ? formatDate(parcelaData.data_recebimento, "yyyy/MM/dd")
+        : null,
     };
-  
+
     let validationErrorExists = false;
-  
+
     try {
       await getVenda(parcelaData.id_venda);
     } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, id_venda: 'ID da Venda inválido ou não encontrado.' }));
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        id_venda: "ID da Venda inválido ou não encontrado.",
+      }));
       validationErrorExists = true;
     }
-  
+
     if (validationErrorExists) {
       setLoading(false);
       return;
     }
-  
+
     try {
       await updateParcelaData(id_parcela, formattedData);
-      setSuccess('Parcela atualizada com sucesso!');
+      setSuccess("Parcela atualizada com sucesso!");
     } catch (error) {
-      setErrors({ form: 'Erro ao atualizar a parcela. Tente novamente.' });
+      setErrors({ form: "Erro ao atualizar a parcela. Tente novamente." });
     } finally {
       setLoading(false);
     }
@@ -138,164 +161,220 @@ const UpdateParcela = () => {
   return (
     <MainLayout>
       <div className="parcela-div">
-        <Container className='parcela-container'>
-            <Row className='justify-content-md-center'>
-                <Col md={12} lg={10}>
-                    <Card className="parcela-card">
-                    <Card.Header className="parcela-card-header">
-                        <h4>Atualizar Parcela</h4>
-                    </Card.Header>
-                    <Card.Body className="parcela-card-body">
-                        {loading && (
-                        <div className="parcela-spinner">
-                            <Spinner animation="border" />
-                        </div>
-                        )}
-                        {errors.form && (
-                        <Alert variant="danger" className="parcela-alert-error">
-                            {errors.form}
-                        </Alert>
-                        )}
-                        {success && (
-                        <Alert variant="success" className="parcela-alert-success">
-                            {success}
-                        </Alert>
-                        )}
-                        <Form onSubmit={handleSubmit}>
-                        <Row>
-                            <Col md={6}>
-                            <Form.Group className="parcela-form-group" controlId="id_venda">
-                                <Form.Label className='parcela-form-label'>ID Venda</Form.Label>
-                                <Form.Control
-                                className="parcela-form-control-custom"
-                                type="number"
-                                name="id_venda"
-                                value={parcelaData.id_venda}
-                                onChange={handleChange}
-                                isInvalid={!!errors.id_venda}
-                                placeholder="Digite o ID da Venda"
-                                step="1"
-                                required
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.id_venda}</Form.Control.Feedback>
-                            </Form.Group>
-                            </Col>
+        <Container className="parcela-container">
+          <Row className="justify-content-md-center">
+            <Col md={12} lg={10}>
+              <Card className="parcela-card">
+                <Card.Header className="parcela-card-header">
+                  <h4>Atualizar Parcela</h4>
+                </Card.Header>
+                <Card.Body className="parcela-card-body">
+                  {loading && (
+                    <div className="parcela-spinner">
+                      <Spinner animation="border" />
+                    </div>
+                  )}
+                  {errors.form && (
+                    <Alert variant="danger" className="parcela-alert-error">
+                      {errors.form}
+                    </Alert>
+                  )}
+                  {success && (
+                    <Alert variant="success" className="parcela-alert-success">
+                      {success}
+                    </Alert>
+                  )}
+                  <Form onSubmit={handleSubmit}>
+                    <Row>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="id_venda"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            ID Venda
+                          </Form.Label>
+                          <Form.Control
+                            className="parcela-form-control-custom"
+                            type="number"
+                            name="id_venda"
+                            value={parcelaData.id_venda}
+                            onChange={handleChange}
+                            isInvalid={!!errors.id_venda}
+                            placeholder="Digite o ID da Venda"
+                            step="1"
+                            required
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.id_venda}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                            <Col md={6}>
-                            <Form.Group className="parcela-form-group" controlId="numero_parcela">
-                                <Form.Label className='parcela-form-label'>Número da Parcela</Form.Label>
-                                <Form.Control
-                                className="parcela-form-control-custom"
-                                type="number"
-                                name="numero_parcela"
-                                value={parcelaData.numero_parcela}
-                                onChange={handleChange}
-                                isInvalid={!!errors.numero_parcela}
-                                placeholder="Digite o Número da Parcela"
-                                step="1"
-                                required
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.numero_parcela}</Form.Control.Feedback>
-                            </Form.Group>
-                            </Col>
-                            
-                            <Col md={6}>
-                            <Form.Group className="parcela-form-group" controlId="valor_parcela">
-                                <Form.Label className='parcela-form-label'>Valor da Parcela</Form.Label>
-                                <Form.Control
-                                className="parcela-form-control-custom"
-                                type="number"
-                                name="valor_parcela"
-                                value={parcelaData.valor_parcela}
-                                onChange={handleChange}
-                                isInvalid={!!errors.valor_parcela}
-                                placeholder="Digite o Valor da Parcela"
-                                step="0.01"
-                                required
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.valor_parcela}</Form.Control.Feedback>
-                            </Form.Group>
-                            </Col>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="numero_parcela"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Número da Parcela
+                          </Form.Label>
+                          <Form.Control
+                            className="parcela-form-control-custom"
+                            type="number"
+                            name="numero_parcela"
+                            value={parcelaData.numero_parcela}
+                            onChange={handleChange}
+                            isInvalid={!!errors.numero_parcela}
+                            placeholder="Digite o Número da Parcela"
+                            step="1"
+                            required
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.numero_parcela}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                            <Col md={6}>
-                            <Form.Group className="parcela-form-group" controlId="status">
-                                <Form.Label className='parcela-form-label'>Status Parcela</Form.Label>
-                                <Form.Select
-                                className="parcela-form-select-custom"
-                                name="status"
-                                value={parcelaData.status}
-                                onChange={handleChange}
-                                isInvalid={!!errors.status}
-                                required
-                                >
-                                <option value="">Selecionar Status Parcela</option>
-                                {getStatusParcelaOptions()}
-                                </Form.Select>
-                                <Form.Control.Feedback type="invalid">{errors.status}</Form.Control.Feedback>
-                            </Form.Group>
-                            </Col>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="valor_parcela"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Valor da Parcela
+                          </Form.Label>
+                          <Form.Control
+                            className="parcela-form-control-custom"
+                            type="number"
+                            name="valor_parcela"
+                            value={parcelaData.valor_parcela}
+                            onChange={handleChange}
+                            isInvalid={!!errors.valor_parcela}
+                            placeholder="Digite o Valor da Parcela"
+                            step="0.01"
+                            required
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.valor_parcela}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                            <Col md={6}>
-                            <Form.Group className="parcela-form-group" controlId="forma_recebimento">
-                                <Form.Label className='parcela-form-label'>Forma Recebimento</Form.Label>
-                                <Form.Select
-                                className="parcela-form-select-custom"
-                                name="forma_recebimento"
-                                value={parcelaData.forma_recebimento}
-                                onChange={handleChange}
-                                isInvalid={!!errors.forma_recebimento}
-                                required
-                                >
-                                <option value="">Selecionar Forma Recebimento</option>
-                                {getFormaRecebimentoOptions()}
-                                </Form.Select>
-                                <Form.Control.Feedback type="invalid">{errors.forma_recebimento}</Form.Control.Feedback>
-                            </Form.Group>
-                            </Col>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="status"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Status Parcela
+                          </Form.Label>
+                          <Form.Select
+                            className="parcela-form-select-custom"
+                            name="status"
+                            value={parcelaData.status}
+                            onChange={handleChange}
+                            isInvalid={!!errors.status}
+                            required
+                          >
+                            <option value="">Selecionar Status Parcela</option>
+                            {getStatusParcelaOptions()}
+                          </Form.Select>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.status}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                            <Col md={6}>
-                              <Form.Group className="parcela-form-group" controlId="data_prevista">
-                                <Form.Label className='parcela-form-label'>Data Prevista</Form.Label>
-                                <Form.Control
-                                  className="parcela-form-control-custom"
-                                  type="date"
-                                  name="data_prevista"
-                                  value={parcelaData.data_prevista || ""}
-                                  onChange={handleChange}
-                                  isInvalid={!!errors.data_prevista}
-                                  required
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.data_prevista}</Form.Control.Feedback>
-                              </Form.Group>
-                            </Col>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="forma_recebimento"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Forma Recebimento
+                          </Form.Label>
+                          <Form.Select
+                            className="parcela-form-select-custom"
+                            name="forma_recebimento"
+                            value={parcelaData.forma_recebimento}
+                            onChange={handleChange}
+                            isInvalid={!!errors.forma_recebimento}
+                            required
+                          >
+                            <option value="">
+                              Selecionar Forma Recebimento
+                            </option>
+                            {getFormaRecebimentoOptions()}
+                          </Form.Select>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.forma_recebimento}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                            <Col md={6}>
-                              <Form.Group className="parcela-form-group" controlId="data_recebimento">
-                                <Form.Label className='parcela-form-label'>Data de Recebimento</Form.Label>
-                                <Form.Control
-                                  className="parcela-form-control-custom"
-                                  type="date"
-                                  name="data_recebimento"
-                                  value={parcelaData.data_recebimento || ""}
-                                  onChange={handleChange}
-                                  isInvalid={!!errors.data_recebimento}
-                                />
-                                <Form.Control.Feedback type="invalid">{errors.data_recebimento}</Form.Control.Feedback>
-                              </Form.Group>
-                            </Col>
-                        </Row>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="data_prevista"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Data Prevista
+                          </Form.Label>
+                          <Form.Control
+                            className="parcela-form-control-custom"
+                            type="date"
+                            name="data_prevista"
+                            value={parcelaData.data_prevista || ""}
+                            onChange={handleChange}
+                            isInvalid={!!errors.data_prevista}
+                            required
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.data_prevista}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
 
-                        <div className="button-container">
-                            <Button className="parcela-button-container" variant="primary" type="submit" disabled={loading}>
-                            <FaSave className="me-2" />
-                            {loading ? 'Salvando...' : ' Salvar Parcela'}
-                            </Button>
-                        </div>
-                        </Form>
-                    </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
+                      <Col md={6}>
+                        <Form.Group
+                          className="parcela-form-group"
+                          controlId="data_recebimento"
+                        >
+                          <Form.Label className="parcela-form-label">
+                            Data de Recebimento
+                          </Form.Label>
+                          <Form.Control
+                            className="parcela-form-control-custom"
+                            type="date"
+                            name="data_recebimento"
+                            value={parcelaData.data_recebimento || ""}
+                            onChange={handleChange}
+                            isInvalid={!!errors.data_recebimento}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.data_recebimento}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+
+                    <div className="button-container">
+                      <Button
+                        className="parcela-button-container"
+                        variant="primary"
+                        type="submit"
+                        disabled={loading}
+                      >
+                        <FaSave className="me-2" />
+                        {loading ? "Salvando..." : " Salvar Parcela"}
+                      </Button>
+                    </div>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
         </Container>
       </div>
     </MainLayout>

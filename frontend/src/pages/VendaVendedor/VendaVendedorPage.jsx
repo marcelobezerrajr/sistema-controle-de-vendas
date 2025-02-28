@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import SearchComponent from '../../components/SearchComponent';
-import useVendaVendedor from '../../hooks/useVendaVendedor';
-import MainLayout from '../../layouts/MainLayout';
-import FilterComponent from '../../components/FilterComponent';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import SearchComponent from "../../components/SearchComponent";
+import useVendaVendedor from "../../hooks/useVendaVendedor";
+import MainLayout from "../../layouts/MainLayout";
+import FilterComponent from "../../components/FilterComponent";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Gerenciamento.css";
 
 const VendaVendedorPage = () => {
   const { vendaVendedor, loading } = useVendaVendedor();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
-  const [tipoVendaVendedorFilter, setTipoVendaVendedorFilter] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
+  const [tipoVendaVendedorFilter, setTipoVendaVendedorFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredVendaVendedores, setFilteredVendaVendedores] = useState([]);
-  
+
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   useEffect(() => {
     const filtered = vendaVendedor.filter((vendavendedores) => {
-      const matchesTipoVendedor = tipoVendaVendedorFilter ? vendavendedores.tipo_participacao === tipoVendaVendedorFilter : true;
-      const matchesSearchTerm = searchTerm ? 
-        vendavendedores.id_vendedor.toString().includes(searchTerm) : true;
+      const matchesTipoVendedor = tipoVendaVendedorFilter
+        ? vendavendedores.tipo_participacao === tipoVendaVendedorFilter
+        : true;
+      const matchesSearchTerm = searchTerm
+        ? vendavendedores.id_vendedor.toString().includes(searchTerm)
+        : true;
 
       return matchesTipoVendedor && matchesSearchTerm;
     });
@@ -45,20 +48,24 @@ const VendaVendedorPage = () => {
 
   const handleViewVendaVendedor = (id_venda, id_vendedor) => {
     const url = `/venda-vendedor/view/${id_venda}/${id_vendedor}`;
-    console.log("Navigating to:", url);  // Adicione este log para verificar
+    console.log("Navigating to:", url); // Adicione este log para verificar
     navigate(url);
   };
-  
 
-  const columns = ['id_venda', 'id_vendedor', 'tipo_participacao', 'percentual_comissao'];
+  const columns = [
+    "id_venda",
+    "id_vendedor",
+    "tipo_participacao",
+    "percentual_comissao",
+  ];
 
   const actions = {
-    view: handleViewVendaVendedor
+    view: handleViewVendaVendedor,
   };
 
   const tipoVendaVendedorOptions = [
-    { value: 'Inside Sales', label: 'Inside Sales' },
-    { value: 'Account Executive', label: 'Account Executive' },
+    { value: "Inside Sales", label: "Inside Sales" },
+    { value: "Account Executive", label: "Account Executive" },
   ];
 
   return (
@@ -75,12 +82,18 @@ const VendaVendedorPage = () => {
               selectedFilter={tipoVendaVendedorFilter}
             />
           </div>
-          
+
           <div className="actions-section d-flex align-items-center">
-            <SearchComponent placeholder="Buscar vendedor..." onSearch={handleSearch} />
-            
-            {(userPermission === 'Admin' || userPermission === 'User') && (
-              <button className="custom-button ml-2" onClick={handleAddVendaVendedor}>
+            <SearchComponent
+              placeholder="Buscar vendedor..."
+              onSearch={handleSearch}
+            />
+
+            {(userPermission === "Admin" || userPermission === "User") && (
+              <button
+                className="custom-button ml-2"
+                onClick={handleAddVendaVendedor}
+              >
                 Adicionar Venda Vendedor
               </button>
             )}
@@ -88,7 +101,11 @@ const VendaVendedorPage = () => {
         </div>
 
         {alertMessage && (
-          <Alert className={`alert-${alertVariant}`} variant={alertVariant} onClose={() => setAlertMessage("")}>
+          <Alert
+            className={`alert-${alertVariant}`}
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}
@@ -96,7 +113,9 @@ const VendaVendedorPage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : filteredVendaVendedores.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhuma venda encontrada.</Alert>
+          <Alert className="alert-error" variant="warning">
+            Nenhuma venda encontrada.
+          </Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>

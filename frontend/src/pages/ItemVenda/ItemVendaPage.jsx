@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import useItemVenda from '../../hooks/useItemVenda';
-import MainLayout from '../../layouts/MainLayout';
-import { useNavigate } from 'react-router-dom';
-import "../../styles/Gerenciamento.css"
+import React, { useState } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import useItemVenda from "../../hooks/useItemVenda";
+import MainLayout from "../../layouts/MainLayout";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Gerenciamento.css";
 
 const ItemVendaPage = () => {
   const { itemVenda, loading } = useItemVenda();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
 
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   const handleAddItemVenda = async () => {
     navigate(`/item-venda/create`);
@@ -22,10 +22,17 @@ const ItemVendaPage = () => {
     navigate(`/item-venda/view/${id_item_venda}`);
   };
 
-  const columns = ['id_item_venda', 'id_venda', 'id_produto', 'quantidade', 'preco_unitario', 'subtotal'];
+  const columns = [
+    "id_item_venda",
+    "id_venda",
+    "id_produto",
+    "quantidade",
+    "preco_unitario",
+    "subtotal",
+  ];
 
   const actions = {
-    view: handleViewItemVenda
+    view: handleViewItemVenda,
   };
 
   return (
@@ -34,15 +41,23 @@ const ItemVendaPage = () => {
         <div className="header-section">
           <h2>Gerenciamento de Item Venda</h2>
 
-          {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddItemVenda}>
+          {(userPermission === "Admin" || userPermission === "User") && (
+            <button
+              variant="primary"
+              className="custom-button"
+              onClick={handleAddItemVenda}
+            >
               Adicionar Item Venda
             </button>
           )}
         </div>
 
         {alertMessage && (
-          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage("")}>
+          <Alert
+            className="alert-success"
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}
@@ -50,7 +65,9 @@ const ItemVendaPage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : itemVenda.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhuma item venda encontrada.</Alert>
+          <Alert className="alert-error" variant="warning">
+            Nenhuma item venda encontrada.
+          </Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>

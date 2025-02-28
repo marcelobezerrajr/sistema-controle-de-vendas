@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import SearchComponent from '../../components/SearchComponent';
-import useCliente from '../../hooks/useCliente';
-import MainLayout from '../../layouts/MainLayout';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import SearchComponent from "../../components/SearchComponent";
+import useCliente from "../../hooks/useCliente";
+import MainLayout from "../../layouts/MainLayout";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Gerenciamento.css";
 
 const ClientePage = () => {
   const { clientes, loading, removeCliente } = useCliente();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
   const [filteredClientes, setFilteredClientes] = useState([]);
 
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   useEffect(() => {
     setFilteredClientes(clientes);
@@ -24,7 +24,7 @@ const ClientePage = () => {
     if (!searchTerm) {
       setFilteredClientes(clientes);
     } else {
-      const filtered = clientes.filter(cliente =>
+      const filtered = clientes.filter((cliente) =>
         cliente.nome_cliente.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredClientes(filtered);
@@ -49,12 +49,12 @@ const ClientePage = () => {
     setAlertVariant("success");
   };
 
-  const columns = ['id_cliente', 'nome_cliente', 'cpf_cnpj'];
+  const columns = ["id_cliente", "nome_cliente", "cpf_cnpj"];
 
   const actions = {
     view: handleViewCliente,
     update: handleEditCliente,
-    delete: handleDeleteCliente
+    delete: handleDeleteCliente,
   };
 
   return (
@@ -64,19 +64,29 @@ const ClientePage = () => {
           <h2>Gerenciamento de Clientes</h2>
 
           <div className="actions-section d-flex align-items-center">
-            <SearchComponent placeholder="Buscar clientes..." onSearch={handleSearch} />
-            
-            {(userPermission === 'Admin' || userPermission === 'User') && (
-              <button variant="primary" className="custom-button ml-2" onClick={handleAddCliente}>
+            <SearchComponent
+              placeholder="Buscar clientes..."
+              onSearch={handleSearch}
+            />
+
+            {(userPermission === "Admin" || userPermission === "User") && (
+              <button
+                variant="primary"
+                className="custom-button ml-2"
+                onClick={handleAddCliente}
+              >
                 Adicionar Cliente
               </button>
             )}
-
           </div>
         </div>
 
         {alertMessage && (
-          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage("")}>
+          <Alert
+            className="alert-success"
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}
@@ -84,7 +94,9 @@ const ClientePage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : filteredClientes.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum cliente encontrado.</Alert>
+          <Alert className="alert-error" variant="warning">
+            Nenhum cliente encontrado.
+          </Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>

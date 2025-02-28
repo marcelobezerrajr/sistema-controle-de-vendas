@@ -1,8 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import '../styles/FilterComponent.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "../styles/FilterComponent.css";
 
-const FilterComponent = ({ filterOptions, filterLabel, onFilterChange, selectedFilter }) => {
+const FilterComponent = ({
+  filterOptions,
+  filterLabel,
+  onFilterChange,
+  selectedFilter,
+}) => {
   return (
     <div className="filter-container">
       <label className="filter-label" htmlFor="filterSelect">

@@ -1,154 +1,154 @@
 .venda-vendedor-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: slideIn 1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideIn 1s ease;
 }
 
 .venda-vendedor-container {
-    padding: 10px;
+  padding: 10px;
 }
 
 .venda-vendedor-card {
-    width: 100%;
-    max-width: 700px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    background-color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .venda-vendedor-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .venda-vendedor-card-header {
-    color: #fff;
-    background-color: #004F98;
-    border-radius: 15px 15px 0 0;
-    text-align: center;
-    padding: 15px;
+  color: #fff;
+  background-color: #004f98;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+  padding: 15px;
 }
 
 .venda-vendedor-card-header h4 {
-    margin: 0;
-    font-size: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .venda-vendedor-card-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .venda-vendedor-form-label {
-    color: #004F98;
-    font-weight: bold;
-    padding-left: 7px;
+  color: #004f98;
+  font-weight: bold;
+  padding-left: 7px;
 }
 
 .venda-vendedor-form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .venda-vendedor-form-control-custom {
-    margin-left: 10px;
-    width: 42%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    font-size: 13px;
+  margin-left: 10px;
+  width: 42%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  color: #1684bf;
+  font-size: 13px;
 }
 
-.venda-vendedor-form-control-custom::placeholder{
-    color: #1684BF;
+.venda-vendedor-form-control-custom::placeholder {
+  color: #1684bf;
 }
 
 .venda-vendedor-form-control-custom:focus {
-    border-color: #1684BF;
-    box-shadow: none;
+  border-color: #1684bf;
+  box-shadow: none;
 }
 
 .venda-vendedor-form-control-custom.is-invalid {
-    border-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .venda-vendedor-form-select-custom {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    margin-left: 10px;
-    font-size: 13px !important;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  color: #1684bf;
+  margin-left: 10px;
+  font-size: 13px !important;
 }
 
 .venda-vendedor-invalid-feedback {
-    color: #dc3545;
-    font-size: 0.875rem;
+  color: #dc3545;
+  font-size: 0.875rem;
 }
 
 .venda-vendedor-btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #1684BF;
-    color: #fff;
-    border: none;
-    transition: background-color 0.3s;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #1684bf;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
 }
 
 .venda-vendedor-btn:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .venda-vendedor-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .venda-vendedor-alert {
-    margin-top: 10px;
-    color: #004F98;
+  margin-top: 10px;
+  color: #004f98;
 }
 
 .venda-vendedor-alert-error {
-    padding: 7px;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
-    margin-bottom: 15px;
-  }
-  
-  .venda-vendedor-alert-success {
-    padding: 7px;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-    margin-bottom: 15px;
-  }
+  padding: 7px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  margin-bottom: 15px;
+}
 
-  .venda-vendedor-button-container {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #1684BF;
-    color: #fff;
-    border: none;
-    transition: background-color 0.3s;
-    }
+.venda-vendedor-alert-success {
+  padding: 7px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  margin-bottom: 15px;
+}
 
-    .venda-vendedor-button-container:hover {
-        background-color: #0056b3;
-    }
+.venda-vendedor-button-container {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #1684bf;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.venda-vendedor-button-container:hover {
+  background-color: #0056b3;
+}
 
 @media (max-width: 768px) {
-    .venda-vendedor-card {
-        margin: 20px;
-    }
+  .venda-vendedor-card {
+    margin: 20px;
+  }
 }

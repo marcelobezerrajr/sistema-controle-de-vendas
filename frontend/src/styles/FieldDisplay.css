@@ -1,16 +1,16 @@
 .field-display {
-    font-size: 1.1rem;
-    color: #333;
-    animation: slideIn 1s ease;
-    margin-bottom: 10px;
-  }
-  
-  .field-display b {
-    color: #004F98;
-  }
-  
-  .detail-separator {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin: 10px 0;
-  }
+  font-size: 1.1rem;
+  color: #333;
+  animation: slideIn 1s ease;
+  margin-bottom: 10px;
+}
+
+.field-display b {
+  color: #004f98;
+}
+
+.detail-separator {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 10px 0;
+}

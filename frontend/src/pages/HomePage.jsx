@@ -1,9 +1,9 @@
-import React from 'react';
-import { Navbar } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import Footer from '../components/Footer'; 
-import logo from '../assets/logo_marcelo_desenvolvedor.png';
-import '../styles/Home.css';
+import React from "react";
+import { Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import "../styles/Home.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -12,11 +12,20 @@ const HomePage = () => {
     <div className="home-container">
       <Navbar expand="lg" className="home-navbar">
         <Navbar.Brand href="/">
-          <img src={logo} alt="Logo Marcelo Desenvolvedor" className="logo-dev" />
+          <img
+            src={logo}
+            alt="Logo Marcelo Desenvolvedor"
+            className="logo-dev"
+          />
         </Navbar.Brand>
         <div className="home-buttons">
-          <button variant="primary" onClick={() => navigate('/login')}>Login</button>
-          <button variant="outline-primary" onClick={() => alert('(Entrando em Contato)!')}>
+          <button variant="primary" onClick={() => navigate("/login")}>
+            Login
+          </button>
+          <button
+            variant="outline-primary"
+            onClick={() => alert("(Entrando em Contato)!")}
+          >
             Entre em Contato
           </button>
         </div>
@@ -30,7 +39,10 @@ const HomePage = () => {
       <div className="features">
         <div className="feature">
           <h2>Gestão de Clientes</h2>
-          <p>Gerencie seus clientes de forma eficiente com ferramentas intuitivas.</p>
+          <p>
+            Gerencie seus clientes de forma eficiente com ferramentas
+            intuitivas.
+          </p>
         </div>
         <div className="feature">
           <h2>Monitoramento de Vendas</h2>

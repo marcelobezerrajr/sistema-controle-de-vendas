@@ -1,6 +1,12 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getAllProdutos, getProdutoById, createProduto, updateProduto, deleteProduto } from '../services/produtoService';
-import { LoginContext } from './LoginContext';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import {
+  getAllProdutos,
+  getProdutoById,
+  createProduto,
+  updateProduto,
+  deleteProduto,
+} from "../services/produtoService";
+import { LoginContext } from "./LoginContext";
 
 export const ProdutoContext = createContext();
 
@@ -18,7 +24,7 @@ export const ProdutoProvider = ({ children }) => {
         const data = await getAllProdutos();
         setProdutos(data);
       } catch (error) {
-        console.error('Erro ao carregar Produtos:', error);
+        console.error("Erro ao carregar Produtos:", error);
       } finally {
         setLoading(false);
       }
@@ -30,7 +36,8 @@ export const ProdutoProvider = ({ children }) => {
   const getProduto = async (id_produto) => {
     try {
       const produto = await getProdutoById(id_produto);
-      if (!produto) throw new Error(`Produto com ID ${id_produto} não encontrado.`);
+      if (!produto)
+        throw new Error(`Produto com ID ${id_produto} não encontrado.`);
       return produto;
     } catch (error) {
       console.error(`Erro ao carregar produto com ID ${id_produto}:`, error);
@@ -42,10 +49,14 @@ export const ProdutoProvider = ({ children }) => {
     try {
       const newProduto = await createProduto(produto);
       setProdutos((prev) => [...prev, newProduto]);
-      return { success: true, message: 'Produto adicionado com sucesso!' };
+      return { success: true, message: "Produto adicionado com sucesso!" };
     } catch (error) {
-      console.error("Erro ao adicionar produto:", error)
-      return { success: false, message: 'Erro ao adicionar o produto. Verifique os dados e tente novamente.' };
+      console.error("Erro ao adicionar produto:", error);
+      return {
+        success: false,
+        message:
+          "Erro ao adicionar o produto. Verifique os dados e tente novamente.",
+      };
     }
   };
 
@@ -53,26 +64,43 @@ export const ProdutoProvider = ({ children }) => {
     try {
       const updatedProduto = await updateProduto(id_produto, produtoData);
       setProdutos((prev) =>
-        prev.map((produto) => (produto.id_produto === id_produto ? updatedProduto : produto))
+        prev.map((produto) =>
+          produto.id_produto === id_produto ? updatedProduto : produto
+        )
       );
-      return { success: true, message: 'Produto atualizado com sucesso!' };
+      return { success: true, message: "Produto atualizado com sucesso!" };
     } catch (error) {
       console.error("Erro ao atualizar produto:", error);
-      return { success: false, message: 'Erro ao atualizar o produto. Verifique os dados e tente novamente.' };
+      return {
+        success: false,
+        message:
+          "Erro ao atualizar o produto. Verifique os dados e tente novamente.",
+      };
     }
   };
 
   const removeProduto = async (id_produto) => {
     try {
       await deleteProduto(id_produto);
-      setProdutos((prev) => prev.filter((produto) => produto.id_produto !== id_produto));
+      setProdutos((prev) =>
+        prev.filter((produto) => produto.id_produto !== id_produto)
+      );
     } catch (error) {
       console.error("Erro ao deletar produto:", error);
     }
   };
 
   return (
-    <ProdutoContext.Provider value={{ produtos, loading, getProduto, addProduto, updateProdutoData, removeProduto }}>
+    <ProdutoContext.Provider
+      value={{
+        produtos,
+        loading,
+        getProduto,
+        addProduto,
+        updateProdutoData,
+        removeProduto,
+      }}
+    >
       {children}
     </ProdutoContext.Provider>
   );

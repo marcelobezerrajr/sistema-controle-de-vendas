@@ -1,18 +1,18 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import loginService from '../services/loginService';
+import React, { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import loginService from "../services/loginService";
 
 export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    
+    const token = localStorage.getItem("access_token");
+
     if (token) {
       loginService
         .getUserFromToken(token)
@@ -20,7 +20,7 @@ export const LoginProvider = ({ children }) => {
           setUser(userData);
         })
         .catch(() => {
-          localStorage.removeItem('access_token');
+          localStorage.removeItem("access_token");
           setUser(null);
         })
         .finally(() => setLoading(false));
@@ -31,14 +31,14 @@ export const LoginProvider = ({ children }) => {
 
   const login = async (email, password) => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const userData = await loginService.login(email, password);
       setUser(userData);
-      navigate('/clientes');
+      navigate("/clientes");
     } catch (error) {
       setError(error.message);
-      console.error('Erro no login:', error);
+      console.error("Erro no login:", error);
     } finally {
       setLoading(false);
     }
@@ -47,8 +47,8 @@ export const LoginProvider = ({ children }) => {
   const logout = () => {
     loginService.logout();
     setUser(null);
-    localStorage.removeItem('access_token');
-    navigate('/login');
+    localStorage.removeItem("access_token");
+    navigate("/login");
   };
 
   return (

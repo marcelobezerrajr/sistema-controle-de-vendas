@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
-import TableRow from '../../components/TableRow';
-import SearchComponent from '../../components/SearchComponent';
-import useProduto from '../../hooks/useProduto'
-import MainLayout from '../../layouts/MainLayout';
-import FilterComponent from '../../components/FilterComponent';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/Gerenciamento.css';
+import React, { useState, useEffect } from "react";
+import { Table, Alert } from "react-bootstrap";
+import TableRow from "../../components/TableRow";
+import SearchComponent from "../../components/SearchComponent";
+import useProduto from "../../hooks/useProduto";
+import MainLayout from "../../layouts/MainLayout";
+import FilterComponent from "../../components/FilterComponent";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Gerenciamento.css";
 
 const ProdutoPage = () => {
   const { produtos, loading, removeProduto } = useProduto();
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
-  const [tipoProdutoFilter, setTipoProdutoFilter] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
+  const [tipoProdutoFilter, setTipoProdutoFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredProdutos, setFilteredProdutos] = useState([]);
- 
+
   const navigate = useNavigate();
-  const userPermission = localStorage.getItem('user_permission');
+  const userPermission = localStorage.getItem("user_permission");
 
   useEffect(() => {
     const filtered = produtos.filter((produto) => {
-      const matchesTipoProduto = tipoProdutoFilter ? produto.tipo === tipoProdutoFilter : true;
-      const matchesSearchTerm = searchTerm ?
-        produto.nome_produto.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      const matchesTipoProduto = tipoProdutoFilter
+        ? produto.tipo === tipoProdutoFilter
+        : true;
+      const matchesSearchTerm = searchTerm
+        ? produto.nome_produto.toLowerCase().includes(searchTerm.toLowerCase())
+        : true;
 
       return matchesTipoProduto && matchesSearchTerm;
     });
@@ -45,7 +48,6 @@ const ProdutoPage = () => {
 
   const handleEditProduto = async (id_produto) => {
     navigate(`/produto/update/${id_produto}`);
-
   };
 
   const handleViewProduto = async (id_produto) => {
@@ -58,17 +60,23 @@ const ProdutoPage = () => {
     setAlertVariant("success");
   };
 
-  const columns = ['id_produto', 'nome_produto', 'descricao_produto', 'preco', 'tipo'];
+  const columns = [
+    "id_produto",
+    "nome_produto",
+    "descricao_produto",
+    "preco",
+    "tipo",
+  ];
 
   const actions = {
     view: handleViewProduto,
     update: handleEditProduto,
-    delete: handleDeleteProduto
+    delete: handleDeleteProduto,
   };
 
   const tipoProdutoOptions = [
-    { value: 'Produto', label: 'Produto' },
-    { value: 'Serviço', label: 'Serviço' },
+    { value: "Produto", label: "Produto" },
+    { value: "Serviço", label: "Serviço" },
   ];
 
   return (
@@ -87,19 +95,29 @@ const ProdutoPage = () => {
           </div>
 
           <div className="actions-section d-flex align-items-center">
-            <SearchComponent placeholder="Buscar produtos..." onSearch={handleSearch} />
+            <SearchComponent
+              placeholder="Buscar produtos..."
+              onSearch={handleSearch}
+            />
 
-          {(userPermission === 'Admin' || userPermission === 'User') && (
-            <button variant="primary" className="custom-button" onClick={handleAddProduto}>
+            {(userPermission === "Admin" || userPermission === "User") && (
+              <button
+                variant="primary"
+                className="custom-button"
+                onClick={handleAddProduto}
+              >
                 Adicionar Produto
-            </button>
-          )}
-
+              </button>
+            )}
           </div>
         </div>
 
         {alertMessage && (
-          <Alert className="alert-success" variant={alertVariant} onClose={() => setAlertMessage("")}>
+          <Alert
+            className="alert-success"
+            variant={alertVariant}
+            onClose={() => setAlertMessage("")}
+          >
             {alertMessage}
           </Alert>
         )}
@@ -107,7 +125,9 @@ const ProdutoPage = () => {
         {loading ? (
           <p>Carregando...</p>
         ) : filteredProdutos.length === 0 ? (
-          <Alert className="alert-error" variant="warning">Nenhum produto encontrado.</Alert>
+          <Alert className="alert-error" variant="warning">
+            Nenhum produto encontrado.
+          </Alert>
         ) : (
           <Table striped bordered hover className="custom-table">
             <thead>
@@ -123,12 +143,12 @@ const ProdutoPage = () => {
             <tbody>
               {filteredProdutos.map((produto) => (
                 <TableRow
-                 key={produto.id_produto}
-                 rowData={produto}
-                 columns={columns}
-                 actions={actions}
-                 idField="id_produto"
-               />
+                  key={produto.id_produto}
+                  rowData={produto}
+                  columns={columns}
+                  actions={actions}
+                  idField="id_produto"
+                />
               ))}
             </tbody>
           </Table>

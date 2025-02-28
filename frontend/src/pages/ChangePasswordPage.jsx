@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Card, Form, Spinner, Button } from 'react-bootstrap';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import MainLayout from '../layouts/MainLayout';
-import useChangePassword from '../hooks/useChangePassword';
-import '../styles/ChangePassword.css';
+import React, { useState } from "react";
+import { Card, Form, Spinner, Button } from "react-bootstrap";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import MainLayout from "../layouts/MainLayout";
+import useChangePassword from "../hooks/useChangePassword";
+import "../styles/ChangePassword.css";
 
 const ChangePassword = () => {
   const {
@@ -21,33 +21,33 @@ const ChangePassword = () => {
     togglePasswordVisibility,
   } = useChangePassword();
 
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const validateNewPassword = (password) => {
     if (password.length < 6) {
-      return 'A senha deve ter pelo menos 6 caracteres';
+      return "A senha deve ter pelo menos 6 caracteres";
     }
     if (!/[A-Z]/.test(password)) {
-      return 'A senha deve conter pelo menos uma letra maiúscula';
+      return "A senha deve conter pelo menos uma letra maiúscula";
     }
     if (!/[a-z]/.test(password)) {
-      return 'A senha deve conter pelo menos uma letra minúscula';
+      return "A senha deve conter pelo menos uma letra minúscula";
     }
     if (!/\d/.test(password)) {
-      return 'A senha deve conter pelo menos um número';
+      return "A senha deve conter pelo menos um número";
     }
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      return 'A senha deve conter pelo menos um caractere especial';
+      return "A senha deve conter pelo menos um caractere especial";
     }
-    return '';
+    return "";
   };
 
   const validateConfirmPassword = (password, confirmPassword) => {
     if (password !== confirmPassword) {
-      return 'As senhas não coincidem';
+      return "As senhas não coincidem";
     }
-    return '';
+    return "";
   };
 
   const handleSubmit = (e) => {
@@ -65,8 +65,8 @@ const ChangePassword = () => {
       return;
     }
 
-    setPasswordError('');
-    setConfirmPasswordError('');
+    setPasswordError("");
+    setConfirmPasswordError("");
     handleChangePassword();
   };
 
@@ -79,15 +79,21 @@ const ChangePassword = () => {
           </Card.Header>
           <Card.Body className="change-password-card-body">
             {error && <div className="change-password-error">{error}</div>}
-            {passwordError && <div className="change-password-error">{passwordError}</div>}
-            {message && <div className="change-password-success">{message}</div>}
+            {passwordError && (
+              <div className="change-password-error">{passwordError}</div>
+            )}
+            {message && (
+              <div className="change-password-success">{message}</div>
+            )}
 
             <Form onSubmit={handleSubmit}>
               <Form.Group>
-                <Form.Label className="change-password-form-label">Senha Atual</Form.Label>
+                <Form.Label className="change-password-form-label">
+                  Senha Atual
+                </Form.Label>
                 <div className="change-password-password-container">
                   <Form.Control
-                    type={showPasswords.currentPassword ? 'text' : 'password'}
+                    type={showPasswords.currentPassword ? "text" : "password"}
                     placeholder="Senha Atual"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
@@ -96,7 +102,7 @@ const ChangePassword = () => {
                   <button
                     type="button"
                     className="change-password-password-toggle"
-                    onClick={() => togglePasswordVisibility('currentPassword')}
+                    onClick={() => togglePasswordVisibility("currentPassword")}
                   >
                     {showPasswords.currentPassword ? <FaEye /> : <FaEyeSlash />}
                   </button>
@@ -104,10 +110,12 @@ const ChangePassword = () => {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label className="change-password-form-label">Nova Senha</Form.Label>
+                <Form.Label className="change-password-form-label">
+                  Nova Senha
+                </Form.Label>
                 <div className="change-password-password-container">
                   <Form.Control
-                    type={showPasswords.newPassword ? 'text' : 'password'}
+                    type={showPasswords.newPassword ? "text" : "password"}
                     placeholder="Nova Senha"
                     value={newPassword}
                     onChange={(e) => {
@@ -119,7 +127,7 @@ const ChangePassword = () => {
                   <button
                     type="button"
                     className="change-password-password-toggle"
-                    onClick={() => togglePasswordVisibility('newPassword')}
+                    onClick={() => togglePasswordVisibility("newPassword")}
                   >
                     {showPasswords.newPassword ? <FaEye /> : <FaEyeSlash />}
                   </button>
@@ -127,32 +135,45 @@ const ChangePassword = () => {
               </Form.Group>
 
               <Form.Group>
-                <Form.Label className="change-password-form-label">Confirmar Senha</Form.Label>
+                <Form.Label className="change-password-form-label">
+                  Confirmar Senha
+                </Form.Label>
                 <div className="change-password-password-container">
                   <Form.Control
-                    type={showPasswords.confirmPassword ? 'text' : 'password'}
+                    type={showPasswords.confirmPassword ? "text" : "password"}
                     placeholder="Confirmar Senha"
                     value={confirmPassword}
                     onChange={(e) => {
                       setConfirmPassword(e.target.value);
-                      setConfirmPasswordError(validateConfirmPassword(newPassword, e.target.value));
+                      setConfirmPasswordError(
+                        validateConfirmPassword(newPassword, e.target.value)
+                      );
                     }}
                     className="change-password-form-control-custom"
                   />
                   <button
                     type="button"
                     className="change-password-password-toggle"
-                    onClick={() => togglePasswordVisibility('confirmPassword')}
+                    onClick={() => togglePasswordVisibility("confirmPassword")}
                   >
                     {showPasswords.confirmPassword ? <FaEye /> : <FaEyeSlash />}
                   </button>
                 </div>
               </Form.Group>
 
-              <Button type="submit" className="change-password-button-custom" disabled={loading}>
+              <Button
+                type="submit"
+                className="change-password-button-custom"
+                disabled={loading}
+              >
                 {loading ? (
                   <>
-                    <Spinner animation="border" size="sm" role="status" aria-hidden="true" />
+                    <Spinner
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
                     <span className="visually-hidden">Alterando...</span>
                   </>
                 ) : (

@@ -10,7 +10,8 @@
   animation: bounce 1s infinite;
 }
 
-.invalid-token-container h4, p {
+.invalid-token-container h4,
+p {
   font-size: 1.4rem;
   margin-bottom: 30px;
   color: #343a40;
@@ -43,7 +44,8 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {

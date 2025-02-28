@@ -1,155 +1,155 @@
 .vendedor-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: slideIn 1s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideIn 1s ease;
 }
 
 .vendedor-container {
-    padding: 10px;
+  padding: 10px;
 }
 
 .vendedor-card {
-    width: 100%;
-    max-width: 700px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    background-color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .vendedor-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .vendedor-card-header {
-    color: #fff;
-    background-color: #004F98;
-    border-radius: 15px 15px 0 0;
-    text-align: center;
-    padding: 15px;
+  color: #fff;
+  background-color: #004f98;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+  padding: 15px;
 }
 
 .vendedor-card-header h4 {
-    margin: 0;
-    font-size: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .vendedor-card-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .vendedor-form-label {
-    font-size: 16px;
-    color: #004F98;
-    font-weight: bold;
-    padding-left: 7px;
+  font-size: 16px;
+  color: #004f98;
+  font-weight: bold;
+  padding-left: 7px;
 }
 
 .vendedor-form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .vendedor-form-control-custom {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  color: #1684bf;
+  font-size: 14px;
 }
 
-.vendedor-form-control-custom::placeholder{
-    color: #1684BF;
+.vendedor-form-control-custom::placeholder {
+  color: #1684bf;
 }
 
 .vendedor-form-control-custom:focus {
-    border-color: #1684BF;
-    box-shadow: none;
+  border-color: #1684bf;
+  box-shadow: none;
 }
 
 .vendedor-form-control-custom.is-invalid {
-    border-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .vendedor-form-select-custom {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s;
-    color: #1684BF;
-    margin-left: 10px;
-    font-size: 14px !important;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s;
+  color: #1684bf;
+  margin-left: 10px;
+  font-size: 14px !important;
 }
 
 .vendedor-invalid-feedback {
-    color: #dc3545;
-    font-size: 0.875rem;
+  color: #dc3545;
+  font-size: 0.875rem;
 }
 
 .vendedor-btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #1684BF;
-    color: #fff;
-    border: none;
-    transition: background-color 0.3s;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #1684bf;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
 }
 
 .vendedor-btn:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .vendedor-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .vendedor-alert {
-    margin-top: 10px;
-    color: #004F98;
+  margin-top: 10px;
+  color: #004f98;
 }
 
 .vendedor-alert-error {
-    padding: 7px;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
-    margin-bottom: 15px;
-  }
-  
-  .vendedor-alert-success {
-    padding: 7px;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
-    margin-bottom: 15px;
-  }
+  padding: 7px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  margin-bottom: 15px;
+}
 
-  .vendedor-button-container {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #1684BF;
-    color: #fff;
-    border: none;
-    transition: background-color 0.3s;
-    }
+.vendedor-alert-success {
+  padding: 7px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  margin-bottom: 15px;
+}
 
-    .vendedor-button-container:hover {
-        background-color: #0056b3;
-    }
-    
+.vendedor-button-container {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #1684bf;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.vendedor-button-container:hover {
+  background-color: #0056b3;
+}
+
 @media (max-width: 768px) {
-    .vendedor-card {
-        margin: 20px;
-    }
+  .vendedor-card {
+    margin: 20px;
+  }
 }

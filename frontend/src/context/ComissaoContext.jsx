@@ -1,6 +1,11 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { createComissao, getAllComissoes, getComissaoById, calculateComissao } from '../services/comissaoService';
-import { LoginContext } from './LoginContext';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import {
+  createComissao,
+  getAllComissoes,
+  getComissaoById,
+  calculateComissao,
+} from "../services/comissaoService";
+import { LoginContext } from "./LoginContext";
 
 export const ComissaoContext = createContext();
 
@@ -18,7 +23,7 @@ export const ComissaoProvider = ({ children }) => {
         const data = await getAllComissoes();
         setComissoes(data);
       } catch (error) {
-        console.error('Erro ao carregar Comissões:', error);
+        console.error("Erro ao carregar Comissões:", error);
       } finally {
         setLoading(false);
       }
@@ -30,7 +35,8 @@ export const ComissaoProvider = ({ children }) => {
   const getComissao = async (id_comissao) => {
     try {
       const comissao = await getComissaoById(id_comissao);
-      if (!comissao) throw new Error(`Comissão com ID ${id_comissao} não encontrada.`);
+      if (!comissao)
+        throw new Error(`Comissão com ID ${id_comissao} não encontrada.`);
       return comissao;
     } catch (error) {
       console.error(`Erro ao carregar comissão com ID ${id_comissao}:`, error);
@@ -42,10 +48,14 @@ export const ComissaoProvider = ({ children }) => {
     try {
       const newComissao = await createComissao(comissao);
       setComissoes((prev) => [...prev, newComissao]);
-      return { success: true, message: 'Comissão adicionada com sucesso!' };
+      return { success: true, message: "Comissão adicionada com sucesso!" };
     } catch (error) {
       console.error("Erro ao adicionar comissão:", error);
-      return { success: false, message: 'Erro ao adicionar a comissão. Verifique os dados e tente novamente.' };
+      return {
+        success: false,
+        message:
+          "Erro ao adicionar a comissão. Verifique os dados e tente novamente.",
+      };
     }
   };
 
@@ -60,7 +70,9 @@ export const ComissaoProvider = ({ children }) => {
   };
 
   return (
-    <ComissaoContext.Provider value={{ comissoes, loading, addComissao, getComissao, calcularComissao }}>
+    <ComissaoContext.Provider
+      value={{ comissoes, loading, addComissao, getComissao, calcularComissao }}
+    >
       {children}
     </ComissaoContext.Provider>
   );

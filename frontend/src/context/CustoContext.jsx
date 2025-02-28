@@ -1,7 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { getAllCustos, createCusto, getCustoById } from '../services/custoService'
-import { LoginContext } from './LoginContext';
-
+import React, { createContext, useState, useEffect, useContext } from "react";
+import {
+  getAllCustos,
+  createCusto,
+  getCustoById,
+} from "../services/custoService";
+import { LoginContext } from "./LoginContext";
 
 export const CustoContext = createContext();
 
@@ -19,7 +22,7 @@ export const CustoProvider = ({ children }) => {
         const data = await getAllCustos();
         setCustos(data);
       } catch (error) {
-        console.error('Erro ao carregar Custos:', error);
+        console.error("Erro ao carregar Custos:", error);
       } finally {
         setLoading(false);
       }
@@ -43,10 +46,14 @@ export const CustoProvider = ({ children }) => {
     try {
       const newCusto = await createCusto(custo);
       setCustos((prev) => [...prev, newCusto]);
-      return { success: true, message: 'Custo adicionado com sucesso!' };
+      return { success: true, message: "Custo adicionado com sucesso!" };
     } catch (error) {
       console.error("Erro ao adicionar custo:", error);
-      return { success: false, message: 'Erro ao adicionar o custo. Verifique os dados e tente novamente.' };
+      return {
+        success: false,
+        message:
+          "Erro ao adicionar o custo. Verifique os dados e tente novamente.",
+      };
     }
   };
 

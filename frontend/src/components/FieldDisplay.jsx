@@ -1,10 +1,10 @@
-import React from 'react';
-import '../styles/FieldDisplay.css';
+import React from "react";
+import "../styles/FieldDisplay.css";
 
 const FieldDisplay = ({ label, value }) => {
   return (
     <div className="field-display">
-      <b>{label}:</b> {value || 'N/A'}
+      <b>{label}:</b> {value || "N/A"}
       <div className="detail-separator"></div>
     </div>
   );
