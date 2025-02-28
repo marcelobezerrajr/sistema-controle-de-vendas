@@ -1,0 +1,43 @@
+.invalid-token-container {
+  padding: 100px;
+  text-align: center;
+}
+
+.invalid-token-container h1 {
+  font-size: 7rem;
+  color: var(--color-error);
+  animation: var(--bounce);
+}
+
+.invalid-token-container h4 {
+  margin-top: 30px;
+  font-size: 1.6rem;
+  color: #000000;
+}
+
+.invalid-token-container p {
+  margin: 30px 0;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+.invalid-token-button {
+  padding: 12px 25px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.invalid-token-button:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.invalid-token-button:active {
+  transform: scale(1);
+}

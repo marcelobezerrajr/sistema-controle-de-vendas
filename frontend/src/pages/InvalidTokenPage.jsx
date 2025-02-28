@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../styles/InvalidToken.css";
+import "../styles/invalid-token-page.css";
 
 const InvalidTokenPage = () => {
   const navigate = useNavigate();
@@ -18,9 +18,9 @@ const InvalidTokenPage = () => {
         Solicite um novo link de redefinição de senha ou entre em contato com o
         suporte para obter mais assistência.
       </p>
-      <button className="invalid-token-custom-button" onClick={handleGoBack}>
+      <Button className="invalid-token-button" onClick={handleGoBack}>
         Solicitar nova senha
-      </button>
+      </Button>
     </div>
   );
 };

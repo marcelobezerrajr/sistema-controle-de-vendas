@@ -1,4 +1,14 @@
 :root {
   /* FONT */
   --font-family: "Poppins", sans-serif;
+
+  /* COLORS */
+  --primary-color: #081a89;
+  --secondary-color: #004b99;
+
+  /* ANIMATIONS */
+  --bounce: bounce 1s infinite;
+
+  /* ERROR */
+  --color-error: #ff0000;
 }
