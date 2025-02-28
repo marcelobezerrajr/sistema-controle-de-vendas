@@ -6,19 +6,22 @@ import os
 import logging
 
 from app.database.database import SessionLocal
-from app.database.models.models_token import (
-    TokenData,
-)
+from app.database.models.models_token import TokenData
 from app.database.models.models_vendas import User, PermissionType
 from app.core.security import oauth2_scheme
 
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+if not SECRET_KEY or not ALGORITHM:
+    raise ValueError(
+        "SECRET_KEY, and ALGORITHM must be defined in environment variables"
+    )
 
 
 def get_db():

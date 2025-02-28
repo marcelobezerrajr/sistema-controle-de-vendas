@@ -18,14 +18,19 @@ from app.api.depends import get_db
 
 load_dotenv()
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
-login_router = APIRouter(prefix="/login")
+if not ACCESS_TOKEN_EXPIRE_MINUTES or not SECRET_KEY or not ALGORITHM:
+    raise ValueError(
+        "ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY, and ALGORITHM must be defined in environment variables"
+    )
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+login_router = APIRouter(prefix="/login")
 
 
 @login_router.post("/token", response_model=Token)

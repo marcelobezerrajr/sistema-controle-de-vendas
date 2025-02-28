@@ -9,6 +9,11 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
+if not SECRET_KEY or not ALGORITHM:
+    raise ValueError(
+        "SECRET_KEY, and ALGORITHM must be defined in environment variables"
+    )
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/token")
 
 

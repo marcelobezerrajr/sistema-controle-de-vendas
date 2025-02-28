@@ -11,14 +11,19 @@ from app.schemas.schemas_response import UsersListResponse
 from app.core.security import create_access_token
 from app.api.depends import get_db
 
-register_router = APIRouter(prefix="/register")
-
 load_dotenv()
-
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+
+if not ACCESS_TOKEN_EXPIRE_MINUTES:
+    raise ValueError(
+        "ACCESS_TOKEN_EXPIRE_MINUTES must be defined in environment variables"
+    )
+
+register_router = APIRouter(prefix="/register")
 
 
 @register_router.post("", response_model=UsersListResponse)

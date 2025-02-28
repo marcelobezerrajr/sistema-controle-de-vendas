@@ -19,14 +19,19 @@ from app.api.depends import get_db, get_admin, get_user_admin, get_read_user_adm
 from app.core.security import create_access_token
 from app.utils.validate_password import validate_password
 
-user_router = APIRouter(prefix="/user")
-
 load_dotenv()
-
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+
+if not ACCESS_TOKEN_EXPIRE_MINUTES:
+    raise ValueError(
+        "ACCESS_TOKEN_EXPIRE_MINUTES devem ser definidos nas variáveis de ambiente"
+    )
+
+user_router = APIRouter(prefix="/user")
 
 
 @user_router.get("/list", response_model=UsersListResponse)
@@ -34,10 +39,10 @@ def list_users_route(
     db: Session = Depends(get_db), current_user: User = Depends(get_read_user_admin)
 ):
     try:
+        users = get_all_users(db)
         logger.info(
             f"Usuários listados com sucesso pelo usuário: {current_user.username}"
         )
-        users = get_all_users(db)
         return {
             "status": "success",
             "message": "Usuários listados com sucesso.",
