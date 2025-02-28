@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Card, Alert, Spinner, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import logo from "../assets/logo_marcelo_developer.png";
 import useLogin from "../hooks/useLogin";
 import "../styles/Login.css";
 

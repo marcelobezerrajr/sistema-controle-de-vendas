@@ -11,7 +11,7 @@ import {
   FaUserTie,
   FaCaretDown,
 } from "react-icons/fa";
-import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import logo from "../assets/logo_marcelo_developer.png";
 import "../styles/Header.css";
 
 function Header() {

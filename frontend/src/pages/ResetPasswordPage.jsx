@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Card, Form, Alert, Spinner, Button } from "react-bootstrap";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useResetPassword from "../hooks/useResetPassword";
-import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import logo from "../assets/logo_marcelo_developer.png";
 import "../styles/ResetPassword.css";
 
 const ResetPasswordPage = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import logo from "../assets/logo_marcelo_developer.png";
 import "../styles/Home.css";
 
 const HomePage = () => {

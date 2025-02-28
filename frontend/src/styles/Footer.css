@@ -1,14 +1,15 @@
 .footer {
   background-color: #343a40;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
-  border-top: 5px solid #1684bf;
+  border-top: 5px solid #0056b3;
   width: 100%;
   animation: fadeIn 1s ease;
+}
 
-  & p {
-    margin: 5px 0;
-    color: #ffffff;
-    font-size: 15px;
-  }
+.footer p {
+  margin: 5px 0;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
 }

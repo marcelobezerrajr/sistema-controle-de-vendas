@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Card, Alert, Spinner, Button } from "react-bootstrap";
 import useRequestPassword from "../hooks/useRequestPassword";
-import logo from "../assets/logo_marcelo_desenvolvedor.png";
+import logo from "../assets/logo_marcelo_developer.png";
 import "../styles/RequestPassword.css";
 
 const RequestPasswordPage = () => {

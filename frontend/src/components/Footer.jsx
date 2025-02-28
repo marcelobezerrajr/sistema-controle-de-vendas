@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/Footer.css";
+import "../styles/footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <p>
-        © {new Date().getFullYear()} Marcelo Desenvolvedor. Todos os direitos
+        © {new Date().getFullYear()} Marcelo Developer. Todos os direitos
         reservados.
       </p>
       <p>Capacitando empresas com soluções tecnológicas inovadoras.</p>
