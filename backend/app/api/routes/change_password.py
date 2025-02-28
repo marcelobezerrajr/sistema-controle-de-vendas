@@ -15,6 +15,11 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
+if not SECRET_KEY or not ALGORITHM:
+    raise ValueError(
+        "SECRET_KEY, and ALGORITHM must be defined in environment variables"
+    )
+
 change_password_router = APIRouter(prefix="/change-password")
 
 

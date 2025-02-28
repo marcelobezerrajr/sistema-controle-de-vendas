@@ -26,7 +26,7 @@ if not all(
         RESET_PASSWORD_URL,
     ]
 ):
-    raise ValueError("Algumas variáveis de ambiente necessárias não estão definidas")
+    raise ValueError("Some required environment variables are not defined")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
