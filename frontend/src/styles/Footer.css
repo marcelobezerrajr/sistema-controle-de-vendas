@@ -4,12 +4,12 @@
   text-align: center;
   border-top: 5px solid #0056b3;
   width: 100%;
-  animation: fadeIn 1s ease;
+  animation: var(--fade-in);
 }
 
 .footer p {
   margin: 5px 0;
-  color: #ffffff;
+  color: var(--text-light);
   font-size: 14px;
   font-weight: bold;
 }

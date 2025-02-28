@@ -2,12 +2,32 @@
   /* FONT */
   --font-family: "Poppins", sans-serif;
 
+  /* LAYOUT */
+  --border-radius: 10px;
+
+  /* CARDS */
+  --card-bg: #ffffff;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
   /* COLORS */
   --primary-color: #081a89;
-  --secondary-color: #004b99;
+  --primary-hover: #0056b3;
+  --secondary-color: #004f98;
+  --secondary-hover: #1684bf;
+  --text-color: #000000;
+  --text-light: #ffffff;
+  --icon-color: #0056b3;
 
   /* ANIMATIONS */
   --bounce: bounce 1s infinite;
+
+  /* TRANSITIONS */
+  --transition-speed: 0.3s;
+  --transition-ease: ease-in-out;
+  --transition-bg-color: background-color var(--transition-speed)
+    var(--transition-ease);
+
+  --fade-in: fadeIn 1s ease;
 
   /* ERROR */
   --color-error: #ff0000;

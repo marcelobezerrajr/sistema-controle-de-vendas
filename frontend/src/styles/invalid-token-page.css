@@ -12,25 +12,25 @@
 .invalid-token-container h4 {
   margin-top: 30px;
   font-size: 1.6rem;
-  color: #000000;
+  color: var(--text-color);
 }
 
 .invalid-token-container p {
   margin: 30px 0;
   font-size: 1.2rem;
-  color: #000000;
+  color: var(--text-color);
 }
 
 .invalid-token-button {
   padding: 12px 25px;
   background-color: var(--primary-color);
-  color: #ffffff;
+  color: var(--text-light);
   border: none;
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: var(--transition-bg-color);
 }
 
 .invalid-token-button:hover {
